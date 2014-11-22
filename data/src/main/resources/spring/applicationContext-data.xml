@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:cache="http://www.springframework.org/schema/cache" xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache.xsd
+    http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <context:component-scan base-package="gl.yezi.data.dao.time" />
+
+    <bean id="dataSource" class="org.apache.tomcat.jdbc.pool.DataSource" destroy-method="close">
+        <property name="driverClassName" value="${movie.db.jdbc.driverClassName}" />
+        <property name="url" value="${movie.db.jdbc.url}" />
+        <property name="username" value="${movie.db.username}" />
+        <property name="password" value="${movie.db.password}" />
+        <property name="initialSize" value="${movie.db.initial.size}" />
+        <property name="maxActive" value="${movie.db.max.active}" />
+        <property name="maxIdle" value="${movie.db.max.idle}" />
+        <property name="minIdle" value="${movie.db.min.idle}" />
+        <property name="maxWait" value="${movie.db.max.wait}" />
+        <property name="testWhileIdle" value="${movie.db.testWhileIdle}" />
+        <property name="validationQuery" value="${movie.db.validationQuery}" />
+    </bean>
+
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource" />
+        <property name="configLocation" value="classpath:mybatis/mybatis-core-config.xml" />
+        <property name="mapperLocations">
+            <list>
+                <value>classpath:mybatis/*Mapper.xml</value>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="mapperScannerConfigurer" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="gl.yezi.data.mapper.time" />
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
+    </bean>
+
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+
+</beans>
