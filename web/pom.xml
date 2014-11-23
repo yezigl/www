@@ -17,4 +17,8 @@
             <version>${project.version}</version>
         </dependency>
     </dependencies>
+    
+    <build>
+        <finalName>www</finalName>
+    </build>
 </project>
