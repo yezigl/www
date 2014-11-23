@@ -7,4 +7,5 @@
 
     <context:property-placeholder location="classpath*:*.properties,classpath*:props/*.properties" />
 
+    <bean id="authFilter" class="gl.yezi.web.filter.AuthFilter"></bean>
 </beans>
