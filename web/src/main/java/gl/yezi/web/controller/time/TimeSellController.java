@@ -4,6 +4,7 @@
 package gl.yezi.web.controller.time;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
  * description here
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Controller;
  * @since 2014年10月28日
  */
 @Controller
+@RequestMapping("/1/time")
 public class TimeSellController {
 
 }

@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * description here
@@ -38,6 +39,7 @@ public class UserController {
     UserService userService;
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
+    @ResponseBody
     public Login register(@ModelAttribute User user,
             @RequestHeader(value = "X-Forwarded-For", required = false) String forwardIp,
             @RequestHeader(value = "X-Real-IP", required = false) String realIp) {
@@ -75,6 +77,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
+    @ResponseBody
     public Login login(@RequestParam String username, @RequestParam String password) {
         Login login = new Login();
         User tempUser = userService.get(username);
@@ -100,6 +103,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/users/{uid}", method = RequestMethod.PUT)
+    @ResponseBody
     public Res update(@PathVariable int uid, @ModelAttribute User user, @RequestParam int type) {
         Res res = new Res();
 
@@ -107,6 +111,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/users/{uid}", method = RequestMethod.GET)
+    @ResponseBody
     public UserInfo userinfo(@PathVariable int uid) {
         UserInfo userInfo = new UserInfo();
 

@@ -6,6 +6,7 @@ package gl.yezi.web.controller.time;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * description here
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class TimeBuyController {
 
     @RequestMapping(value = "/buy", method = RequestMethod.GET)
+    @ResponseBody
     public void buy() {
 
     }
