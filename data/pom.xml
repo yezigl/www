@@ -8,17 +8,5 @@
     </parent>
     <groupId>gl.yezi.www</groupId>
     <artifactId>data</artifactId>
-    <dependencies>
-        <dependency>
-            <groupId>org.apache.tomcat</groupId>
-            <artifactId>tomcat-jdbc</artifactId>
-            <version>${tomcat.jdbc.version}</version>
-            <exclusions>
-                <exclusion>
-                    <artifactId>tomcat-juli</artifactId>
-                    <groupId>org.apache.tomcat</groupId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-    </dependencies>
+    
 </project>
