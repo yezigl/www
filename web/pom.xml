@@ -18,7 +18,4 @@
         </dependency>
     </dependencies>
     
-    <build>
-        <finalName>www</finalName>
-    </build>
 </project>
