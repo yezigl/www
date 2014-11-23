@@ -5,8 +5,8 @@ package gl.yezi.web.res;
 
 import java.io.Serializable;
 
-import org.codehaus.jackson.map.annotate.JsonSerialize;
-import org.codehaus.jackson.map.annotate.JsonSerialize.Inclusion;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 /**
  * description here
@@ -21,10 +21,10 @@ public class Res implements Serializable {
      */
     private static final long serialVersionUID = 1L;
 
-    @JsonSerialize(include = Inclusion.NON_NULL)
+    @JsonInclude(Include.NON_NULL)
     protected Integer code;
 
-    @JsonSerialize(include = Inclusion.NON_NULL)
+    @JsonInclude(Include.NON_NULL)
     protected String msg;
     
     public Res() {
