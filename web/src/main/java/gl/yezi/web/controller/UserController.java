@@ -50,8 +50,7 @@ public class UserController {
             return login;
         }
 
-        if (StringUtils.isBlank(user.getPassword()) || user.getPassword().length() < 6
-                || user.getPassword().length() > 12) {
+        if (StringUtils.isBlank(user.getPassword())) {
             login.setStatus(Status.PARAM_ERROR, "password");
             return login;
         }
