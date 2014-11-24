@@ -39,21 +39,34 @@ public class OrmUtils {
     private static final String ENGINE = " ENGINE=InnoDB DEFAULT CHARSET=utf8;";
 
     public static void createTable(DataSource dataSource) {
+        createTable(dataSource, true);
+    }
+
+    public static void createTable(DataSource dataSource, boolean execute) {
 
         Class<?>[] tables = new Class[] { College.class, School.class, Timetable.class, User.class, UserBuy.class,
                 UserSell.class };
 
         try {
-            Connection conn = dataSource.getConnection();
-            Statement st = conn.createStatement();
-
-            for (Class<?> clazz : tables) {
-                String sql = createSql(clazz);
-                try {
-                    st.execute(sql);
-                } catch (Exception e) {
-                    logger.error(e.getMessage());
+            if (execute) {
+                Connection conn = dataSource.getConnection();
+                Statement st = conn.createStatement();
+                for (Class<?> clazz : tables) {
+                    String sql = createSql(clazz);
+                    try {
+                        st.execute(sql);
+                    } catch (Exception e) {
+                        logger.error(e.getMessage());
+                    }
                 }
+            } else {
+                StringBuilder builder = new StringBuilder("\n");
+
+                for (Class<?> clazz : tables) {
+                    String sql = createSql(clazz);
+                    builder.append(sql).append("\n\n");
+                }
+                logger.info(builder.toString());
             }
 
         } catch (SQLException e) {
@@ -69,7 +82,7 @@ public class OrmUtils {
 
         StringBuilder builder = new StringBuilder();
         Map<String, List<String>> indexMap = new HashMap<String, List<String>>();
-        
+
         builder.append("CREATE TABLE `" + tableName + "` (\n");
         Field[] fields = clazz.getDeclaredFields();
         for (Field field : fields) {
@@ -85,8 +98,9 @@ public class OrmUtils {
             String columnType = column.type();
             boolean isNull = column.isNull();
             boolean autoIncrement = column.autoIncrement();
+            String comment = column.comment();
 
-            builder.append(createColumn(columnName, columnType, primary, isNull, autoIncrement)).append(",\n");
+            builder.append(createColumn(columnName, columnType, primary, isNull, autoIncrement, comment)).append(",\n");
 
             Index index = field.getAnnotation(Index.class);
             if (index != null) {
@@ -120,7 +134,8 @@ public class OrmUtils {
         return builder.toString();
     }
 
-    private static String createColumn(String name, String type, boolean primary, boolean isNull, boolean autoIncrement) {
+    private static String createColumn(String name, String type, boolean primary, boolean isNull,
+            boolean autoIncrement, String comment) {
         StringBuilder builder = new StringBuilder();
         builder.append("  `").append(name).append("` ");
         builder.append(type);
@@ -134,6 +149,9 @@ public class OrmUtils {
         }
         if (autoIncrement) {
             builder.append(" ").append("AUTO_INCREMENT");
+        }
+        if (StringUtils.isNotBlank(comment)) {
+            builder.append(" ").append("COMMENT ").append(comment);
         }
         return builder.toString();
     }

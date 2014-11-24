@@ -46,4 +46,6 @@ public @interface Column {
     
     boolean autoIncrement() default false;
     
+    String comment() default "";
+    
 }

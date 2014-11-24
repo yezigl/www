@@ -28,7 +28,7 @@ public class OrmUtilsTest {
 
     @Test
     public void test() {
-        OrmUtils.createTable(dataSource);
+        OrmUtils.createTable(dataSource, false);
     }
 
 }

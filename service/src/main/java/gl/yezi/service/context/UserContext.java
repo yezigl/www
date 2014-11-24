@@ -21,7 +21,7 @@ public class UserContext {
     private static final String CONTEXT_USER = "context_user";
 
     public static int getUid() {
-        return (int) RequestContextHolder.getRequestAttributes().getAttribute(CONTEXT_UID,
+        return (Integer) RequestContextHolder.getRequestAttributes().getAttribute(CONTEXT_UID,
                 RequestAttributes.SCOPE_REQUEST);
     }
 
