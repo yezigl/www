@@ -3,6 +3,9 @@
  */
 package gl.yezi.web.res;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
 /**
  * description here
  *
@@ -17,10 +20,15 @@ public class UserInfo extends Res {
     private static final long serialVersionUID = 1L;
 
     private int uid;
+    @JsonInclude(Include.NON_NULL)
     private String username;
+    @JsonInclude(Include.NON_NULL)
     private String nickname;
+    @JsonInclude(Include.NON_NULL)
     private String email;
+    @JsonInclude(Include.NON_NULL)
     private String phone;
+    @JsonInclude(Include.NON_NULL)
     private String alipay;
 
     public int getUid() {

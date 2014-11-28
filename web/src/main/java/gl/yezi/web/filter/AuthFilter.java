@@ -56,6 +56,7 @@ public class AuthFilter implements Filter {
         String url = ((HttpServletRequest) request).getRequestURI();
         for (String nolgin : NO_LOGIN_URL) {
             if (url.contains(nolgin)) {
+                chain.doFilter(request, response);
                 return;
             }
         }

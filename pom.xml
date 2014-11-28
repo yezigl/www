@@ -28,7 +28,7 @@
         <commons-pool.version>2.2</commons-pool.version>
         <commons-codec.version>1.9</commons-codec.version>
         <commons-io.version>2.4</commons-io.version>
-        <commons-fileupload.version>1.2.2</commons-fileupload.version>
+        <commons-fileupload.version>1.3.1</commons-fileupload.version>
         <junit.version>4.11</junit.version>
         <mybatis.version>3.2.8</mybatis.version>
         <mybatis-spring.version>1.2.2</mybatis-spring.version>
@@ -112,6 +112,18 @@
             <groupId>commons-codec</groupId>
             <artifactId>commons-codec</artifactId>
             <version>${commons-codec.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>${commons-io.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>commons-fileupload</groupId>
+            <artifactId>commons-fileupload</artifactId>
+            <version>${commons-fileupload.version}</version>
         </dependency>
 
         <dependency>
@@ -243,13 +255,13 @@
             <artifactId>jackson-core</artifactId>
             <version>${jackson.version}</version>
         </dependency>
-        
+
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-annotations</artifactId>
             <version>${jackson.version}</version>
         </dependency>
-        
+
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
@@ -404,4 +416,32 @@
             </plugin>
         </plugins>
     </build>
+
+    <profiles>
+        <profile>
+            <id>dev</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <user.db.jdbc.url>jdbc:mysql://127.0.0.1:3306/user</user.db.jdbc.url>
+                <user.db.username>root</user.db.username>
+                <user.db.password>root</user.db.password>
+                <time.db.jdbc.url>jdbc:mysql://127.0.0.1:3306/time</time.db.jdbc.url>
+                <time.db.username>root</time.db.username>
+                <time.db.password>root</time.db.password>
+            </properties>
+        </profile>
+        <profile>
+            <id>prod</id>
+            <properties>
+                <user.db.jdbc.url>jdbc:mysql://127.0.0.1:3306/user</user.db.jdbc.url>
+                <user.db.username>root</user.db.username>
+                <user.db.password>qwer!@#$</user.db.password>
+                <time.db.jdbc.url>jdbc:mysql://127.0.0.1:3306/time</time.db.jdbc.url>
+                <time.db.username>root</time.db.username>
+                <time.db.password>qwer!@#$</time.db.password>
+            </properties>
+        </profile>
+    </profiles>
 </project>

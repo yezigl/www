@@ -10,7 +10,7 @@
 
     <mvc:annotation-driven>
     </mvc:annotation-driven>
-    
+
     <bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
         <property name="mediaTypes">
             <map>
@@ -44,7 +44,12 @@
         </property>
         <property name="defaultStatusCode" value="202" />
     </bean>
-    
-    <mvc:view-controller path="/" view-name="index"/>
+
+    <!-- 支持上传文件 -->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="maxUploadSize" value="5242880" /><!-- 5M -->
+    </bean>
+
+    <mvc:view-controller path="/" view-name="index" />
 
 </beans>

@@ -20,10 +20,10 @@ import org.apache.ibatis.annotations.Update;
  */
 public interface UserMapper {
 
-    @Insert("INSERT INTO user (username, password, nickname, email, phone, regip, ctime, status, alipay) "
+    @Insert("INSERT INTO user (username, password, salt, nickname, email, phone, regip, ctime, status, alipay, avatar) "
             + "VALUES "
-            + "(#{username}, #{password}, #{nickname}, #{email}, #{phone}, #{regip}, #{ctime}, #{status}, #{alipay})")
-    @Options(useGeneratedKeys = true, keyProperty = "id")
+            + "(#{username}, #{password}, #{salt}, #{nickname}, #{email}, #{phone}, #{regip}, #{ctime}, #{status}, #{alipay}, #{avatar})")
+    @Options(useGeneratedKeys = true, keyProperty = "id", keyColumn = "id")
     int create(User user);
 
     @Select("SELECT * FROM user WHERE id = #{id}")

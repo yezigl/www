@@ -33,18 +33,18 @@ import org.springframework.web.bind.annotation.ResponseBody;
  */
 @Controller
 @RequestMapping(value = "/1")
-public class UserController {
+public class UserController extends AbstractController {
 
     @Resource
     UserService userService;
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     @ResponseBody
-    public Login register(@ModelAttribute User user,
+    public Login register(@ModelAttribute("user") User user,
             @RequestHeader(value = "X-Forwarded-For", required = false) String forwardIp,
             @RequestHeader(value = "X-Real-IP", required = false) String realIp) {
         Login login = new Login();
-
+        
         if (StringUtils.isBlank(user.getUsername()) || user.getUsername().length() > 20) {
             login.setStatus(Status.PARAM_ERROR, "username");
             return login;
@@ -67,10 +67,12 @@ public class UserController {
         }
 
         user.setRegip(Utils.getClientIP(forwardIp, realIp));
-        int uid = userService.register(user);
-        login.setUid(uid);
+        userService.register(user);
+        login.setUid(user.getId());
         login.setUsername(user.getUsername());
         login.setNickname(user.getNickname());
+        Token token = new Token(user.getId());
+        login.setToken(token.encrypt());
 
         return login;
     }

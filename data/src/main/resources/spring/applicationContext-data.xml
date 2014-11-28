@@ -10,20 +10,20 @@
     <context:component-scan base-package="gl.yezi.data.dao.time" />
 
     <bean id="dataSource" class="org.apache.tomcat.jdbc.pool.DataSource" destroy-method="close">
-        <property name="driverClassName" value="${movie.db.jdbc.driverClassName}" />
-        <property name="url" value="${movie.db.jdbc.url}" />
-        <property name="username" value="${movie.db.username}" />
-        <property name="password" value="${movie.db.password}" />
-        <property name="initialSize" value="${movie.db.initial.size}" />
-        <property name="maxActive" value="${movie.db.max.active}" />
-        <property name="maxIdle" value="${movie.db.max.idle}" />
-        <property name="minIdle" value="${movie.db.min.idle}" />
-        <property name="maxWait" value="${movie.db.max.wait}" />
-        <property name="testWhileIdle" value="${movie.db.testWhileIdle}" />
-        <property name="validationQuery" value="${movie.db.validationQuery}" />
+        <property name="driverClassName" value="${time.db.jdbc.driverClassName}" />
+        <property name="url" value="${time.db.jdbc.url}" />
+        <property name="username" value="${time.db.username}" />
+        <property name="password" value="${time.db.password}" />
+        <property name="initialSize" value="${time.db.initial.size}" />
+        <property name="maxActive" value="${time.db.max.active}" />
+        <property name="maxIdle" value="${time.db.max.idle}" />
+        <property name="minIdle" value="${time.db.min.idle}" />
+        <property name="maxWait" value="${time.db.max.wait}" />
+        <property name="testWhileIdle" value="${time.db.testWhileIdle}" />
+        <property name="validationQuery" value="${time.db.validationQuery}" />
     </bean>
 
-    <bean id="mySqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="dataSource" />
         <property name="configLocation" value="classpath:mybatis/mybatis-core-config.xml" />
         <property name="mapperLocations">
@@ -33,9 +33,9 @@
         </property>
     </bean>
 
-    <bean id="myMapperScannerConfigurer" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+    <bean id="mapperScannerConfigurer" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
         <property name="basePackage" value="gl.yezi.data.mapper.time" />
-        <property name="sqlSessionFactoryBeanName" value="mySqlSessionFactory" />
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
     </bean>
 
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
