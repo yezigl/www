@@ -3,10 +3,12 @@
  */
 package gl.yezi.web.controller.time;
 
-import org.springframework.stereotype.Controller;
+import gl.yezi.web.controller.AbstractController;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * description here
@@ -14,9 +16,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @author yezi
  * @since 2014年10月28日
  */
-@Controller
+@RestController
 @RequestMapping("/1/time")
-public class TimeBuyController {
+public class TimeBuyController extends AbstractController {
 
     @RequestMapping(value = "/buy", method = RequestMethod.GET)
     @ResponseBody

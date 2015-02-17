@@ -4,26 +4,26 @@
 package gl.yezi.web.controller;
 
 import gl.yezi.data.model.time.User;
+import gl.yezi.service.UserService;
 import gl.yezi.service.context.Token;
-import gl.yezi.service.time.UserService;
 import gl.yezi.service.utils.Utils;
-import gl.yezi.web.res.Login;
+import gl.yezi.web.App;
+import gl.yezi.web.res.LoginRes;
 import gl.yezi.web.res.Res;
 import gl.yezi.web.res.Status;
-import gl.yezi.web.res.UserInfo;
+import gl.yezi.web.res.UserRes;
 
 import javax.annotation.Resource;
 
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * description here
@@ -31,7 +31,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @author yezi
  * @since 2014年11月6日
  */
-@Controller
+@RestController
 @RequestMapping(value = "/1")
 public class UserController extends AbstractController {
 
@@ -39,12 +39,18 @@ public class UserController extends AbstractController {
     UserService userService;
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    @ResponseBody
-    public Login register(@ModelAttribute("user") User user,
+    public LoginRes register(@ModelAttribute("user") User user,
+            @RequestParam(value = "appkey", defaultValue = "tbd") String appkey,
             @RequestHeader(value = "X-Forwarded-For", required = false) String forwardIp,
             @RequestHeader(value = "X-Real-IP", required = false) String realIp) {
-        Login login = new Login();
+        LoginRes login = new LoginRes();
         
+        App app = App.valueOfKey(appkey);
+        if (app == App.TBD) {
+            login.setStatus(Status.PARAM_ERROR, "appkey");
+            return login;
+        }
+
         if (StringUtils.isBlank(user.getUsername()) || user.getUsername().length() > 20) {
             login.setStatus(Status.PARAM_ERROR, "username");
             return login;
@@ -78,9 +84,16 @@ public class UserController extends AbstractController {
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    @ResponseBody
-    public Login login(@RequestParam String username, @RequestParam String password) {
-        Login login = new Login();
+    public LoginRes login(@RequestParam String username, @RequestParam String password,
+            @RequestParam(value = "appkey", defaultValue = "tbd") String appkey) {
+        LoginRes login = new LoginRes();
+        
+        App app = App.valueOfKey(appkey);
+        if (app == App.TBD) {
+            login.setStatus(Status.PARAM_ERROR, "appkey");
+            return login;
+        }
+        
         User tempUser = userService.get(username);
         if (tempUser == null) {
             login.setStatus(Status.USER_NOT_EXIST);
@@ -104,18 +117,23 @@ public class UserController extends AbstractController {
     }
 
     @RequestMapping(value = "/users/{uid}", method = RequestMethod.PUT)
-    @ResponseBody
-    public Res update(@PathVariable int uid, @ModelAttribute User user, @RequestParam int type) {
+    public Res update(@PathVariable int uid, @ModelAttribute User user,
+            @RequestParam(value = "appkey", defaultValue = "tbd") String appkey, @RequestParam int type) {
         Res res = new Res();
 
         return res;
     }
 
     @RequestMapping(value = "/users/{uid}", method = RequestMethod.GET)
-    @ResponseBody
-    public UserInfo userinfo(@PathVariable int uid) {
-        UserInfo userInfo = new UserInfo();
-
+    public UserRes userinfo(@PathVariable int uid, @RequestParam(value = "appkey", defaultValue = "tbd") String appkey) {
+        UserRes userInfo = new UserRes();
+        
+        App app = App.valueOfKey(appkey);
+        if (app == App.TBD) {
+            userInfo.setStatus(Status.PARAM_ERROR, "appkey");
+            return userInfo;
+        }
+        
         User user = userService.get(uid);
         if (user == null) {
             userInfo.setStatus(Status.USER_NOT_EXIST);

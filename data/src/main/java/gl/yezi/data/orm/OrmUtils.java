@@ -3,13 +3,15 @@
  */
 package gl.yezi.data.orm;
 
-import gl.yezi.data.model.time.College;
-import gl.yezi.data.model.time.School;
-import gl.yezi.data.model.time.Timetable;
-import gl.yezi.data.model.time.User;
-import gl.yezi.data.model.time.UserBuy;
-import gl.yezi.data.model.time.UserSell;
+import gl.yezi.data.model.home.Deal;
+import gl.yezi.data.model.home.Employee;
+import gl.yezi.data.model.home.Feedback;
+import gl.yezi.data.model.home.Order;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.sql.Connection;
@@ -38,14 +40,26 @@ public class OrmUtils {
 
     private static final String ENGINE = " ENGINE=InnoDB DEFAULT CHARSET=utf8;";
 
+    private static final String NL = "\n\n";
+
+    private static final String MB_IMPORT = "import org.apache.ibatis.annotations.Insert;\n"
+            + "import org.apache.ibatis.annotations.Options;\n" + "import org.apache.ibatis.annotations.Result;\n"
+            + "import org.apache.ibatis.annotations.Results;\n" + "import org.apache.ibatis.annotations.Select;\n"
+            + "import org.apache.ibatis.annotations.Update;";
+
+    private static final String INJECT_IMPORT = "import javax.annotation.Resource;\n\n"
+            + "import org.springframework.stereotype.Repository;";
+
     public static void createTable(DataSource dataSource) {
         createTable(dataSource, true);
     }
 
     public static void createTable(DataSource dataSource, boolean execute) {
 
-        Class<?>[] tables = new Class[] { College.class, School.class, Timetable.class, User.class, UserBuy.class,
-                UserSell.class };
+        // Class<?>[] tables = new Class[] { College.class, School.class,
+        // Timetable.class, User.class, UserBuy.class,
+        // UserSell.class };
+        Class<?>[] tables = new Class[] { Deal.class, Employee.class, Feedback.class, Order.class };
 
         try {
             if (execute) {
@@ -160,5 +174,165 @@ public class OrmUtils {
         StringBuilder builder = new StringBuilder();
         builder.append("  KEY `").append(name).append("` (`").append(StringUtils.join(columnList, ',')).append("`),\n");
         return builder.toString();
+    }
+
+    public static String createInsert(Class<?> clazz) {
+        Table table = clazz.getAnnotation(Table.class);
+        String tableName = clazz.getSimpleName().toLowerCase();
+        tableName = table == null ? tableName : StringUtils.defaultIfBlank(table.value(), tableName);
+
+        Field[] fields = clazz.getDeclaredFields();
+        Sql sql = Sql.create();
+        for (Field field : fields) {
+            if (Modifier.isStatic(field.getModifiers()) || Modifier.isFinal(field.getModifiers())) {
+                continue;
+            }
+            Column column = field.getAnnotation(Column.class);
+            String fieldName = field.getName();
+            String columnName = StringUtils.defaultIfBlank(column == null ? null : column.value(),
+                    fieldName.toLowerCase());
+            if (column.primary()) {
+                sql.primary(columnName, fieldName);
+            } else {
+                sql.insert(columnName, fieldName);
+            }
+        }
+
+        logger.debug(sql.generateInsert(tableName));
+        return sql.generateInsert(tableName);
+    }
+
+    public static String createSelect(Class<?> clazz) {
+        Table table = clazz.getAnnotation(Table.class);
+        String tableName = clazz.getSimpleName().toLowerCase();
+        tableName = table == null ? tableName : StringUtils.defaultIfBlank(table.value(), tableName);
+
+        Field[] fields = clazz.getDeclaredFields();
+        Sql sql = Sql.create();
+        for (Field field : fields) {
+            if (Modifier.isStatic(field.getModifiers()) || Modifier.isFinal(field.getModifiers())) {
+                continue;
+            }
+            Column column = field.getAnnotation(Column.class);
+            String fieldName = field.getName();
+            String columnName = StringUtils.defaultIfBlank(column == null ? null : column.value(),
+                    fieldName.toLowerCase());
+            if (column.primary()) {
+                sql.primary(columnName, fieldName);
+            }
+            sql.select(columnName, fieldName);
+        }
+
+        logger.debug(sql.generateSelect(tableName));
+        return sql.generateSelect(tableName);
+    }
+
+    public static String createUpdate(Class<?> clazz) {
+        Table table = clazz.getAnnotation(Table.class);
+        String tableName = clazz.getSimpleName().toLowerCase();
+        tableName = table == null ? tableName : StringUtils.defaultIfBlank(table.value(), tableName);
+
+        Field[] fields = clazz.getDeclaredFields();
+        Sql sql = Sql.create();
+        for (Field field : fields) {
+            if (Modifier.isStatic(field.getModifiers()) || Modifier.isFinal(field.getModifiers())) {
+                continue;
+            }
+            Column column = field.getAnnotation(Column.class);
+            String fieldName = field.getName();
+            String columnName = StringUtils.defaultIfBlank(column == null ? null : column.value(),
+                    fieldName.toLowerCase());
+            if (column.primary()) {
+                sql.primary(columnName, fieldName);
+            } else {
+                sql.update(columnName, fieldName);
+            }
+        }
+
+        logger.debug(sql.generateUpdate(tableName));
+        return sql.generateUpdate(tableName);
+    }
+
+    public static void createMapper(String path, Class<?>... classes) {
+        String root = new File("").getAbsolutePath();
+        for (Class<?> clazz : classes) {
+            String filename = clazz.getSimpleName() + "Mapper.java";
+            File packagePath = new File(root + "/src/main/java/" + path);
+            if (!packagePath.exists()) {
+                packagePath.mkdirs();
+            }
+            File file = new File(root + "/src/main/java/" + path, filename);
+            String packageName = path.replace('/', '.');
+            String clsSimple = clazz.getSimpleName();
+            try {
+                BufferedWriter bw = new BufferedWriter(new FileWriter(file));
+                bw.write("package " + packageName + ";");
+                bw.write(NL);
+                bw.write("import " + clazz.getName() + ";");
+                bw.write(NL);
+                bw.write(MB_IMPORT);
+                bw.write(NL);
+                bw.write("public interface " + clsSimple + "Mapper {");
+                bw.write(NL);
+                bw.write("    " + createInsert(clazz) + "\n");
+                bw.write("    int create(" + clsSimple + " " + clsSimple.toLowerCase() + ");");
+                bw.write(NL);
+                bw.write("    " + createSelect(clazz) + "\n");
+                bw.write("    " + clsSimple + " get(int id);");
+                bw.write(NL);
+                bw.write("    " + createUpdate(clazz) + "\n");
+                bw.write("    int update(" + clsSimple + " " + clsSimple.toLowerCase() + ");\n");
+                bw.write("}");
+                bw.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public static void createDao(String path, Class<?>... classes) {
+        String root = new File("").getAbsolutePath();
+        for (Class<?> clazz : classes) {
+            String filename = clazz.getSimpleName() + "Dao.java";
+            File packagePath = new File(root + "/src/main/java/" + path);
+            if (!packagePath.exists()) {
+                packagePath.mkdirs();
+            }
+            File file = new File(root + "/src/main/java/" + path, filename);
+            String packageName = path.replace('/', '.');
+            String clsSimple = clazz.getSimpleName();
+            String mapper = clsSimple.toLowerCase() + "Mapper";
+            try {
+                BufferedWriter bw = new BufferedWriter(new FileWriter(file));
+                bw.write("package " + packageName + ";");
+                bw.write(NL);
+                bw.write("import gl.yezi.data.mapper.home." + clsSimple + "Mapper;\n");
+                bw.write("import " + clazz.getName() + ";");
+                bw.write(NL);
+                bw.write(INJECT_IMPORT);
+                bw.write(NL);
+                bw.write("@Repository\n");
+                bw.write("public class " + clsSimple + "Dao {");
+                bw.write(NL);
+                bw.write("    @Resource\n");
+                bw.write("    " + clazz.getSimpleName() + "Mapper " + mapper + ";");
+                bw.write(NL);
+                bw.write("    public int create(" + clsSimple + " " + clsSimple.toLowerCase() + ") {\n");
+                bw.write("        return " + mapper + ".create(" + clsSimple.toLowerCase() + ");\n");
+                bw.write("    }");
+                bw.write(NL);
+                bw.write("    public " + clsSimple + " get(int id) {\n");
+                bw.write("        return " + mapper + ".get(id);\n");
+                bw.write("    }");
+                bw.write(NL);
+                bw.write("    public void update(" + clsSimple + " " + clsSimple.toLowerCase() + ") {\n");
+                bw.write("        " + mapper + ".update(" + clsSimple.toLowerCase() + ");\n");
+                bw.write("    }\n");
+                bw.write("}");
+                bw.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

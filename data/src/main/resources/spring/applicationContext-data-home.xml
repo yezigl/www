@@ -7,13 +7,11 @@
     http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
     http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
 
-    <context:component-scan base-package="gl.yezi.data.dao" />
-
-    <bean id="dataSource" class="org.apache.tomcat.jdbc.pool.DataSource" destroy-method="close">
-        <property name="driverClassName" value="${user.db.jdbc.driverClassName}" />
-        <property name="url" value="${user.db.jdbc.url}" />
-        <property name="username" value="${user.db.username}" />
-        <property name="password" value="${user.db.password}" />
+    <bean id="homeDataSource" class="org.apache.tomcat.jdbc.pool.DataSource" destroy-method="close">
+        <property name="driverClassName" value="${home.db.jdbc.driverClassName}" />
+        <property name="url" value="${home.db.jdbc.url}" />
+        <property name="username" value="${home.db.username}" />
+        <property name="password" value="${home.db.password}" />
         <property name="initialSize" value="${common.db.initial.size}" />
         <property name="maxActive" value="${common.db.max.active}" />
         <property name="maxIdle" value="${common.db.max.idle}" />
@@ -23,8 +21,8 @@
         <property name="validationQuery" value="${common.db.validationQuery}" />
     </bean>
 
-    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-        <property name="dataSource" ref="dataSource" />
+    <bean id="homeSqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="homeDataSource" />
         <property name="configLocation" value="classpath:mybatis/mybatis-core-config.xml" />
         <property name="mapperLocations">
             <list>
@@ -33,18 +31,15 @@
         </property>
     </bean>
 
-    <bean id="mapperScannerConfigurer" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="gl.yezi.data.mapper" />
-        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
+    <bean id="homeMapperScannerConfigurer" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="gl.yezi.data.mapper.home" />
+        <property name="sqlSessionFactoryBeanName" value="homeSqlSessionFactory" />
     </bean>
-
-    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-        <property name="dataSource" ref="dataSource" />
-    </bean>
-
-    <tx:annotation-driven transaction-manager="transactionManager" />
     
-    <import resource="classpath*:spring/applicationContext-data-time.xml"/>
-    <import resource="classpath*:spring/applicationContext-data-home.xml"/>
+    <bean id="homeTransactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="homeDataSource" />
+    </bean>
+
+    <tx:annotation-driven transaction-manager="homeTransactionManager" />
 
 </beans>

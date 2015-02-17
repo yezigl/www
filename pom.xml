@@ -430,6 +430,9 @@
                 <time.db.jdbc.url>jdbc:mysql://127.0.0.1:3306/time</time.db.jdbc.url>
                 <time.db.username>root</time.db.username>
                 <time.db.password>root</time.db.password>
+                <time.db.jdbc.url>jdbc:mysql://127.0.0.1:3306/home</time.db.jdbc.url>
+                <time.db.username>root</time.db.username>
+                <time.db.password>root</time.db.password>
             </properties>
         </profile>
         <profile>
@@ -439,6 +442,9 @@
                 <user.db.username>root</user.db.username>
                 <user.db.password>qwer!@#$</user.db.password>
                 <time.db.jdbc.url>jdbc:mysql://127.0.0.1:3306/time</time.db.jdbc.url>
+                <time.db.username>root</time.db.username>
+                <time.db.password>qwer!@#$</time.db.password>
+                <time.db.jdbc.url>jdbc:mysql://127.0.0.1:3306/home</time.db.jdbc.url>
                 <time.db.username>root</time.db.username>
                 <time.db.password>qwer!@#$</time.db.password>
             </properties>
