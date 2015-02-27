@@ -12,7 +12,7 @@ package gl.yezi.web;
 public enum App {
     
     TBD(0, "tbd"),
-    HOME(1, "home"),
+    HOME(1, "beauty"),
     TIME(2, "time");
     
     int code;

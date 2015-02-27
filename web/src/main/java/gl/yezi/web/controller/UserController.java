@@ -3,12 +3,16 @@
  */
 package gl.yezi.web.controller;
 
+import java.util.Random;
+
 import gl.yezi.data.model.time.User;
 import gl.yezi.service.UserService;
+import gl.yezi.service.context.CacheKey;
 import gl.yezi.service.context.Token;
 import gl.yezi.service.utils.Utils;
 import gl.yezi.web.App;
 import gl.yezi.web.res.LoginRes;
+import gl.yezi.web.res.MobileCaptchaRes;
 import gl.yezi.web.res.Res;
 import gl.yezi.web.res.Status;
 import gl.yezi.web.res.UserRes;
@@ -44,7 +48,7 @@ public class UserController extends AbstractController {
             @RequestHeader(value = "X-Forwarded-For", required = false) String forwardIp,
             @RequestHeader(value = "X-Real-IP", required = false) String realIp) {
         LoginRes login = new LoginRes();
-        
+
         App app = App.valueOfKey(appkey);
         if (app == App.TBD) {
             login.setStatus(Status.PARAM_ERROR, "appkey");
@@ -87,13 +91,13 @@ public class UserController extends AbstractController {
     public LoginRes login(@RequestParam String username, @RequestParam String password,
             @RequestParam(value = "appkey", defaultValue = "tbd") String appkey) {
         LoginRes login = new LoginRes();
-        
+
         App app = App.valueOfKey(appkey);
         if (app == App.TBD) {
             login.setStatus(Status.PARAM_ERROR, "appkey");
             return login;
         }
-        
+
         User tempUser = userService.get(username);
         if (tempUser == null) {
             login.setStatus(Status.USER_NOT_EXIST);
@@ -127,13 +131,13 @@ public class UserController extends AbstractController {
     @RequestMapping(value = "/users/{uid}", method = RequestMethod.GET)
     public UserRes userinfo(@PathVariable int uid, @RequestParam(value = "appkey", defaultValue = "tbd") String appkey) {
         UserRes userInfo = new UserRes();
-        
+
         App app = App.valueOfKey(appkey);
         if (app == App.TBD) {
             userInfo.setStatus(Status.PARAM_ERROR, "appkey");
             return userInfo;
         }
-        
+
         User user = userService.get(uid);
         if (user == null) {
             userInfo.setStatus(Status.USER_NOT_EXIST);
@@ -146,5 +150,60 @@ public class UserController extends AbstractController {
         userInfo.setAlipay(user.getAlipay());
 
         return userInfo;
+    }
+
+    @RequestMapping(value = "/mobile/captcha", method = RequestMethod.GET)
+    public MobileCaptchaRes mobileCaptchaCreate(@RequestParam String mobile) {
+
+        MobileCaptchaRes res = new MobileCaptchaRes();
+
+        Random random = new Random();
+        int captcha = random.nextInt(90000) + 100000;
+
+        cacheService.set(CacheKey.getMobileCaptchaKey(mobile), captcha, 600);
+
+        res.setCaptcha(captcha);
+
+        return res;
+    }
+
+    @RequestMapping(value = "/register/mobile", method = RequestMethod.POST)
+    public LoginRes registerMobile(@RequestParam String mobile, @RequestParam String captcha,
+            @RequestParam(value = "appkey", defaultValue = "tbd") String appkey,
+            @RequestHeader(value = "X-Forwarded-For", required = false) String forwardIp,
+            @RequestHeader(value = "X-Real-IP", required = false) String realIp) {
+
+        LoginRes res = new LoginRes();
+
+        String captchaOrigin = cacheService.get(CacheKey.getMobileCaptchaKey(mobile));
+        
+        App app = App.valueOfKey(appkey);
+        if (app == App.TBD) {
+            res.setStatus(Status.PARAM_ERROR, "appkey");
+            return res;
+        }
+        
+        if (!StringUtils.equals(captchaOrigin, captcha)) {
+            res.setStatus(Status.PARAM_ERROR, "captcha");
+            return res;
+        }
+
+        User tempUser = userService.get(mobile);
+        if (tempUser != null) {
+            res.setStatus(Status.USER_REGISTERED, mobile);
+            return res;
+        }
+
+        User user = new User();
+        user.setUsername(mobile);
+        user.setRegip(Utils.getClientIP(forwardIp, realIp));
+        userService.register(user);
+        res.setUid(user.getId());
+        res.setUsername(user.getUsername());
+        res.setNickname(user.getNickname());
+        Token token = new Token(user.getId());
+        res.setToken(token.encrypt());
+
+        return res;
     }
 }

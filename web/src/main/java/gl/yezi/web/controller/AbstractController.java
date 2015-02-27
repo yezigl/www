@@ -3,6 +3,10 @@
  */
 package gl.yezi.web.controller;
 
+import gl.yezi.service.CacheService;
+
+import javax.annotation.Resource;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,4 +19,7 @@ import org.slf4j.LoggerFactory;
 public class AbstractController {
 
     protected Logger logger = LoggerFactory.getLogger(this.getClass());
+    
+    @Resource
+    CacheService cacheService;
 }
