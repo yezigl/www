@@ -9,6 +9,9 @@
     <context:component-scan base-package="gl.yezi.web" />
 
     <mvc:annotation-driven>
+        <mvc:message-converters>
+            <bean class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter" />
+        </mvc:message-converters>
     </mvc:annotation-driven>
 
     <bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
@@ -30,7 +33,7 @@
         </property>
         <property name="defaultViews">
             <list>
-                <bean class="org.springframework.web.servlet.view.json.MappingJackson2JsonView" />
+                <bean class="com.alibaba.fastjson.support.spring.FastJsonJsonView" />
             </list>
         </property>
     </bean>
