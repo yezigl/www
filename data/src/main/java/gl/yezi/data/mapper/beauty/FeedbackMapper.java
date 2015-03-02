@@ -1,6 +1,6 @@
-package gl.yezi.data.mapper.home;
+package gl.yezi.data.mapper.beauty;
 
-import gl.yezi.data.model.home.Feedback;
+import gl.yezi.data.model.beauty.Feedback;
 
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Options;

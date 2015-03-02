@@ -3,7 +3,7 @@
  */
 package gl.yezi.service.time.beauty;
 
-import gl.yezi.data.model.home.Deal;
+import gl.yezi.data.model.beauty.Deal;
 
 import java.util.List;
 

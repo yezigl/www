@@ -1,7 +1,9 @@
 /**
  * Copyright 2015 yezi.gl. All Rights Reserved.
  */
-package gl.yezi.data.model.home;
+package gl.yezi.data.model.beauty;
+
+import java.util.Date;
 
 import gl.yezi.data.orm.Column;
 
@@ -27,6 +29,16 @@ public class Employee {
     private String avatar;
     @Column(type = "VARCHAR(300)", isNull = true)
     private String introduction;
+    @Column(type = "DATETIME")
+    private Date jointime;
+    @Column(type = "VARCHAR(20)", isNull = true)
+    private String idno;
+    @Column(type = "VARCHAR(10)", isNull = true)
+    private String experience;
+    @Column(type = "VARCHAR(200)", isNull = true)
+    private String advantage;
+    @Column(type = "VARCHAR(200)", isNull = true)
+    private String skill;
 
     public int getId() {
         return id;
@@ -82,6 +94,46 @@ public class Employee {
 
     public void setIntroduction(String introduction) {
         this.introduction = introduction;
+    }
+
+    public Date getJointime() {
+        return jointime;
+    }
+
+    public void setJointime(Date jointime) {
+        this.jointime = jointime;
+    }
+
+    public String getIdno() {
+        return idno;
+    }
+
+    public void setIdno(String idno) {
+        this.idno = idno;
+    }
+
+    public String getExperience() {
+        return experience;
+    }
+
+    public void setExperience(String experience) {
+        this.experience = experience;
+    }
+
+    public String getAdvantage() {
+        return advantage;
+    }
+
+    public void setAdvantage(String advantage) {
+        this.advantage = advantage;
+    }
+
+    public String getSkill() {
+        return skill;
+    }
+
+    public void setSkill(String skill) {
+        this.skill = skill;
     }
 
 }

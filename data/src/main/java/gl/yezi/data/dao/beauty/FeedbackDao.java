@@ -1,7 +1,7 @@
-package gl.yezi.data.dao.home;
+package gl.yezi.data.dao.beauty;
 
-import gl.yezi.data.mapper.home.FeedbackMapper;
-import gl.yezi.data.model.home.Feedback;
+import gl.yezi.data.mapper.beauty.FeedbackMapper;
+import gl.yezi.data.model.beauty.Feedback;
 
 import javax.annotation.Resource;
 
