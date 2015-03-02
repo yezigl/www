@@ -4,10 +4,12 @@
 package gl.yezi.web.controller.beauty;
 
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import gl.yezi.web.controller.AbstractController;
 import gl.yezi.web.res.PromotionRes;
+import gl.yezi.web.res.beauty.ConfigRes;
 
 /**
  * description here
@@ -24,7 +26,7 @@ public class BeautyController extends AbstractController {
         return res;
     }
     
-    @RequestMapping(value = "/promotions")
+    @RequestMapping(value = "/promotions", method = RequestMethod.GET)
     public PromotionRes promotions() {
         PromotionRes res = new PromotionRes();
         
