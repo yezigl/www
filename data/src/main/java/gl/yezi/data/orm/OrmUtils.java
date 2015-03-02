@@ -3,11 +3,6 @@
  */
 package gl.yezi.data.orm;
 
-import gl.yezi.data.model.home.Deal;
-import gl.yezi.data.model.home.Employee;
-import gl.yezi.data.model.home.Feedback;
-import gl.yezi.data.model.home.Order;
-
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -50,16 +45,11 @@ public class OrmUtils {
     private static final String INJECT_IMPORT = "import javax.annotation.Resource;\n\n"
             + "import org.springframework.stereotype.Repository;";
 
-    public static void createTable(DataSource dataSource) {
-        createTable(dataSource, true);
+    public static void createTable(DataSource dataSource, Class<?>... tables) {
+        createTable(dataSource, true, tables);
     }
 
-    public static void createTable(DataSource dataSource, boolean execute) {
-
-        // Class<?>[] tables = new Class[] { College.class, School.class,
-        // Timetable.class, User.class, UserBuy.class,
-        // UserSell.class };
-        Class<?>[] tables = new Class[] { Deal.class, Employee.class, Feedback.class, Order.class };
+    public static void createTable(DataSource dataSource, boolean execute, Class<?>... tables) {
 
         try {
             if (execute) {

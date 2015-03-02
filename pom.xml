@@ -34,9 +34,9 @@
         <mybatis-spring.version>1.2.2</mybatis-spring.version>
         <slf4j.version>1.7.7</slf4j.version>
         <logback.version>1.1.2</logback.version>
-        <fastjson.version>1.2.0</fastjson.version>
-        <spring.version>4.1.2.RELEASE</spring.version>
-        <spring-data-redis.version>1.1.0.RELEASE</spring-data-redis.version>
+        <fastjson.version>1.2.4</fastjson.version>
+        <spring.version>4.1.5.RELEASE</spring.version>
+        <spring-data-redis.version>1.4.2.RELEASE</spring-data-redis.version>
         <jedis.version>2.1.0</jedis.version>
         <jackson.version>2.4.0</jackson.version>
     </properties>
@@ -430,9 +430,9 @@
                 <time.db.jdbc.url>jdbc:mysql://127.0.0.1:3306/time</time.db.jdbc.url>
                 <time.db.username>root</time.db.username>
                 <time.db.password>root</time.db.password>
-                <time.db.jdbc.url>jdbc:mysql://127.0.0.1:3306/home</time.db.jdbc.url>
-                <time.db.username>root</time.db.username>
-                <time.db.password>root</time.db.password>
+                <beauty.db.jdbc.url>jdbc:mysql://127.0.0.1:3306/beauty</beauty.db.jdbc.url>
+                <beauty.db.username>root</beauty.db.username>
+                <beauty.db.password>root</beauty.db.password>
             </properties>
         </profile>
         <profile>
@@ -444,9 +444,9 @@
                 <time.db.jdbc.url>jdbc:mysql://127.0.0.1:3306/time</time.db.jdbc.url>
                 <time.db.username>root</time.db.username>
                 <time.db.password>qwer!@#$</time.db.password>
-                <time.db.jdbc.url>jdbc:mysql://127.0.0.1:3306/home</time.db.jdbc.url>
-                <time.db.username>root</time.db.username>
-                <time.db.password>qwer!@#$</time.db.password>
+                <beauty.db.jdbc.url>jdbc:mysql://127.0.0.1:3306/beauty</beauty.db.jdbc.url>
+                <beauty.db.username>root</beauty.db.username>
+                <beauty.db.password>qwer!@#$</beauty.db.password>
             </properties>
         </profile>
     </profiles>

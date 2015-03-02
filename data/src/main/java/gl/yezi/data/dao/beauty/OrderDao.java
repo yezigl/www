@@ -1,7 +1,7 @@
-package gl.yezi.data.dao.home;
+package gl.yezi.data.dao.beauty;
 
-import gl.yezi.data.mapper.home.OrderMapper;
-import gl.yezi.data.model.home.Order;
+import gl.yezi.data.mapper.beauty.OrderMapper;
+import gl.yezi.data.model.beauty.Order;
 
 import javax.annotation.Resource;
 

@@ -1,7 +1,7 @@
 /**
  * Copyright 2015 yezi.gl. All Rights Reserved.
  */
-package gl.yezi.data.model.home;
+package gl.yezi.data.model.beauty;
 
 import gl.yezi.data.orm.Column;
 
@@ -13,7 +13,7 @@ import java.util.Date;
  * @author yezi
  * @since 2015年2月4日
  */
-public class Feedback {
+public class Order {
 
     @Column(primary = true, type = "INTEGER", autoIncrement = true)
     private int id;
@@ -23,20 +23,22 @@ public class Feedback {
     private int dealId;
     @Column(type = "INTEGER")
     private int employeeId;
-    @Column(type = "VARCHAR(1000)")
-    private String content;
     @Column(type = "DATETIME")
-    private Date ctime;
+    private Date ctime; // 下单时间
     @Column(type = "DATETIME")
     private Date utime;
-    @Column(type = "VARCHAR(1000)")
-    private String reply;
     @Column(type = "DATETIME")
-    private Date replyTime;
+    private Date paytime;
+    @Column(type = "INTEGER")
+    private int paytype;
+    @Column(type = "FLOAT")
+    private float amount;
+    @Column(type = "FLOAT")
+    private float discount;
+    @Column(type = "INTEGER")
+    private int status;
     @Column(type = "INTEGER")
     private int ip;
-    @Column(type = "INTEGER")
-    private int score;
 
     public int getId() {
         return id;
@@ -70,14 +72,6 @@ public class Feedback {
         this.employeeId = employeeId;
     }
 
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
     public Date getCtime() {
         return ctime;
     }
@@ -94,20 +88,44 @@ public class Feedback {
         this.utime = utime;
     }
 
-    public String getReply() {
-        return reply;
+    public Date getPaytime() {
+        return paytime;
     }
 
-    public void setReply(String reply) {
-        this.reply = reply;
+    public void setPaytime(Date paytime) {
+        this.paytime = paytime;
     }
 
-    public Date getReplyTime() {
-        return replyTime;
+    public int getPaytype() {
+        return paytype;
     }
 
-    public void setReplyTime(Date replyTime) {
-        this.replyTime = replyTime;
+    public void setPaytype(int paytype) {
+        this.paytype = paytype;
+    }
+
+    public float getAmount() {
+        return amount;
+    }
+
+    public void setAmount(float amount) {
+        this.amount = amount;
+    }
+
+    public float getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(float discount) {
+        this.discount = discount;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 
     public int getIp() {
@@ -116,14 +134,6 @@ public class Feedback {
 
     public void setIp(int ip) {
         this.ip = ip;
-    }
-
-    public int getScore() {
-        return score;
-    }
-
-    public void setScore(int score) {
-        this.score = score;
     }
 
 }

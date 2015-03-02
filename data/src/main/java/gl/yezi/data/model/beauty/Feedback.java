@@ -1,7 +1,7 @@
 /**
  * Copyright 2015 yezi.gl. All Rights Reserved.
  */
-package gl.yezi.data.model.home;
+package gl.yezi.data.model.beauty;
 
 import gl.yezi.data.orm.Column;
 
@@ -13,7 +13,7 @@ import java.util.Date;
  * @author yezi
  * @since 2015年2月4日
  */
-public class Order {
+public class Feedback {
 
     @Column(primary = true, type = "INTEGER", autoIncrement = true)
     private int id;
@@ -23,18 +23,20 @@ public class Order {
     private int dealId;
     @Column(type = "INTEGER")
     private int employeeId;
+    @Column(type = "VARCHAR(1000)")
+    private String content;
     @Column(type = "DATETIME")
-    private Date ctime; // 下单时间
+    private Date ctime;
     @Column(type = "DATETIME")
     private Date utime;
+    @Column(type = "VARCHAR(1000)")
+    private String reply;
     @Column(type = "DATETIME")
-    private Date paytime;
-    @Column(type = "INTEGER")
-    private int status;
+    private Date replyTime;
     @Column(type = "INTEGER")
     private int ip;
-    @Column(type = "DATETIME")
-    private Date homeTime; // 预约时间
+    @Column(type = "INTEGER")
+    private int score;
 
     public int getId() {
         return id;
@@ -68,6 +70,14 @@ public class Order {
         this.employeeId = employeeId;
     }
 
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
     public Date getCtime() {
         return ctime;
     }
@@ -84,20 +94,20 @@ public class Order {
         this.utime = utime;
     }
 
-    public Date getPaytime() {
-        return paytime;
+    public String getReply() {
+        return reply;
     }
 
-    public void setPaytime(Date paytime) {
-        this.paytime = paytime;
+    public void setReply(String reply) {
+        this.reply = reply;
     }
 
-    public int getStatus() {
-        return status;
+    public Date getReplyTime() {
+        return replyTime;
     }
 
-    public void setStatus(int status) {
-        this.status = status;
+    public void setReplyTime(Date replyTime) {
+        this.replyTime = replyTime;
     }
 
     public int getIp() {
@@ -108,12 +118,12 @@ public class Order {
         this.ip = ip;
     }
 
-    public Date getHomeTime() {
-        return homeTime;
+    public int getScore() {
+        return score;
     }
 
-    public void setHomeTime(Date homeTime) {
-        this.homeTime = homeTime;
+    public void setScore(int score) {
+        this.score = score;
     }
 
 }

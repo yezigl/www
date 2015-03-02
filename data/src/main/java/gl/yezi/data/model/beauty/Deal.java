@@ -1,7 +1,7 @@
 /**
  * Copyright 2015 yezi.gl. All Rights Reserved.
  */
-package gl.yezi.data.model.home;
+package gl.yezi.data.model.beauty;
 
 import java.util.Date;
 
@@ -27,6 +27,8 @@ public class Deal {
     private double value; // 实际价格
     @Column(type = "INTEGER")
     private int status;
+    @Column(type = "INTEGER")
+    private int type;
     @Column(type = "VARCHAR(100)", isNull = true)
     private String imgUrl;
     @Column(type = "VARCHAR(300)", isNull = true)
@@ -35,16 +37,18 @@ public class Deal {
     private Date ctime;
     @Column(type = "DATETIME")
     private Date utime;
+    @Column(type = "VARCHAR(500)")
+    private String content;
     @Column(type = "INTEGER")
     private int costtime;
-    @Column(type = "INTEGER")
-    private int type;
     @Column(type = "VARCHAR(300)", isNull = true)
     private String efficacy; // 功效
     @Column(type = "VARCHAR(300)", isNull = true)
     private String component; // 产品成分
     @Column(type = "VARCHAR(300)", isNull = true)
     private String flow; // 服务流程
+    @Column(type = "VARCHAR(300)", isNull = true)
+    private String special;
 
     public int getId() {
         return id;
@@ -94,6 +98,14 @@ public class Deal {
         this.status = status;
     }
 
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
+
     public String getImgUrl() {
         return imgUrl;
     }
@@ -126,20 +138,20 @@ public class Deal {
         this.utime = utime;
     }
 
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
     public int getCosttime() {
         return costtime;
     }
 
     public void setCosttime(int costtime) {
         this.costtime = costtime;
-    }
-
-    public int getType() {
-        return type;
-    }
-
-    public void setType(int type) {
-        this.type = type;
     }
 
     public String getEfficacy() {
@@ -164,6 +176,14 @@ public class Deal {
 
     public void setFlow(String flow) {
         this.flow = flow;
+    }
+
+    public String getSpecial() {
+        return special;
+    }
+
+    public void setSpecial(String special) {
+        this.special = special;
     }
 
 }
