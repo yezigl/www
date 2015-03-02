@@ -290,13 +290,14 @@ public class OrmUtils {
             }
             File file = new File(root + "/src/main/java/" + path, filename);
             String packageName = path.replace('/', '.');
+            String mapperPackageName = packageName.replace("dao", "mapper");
             String clsSimple = clazz.getSimpleName();
             String mapper = clsSimple.toLowerCase() + "Mapper";
             try {
                 BufferedWriter bw = new BufferedWriter(new FileWriter(file));
                 bw.write("package " + packageName + ";");
                 bw.write(NL);
-                bw.write("import gl.yezi.data.mapper.home." + clsSimple + "Mapper;\n");
+                bw.write("import " + mapperPackageName + "." + clsSimple + "Mapper;\n");
                 bw.write("import " + clazz.getName() + ";");
                 bw.write(NL);
                 bw.write(INJECT_IMPORT);

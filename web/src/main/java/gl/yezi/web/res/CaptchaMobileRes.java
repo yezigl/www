@@ -9,7 +9,7 @@ package gl.yezi.web.res;
  * @author yezi
  * @since 2015年2月26日
  */
-public class MobileCaptchaRes extends Res {
+public class CaptchaMobileRes extends Res {
 
     /**
      * 

@@ -3,6 +3,9 @@
  */
 package gl.yezi.web.res;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
 /**
  * description here
  *
@@ -16,10 +19,15 @@ public class LoginRes extends Res {
      */
     private static final long serialVersionUID = 1L;
 
+    @JsonInclude(Include.NON_NULL)
     private int uid;
+    @JsonInclude(Include.NON_NULL)
     private String token;
-    private String username;
+    @JsonInclude(Include.NON_NULL)
+    private String login;
+    @JsonInclude(Include.NON_NULL)
     private String nickname;
+    @JsonInclude(Include.NON_NULL)
     private String avatar;
 
     public int getUid() {
@@ -38,12 +46,12 @@ public class LoginRes extends Res {
         this.token = token;
     }
 
-    public String getUsername() {
-        return username;
+    public String getLogin() {
+        return login;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setLogin(String login) {
+        this.login = login;
     }
 
     public String getNickname() {
@@ -60,6 +68,10 @@ public class LoginRes extends Res {
 
     public void setAvatar(String avatar) {
         this.avatar = avatar;
+    }
+
+    public static long getSerialversionuid() {
+        return serialVersionUID;
     }
 
 }

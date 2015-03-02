@@ -1,7 +1,7 @@
 /**
  * Copyright 2015 yezi.gl. All Rights Reserved.
  */
-package gl.yezi.data.model;
+package gl.yezi.data.model.user;
 
 /**
  * description here

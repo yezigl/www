@@ -11,7 +11,7 @@ import org.apache.ibatis.annotations.Update;
 
 public interface EmployeeMapper {
 
-    @Insert("INSERT INTO employee (name, gender, age, birthday, avatar, introduction) VALUES (#{name}, #{gender}, #{age}, #{birthday}, #{avatar}, #{introduction})")
+    @Insert("INSERT INTO employee (name, gender, age, birthday, avatar, introduction, jointime, idno, experience, advantage, skill) VALUES (#{name}, #{gender}, #{age}, #{birthday}, #{avatar}, #{introduction}, #{jointime}, #{idno}, #{experience}, #{advantage}, #{skill})")
     @Options(useGeneratedKeys = true, keyProperty = "id", keyColumn = "id")
     int create(Employee employee);
 
@@ -23,10 +23,15 @@ public interface EmployeeMapper {
         @Result(column = "age", property = "age"),
         @Result(column = "birthday", property = "birthday"),
         @Result(column = "avatar", property = "avatar"),
-        @Result(column = "introduction", property = "introduction")
+        @Result(column = "introduction", property = "introduction"),
+        @Result(column = "jointime", property = "jointime"),
+        @Result(column = "idno", property = "idno"),
+        @Result(column = "experience", property = "experience"),
+        @Result(column = "advantage", property = "advantage"),
+        @Result(column = "skill", property = "skill")
     })
     Employee get(int id);
 
-    @Update("UPDATE employee SET name = #{name}, gender = #{gender}, age = #{age}, birthday = #{birthday}, avatar = #{avatar}, introduction = #{introduction} WHERE id = #{id}")
+    @Update("UPDATE employee SET name = #{name}, gender = #{gender}, age = #{age}, birthday = #{birthday}, avatar = #{avatar}, introduction = #{introduction}, jointime = #{jointime}, idno = #{idno}, experience = #{experience}, advantage = #{advantage}, skill = #{skill} WHERE id = #{id}")
     int update(Employee employee);
 }

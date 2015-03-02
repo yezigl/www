@@ -6,5 +6,5 @@
 
     <context:property-placeholder location="classpath*:*.properties,classpath*:props/*.properties" />
 
-    <import resource="classpath*:spring/applicationContext-data.xml" />
+    <import resource="classpath*:spring/applicationContext-*.xml" />
 </beans>

@@ -1,6 +1,6 @@
 package gl.yezi.web.filter;
 
-import gl.yezi.data.model.time.User;
+import gl.yezi.data.model.user.User;
 import gl.yezi.service.UserService;
 import gl.yezi.service.context.Token;
 import gl.yezi.service.context.UserContext;

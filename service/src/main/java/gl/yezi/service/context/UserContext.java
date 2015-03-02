@@ -3,10 +3,10 @@
  */
 package gl.yezi.service.context;
 
+import gl.yezi.data.model.user.User;
+
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
-
-import gl.yezi.data.model.time.User;
 
 /**
  * description here

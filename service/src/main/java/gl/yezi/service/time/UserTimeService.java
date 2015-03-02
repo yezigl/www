@@ -5,9 +5,9 @@ package gl.yezi.service.time;
 
 import gl.yezi.data.dao.time.UserBuyDao;
 import gl.yezi.data.dao.time.UserSellDao;
-import gl.yezi.data.model.time.User;
 import gl.yezi.data.model.time.UserBuy;
 import gl.yezi.data.model.time.UserSell;
+import gl.yezi.data.model.user.User;
 import gl.yezi.data.page.Pagination;
 import gl.yezi.service.context.UserContext;
 

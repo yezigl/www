@@ -3,19 +3,19 @@
  */
 package gl.yezi.web.controller;
 
-import java.util.Random;
-
-import gl.yezi.data.model.time.User;
+import gl.yezi.data.model.user.User;
 import gl.yezi.service.UserService;
 import gl.yezi.service.context.CacheKey;
 import gl.yezi.service.context.Token;
 import gl.yezi.service.utils.Utils;
 import gl.yezi.web.App;
 import gl.yezi.web.res.LoginRes;
-import gl.yezi.web.res.MobileCaptchaRes;
+import gl.yezi.web.res.CaptchaMobileRes;
 import gl.yezi.web.res.Res;
 import gl.yezi.web.res.Status;
 import gl.yezi.web.res.UserRes;
+
+import java.util.Random;
 
 import javax.annotation.Resource;
 
@@ -55,7 +55,7 @@ public class UserController extends AbstractController {
             return login;
         }
 
-        if (StringUtils.isBlank(user.getUsername()) || user.getUsername().length() > 20) {
+        if (StringUtils.isBlank(user.getLogin()) || user.getLogin().length() > 20) {
             login.setStatus(Status.PARAM_ERROR, "username");
             return login;
         }
@@ -70,16 +70,16 @@ public class UserController extends AbstractController {
             return login;
         }
 
-        User tempUser = userService.get(user.getUsername());
+        User tempUser = userService.getByLogin(user.getLogin());
         if (tempUser != null) {
-            login.setStatus(Status.USER_REGISTERED, user.getUsername());
+            login.setStatus(Status.USER_REGISTERED, user.getLogin());
             return login;
         }
 
         user.setRegip(Utils.getClientIP(forwardIp, realIp));
         userService.register(user);
         login.setUid(user.getId());
-        login.setUsername(user.getUsername());
+        login.setLogin(user.getLogin());
         login.setNickname(user.getNickname());
         Token token = new Token(user.getId());
         login.setToken(token.encrypt());
@@ -98,7 +98,7 @@ public class UserController extends AbstractController {
             return login;
         }
 
-        User tempUser = userService.get(username);
+        User tempUser = userService.getByLogin(username);
         if (tempUser == null) {
             login.setStatus(Status.USER_NOT_EXIST);
             return login;
@@ -113,7 +113,7 @@ public class UserController extends AbstractController {
         Token token = new Token(tempUser.getId());
         login.setToken(token.encrypt());
         login.setUid(tempUser.getId());
-        login.setUsername(tempUser.getUsername());
+        login.setLogin(tempUser.getLogin());
         login.setNickname(tempUser.getNickname());
         login.setAvatar(tempUser.getAvatar());
 
@@ -143,19 +143,18 @@ public class UserController extends AbstractController {
             userInfo.setStatus(Status.USER_NOT_EXIST);
             return userInfo;
         }
-        userInfo.setUsername(user.getUsername());
+        userInfo.setLogin(user.getLogin());
         userInfo.setNickname(user.getNickname());
         userInfo.setEmail(user.getEmail());
-        userInfo.setPhone(user.getPhone());
-        userInfo.setAlipay(user.getAlipay());
+        userInfo.setMobile(user.getMobile());
 
         return userInfo;
     }
 
-    @RequestMapping(value = "/captcha/mobile", method = RequestMethod.GET)
-    public MobileCaptchaRes mobileCaptchaCreate(@RequestParam String mobile) {
+    @RequestMapping(value = "/captcha/mobile", method = RequestMethod.POST)
+    public CaptchaMobileRes mobileCaptchaCreate(@RequestParam String mobile) {
 
-        MobileCaptchaRes res = new MobileCaptchaRes();
+        CaptchaMobileRes res = new CaptchaMobileRes();
 
         Random random = new Random();
         int captcha = random.nextInt(90000) + 100000;
@@ -177,29 +176,30 @@ public class UserController extends AbstractController {
 
         String captchaOrigin = cacheService.get(CacheKey.getMobileCaptchaKey(mobile));
         
-        App app = App.valueOfKey(appkey);
-        if (app == App.TBD) {
-            res.setStatus(Status.PARAM_ERROR, "appkey");
-            return res;
-        }
+//        App app = App.valueOfKey(appkey);
+//        if (app == App.TBD) {
+//            res.setStatus(Status.PARAM_ERROR, "appkey");
+//            return res;
+//        }
         
-        if (!StringUtils.equals(captchaOrigin, captcha)) {
-            res.setStatus(Status.PARAM_ERROR, "captcha");
-            return res;
-        }
+//        if (!StringUtils.equals(captchaOrigin, captcha)) {
+//            res.setStatus(Status.PARAM_ERROR, "captcha");
+//            return res;
+//        }
 
-        User tempUser = userService.get(mobile);
+        User tempUser = userService.getByLogin(mobile);
         if (tempUser != null) {
             res.setStatus(Status.USER_REGISTERED, mobile);
             return res;
         }
 
         User user = new User();
-        user.setUsername(mobile);
+        user.setLogin(mobile);
+        user.setNickname(mobile);
         user.setRegip(Utils.getClientIP(forwardIp, realIp));
         userService.register(user);
         res.setUid(user.getId());
-        res.setUsername(user.getUsername());
+        res.setLogin(user.getLogin());
         res.setNickname(user.getNickname());
         Token token = new Token(user.getId());
         res.setToken(token.encrypt());

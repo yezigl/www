@@ -7,9 +7,9 @@
     http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
     http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
 
-    <context:component-scan base-package="gl.yezi.data.dao" />
+    <context:component-scan base-package="gl.yezi.data.dao.user" />
 
-    <bean id="dataSource" class="org.apache.tomcat.jdbc.pool.DataSource" destroy-method="close">
+    <bean id="userDataSource" class="org.apache.tomcat.jdbc.pool.DataSource" destroy-method="close">
         <property name="driverClassName" value="${user.db.jdbc.driverClassName}" />
         <property name="url" value="${user.db.jdbc.url}" />
         <property name="username" value="${user.db.username}" />
@@ -23,8 +23,8 @@
         <property name="validationQuery" value="${common.db.validationQuery}" />
     </bean>
 
-    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-        <property name="dataSource" ref="dataSource" />
+    <bean id="userSqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="userDataSource" />
         <property name="configLocation" value="classpath:mybatis/mybatis-core-config.xml" />
         <property name="mapperLocations">
             <list>
@@ -33,18 +33,15 @@
         </property>
     </bean>
 
-    <bean id="mapperScannerConfigurer" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="gl.yezi.data.mapper" />
-        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
+    <bean id="userMapperScannerConfigurer" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="gl.yezi.data.mapper.user" />
+        <property name="sqlSessionFactoryBeanName" value="userSqlSessionFactory" />
     </bean>
 
-    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-        <property name="dataSource" ref="dataSource" />
+    <bean id="userTransactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="userDataSource" />
     </bean>
 
-    <tx:annotation-driven transaction-manager="transactionManager" />
-    
-    <import resource="classpath*:spring/applicationContext-data-time.xml"/>
-    <import resource="classpath*:spring/applicationContext-data-home.xml"/>
+    <tx:annotation-driven transaction-manager="userTransactionManager" />
 
 </beans>

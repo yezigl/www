@@ -1,21 +1,12 @@
-/**
- * Copyright 2014 yezi.gl. All Rights Reserved.
- */
-package gl.yezi.data.dao;
+package gl.yezi.data.dao.user;
 
-import gl.yezi.data.mapper.UserMapper;
-import gl.yezi.data.model.time.User;
+import gl.yezi.data.mapper.user.UserMapper;
+import gl.yezi.data.model.user.User;
 
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Repository;
 
-/**
- * description here
- *
- * @author yezi
- * @since 2014年11月5日
- */
 @Repository
 public class UserDao {
 
@@ -34,7 +25,7 @@ public class UserDao {
         userMapper.update(user);
     }
 
-    public User get(String username) {
-        return userMapper.getByUsername(username);
+    public User get(String login) {
+        return userMapper.getByLogin(login);
     }
 }

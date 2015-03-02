@@ -19,17 +19,16 @@ public class UserRes extends Res {
      */
     private static final long serialVersionUID = 1L;
 
+    @JsonInclude(Include.NON_NULL)
     private int uid;
     @JsonInclude(Include.NON_NULL)
-    private String username;
+    private String login;
     @JsonInclude(Include.NON_NULL)
     private String nickname;
     @JsonInclude(Include.NON_NULL)
     private String email;
     @JsonInclude(Include.NON_NULL)
-    private String phone;
-    @JsonInclude(Include.NON_NULL)
-    private String alipay;
+    private String mobile;
 
     public int getUid() {
         return uid;
@@ -39,12 +38,12 @@ public class UserRes extends Res {
         this.uid = uid;
     }
 
-    public String getUsername() {
-        return username;
+    public String getLogin() {
+        return login;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setLogin(String login) {
+        this.login = login;
     }
 
     public String getNickname() {
@@ -63,20 +62,16 @@ public class UserRes extends Res {
         this.email = email;
     }
 
-    public String getPhone() {
-        return phone;
+    public String getMobile() {
+        return mobile;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
     }
 
-    public String getAlipay() {
-        return alipay;
-    }
-
-    public void setAlipay(String alipay) {
-        this.alipay = alipay;
+    public static long getSerialversionuid() {
+        return serialVersionUID;
     }
 
 }

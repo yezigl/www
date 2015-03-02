@@ -3,8 +3,8 @@
  */
 package gl.yezi.service;
 
-import gl.yezi.data.dao.UserDao;
-import gl.yezi.data.model.time.User;
+import gl.yezi.data.dao.user.UserDao;
+import gl.yezi.data.model.user.User;
 import gl.yezi.data.utils.CryptUtils;
 
 import java.util.Date;
@@ -33,8 +33,8 @@ public class UserService {
         return userDao.create(user);
     }
 
-    public User get(String username) {
-        return userDao.get(username);
+    public User getByLogin(String login) {
+        return userDao.get(login);
     }
 
     public User get(int id) {

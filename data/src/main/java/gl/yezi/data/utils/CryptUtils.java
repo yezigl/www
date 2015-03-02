@@ -3,7 +3,7 @@
  */
 package gl.yezi.data.utils;
 
-import gl.yezi.data.model.time.User;
+import gl.yezi.data.model.user.User;
 
 import java.util.Random;
 

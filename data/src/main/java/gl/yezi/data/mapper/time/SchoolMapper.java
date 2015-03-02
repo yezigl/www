@@ -1,30 +1,20 @@
-/**
- * Copyright 2014 yezi.gl. All Rights Reserved.
- */
 package gl.yezi.data.mapper.time;
+
+import gl.yezi.data.model.time.School;
 
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
-import gl.yezi.data.model.time.School;
-
-/**
- * description here
- *
- * @author yezi
- * @since 2014年11月4日
- */
 public interface SchoolMapper {
 
-    @Insert("INSERT INTO school (name, province, city, address, type, homepage) "
-            + "VALUES "
-            + "(#{name}, #{province}, #{city}, #{address}, #{type}, #{homepage})")
-    @Options(useGeneratedKeys = true, keyProperty = "id")
+    @Insert("INSERT INTO school (name, province, city, address, type, homepage) VALUES (#{name}, #{province}, #{city}, #{address}, #{type}, #{homepage})")
+    @Options(useGeneratedKeys = true, keyProperty = "id", keyColumn = "id")
     int create(School school);
-    
+
     @Select("SELECT * FROM school WHERE id = #{id}")
     @Results({
         @Result(column = "id", property = "id"),
@@ -32,6 +22,11 @@ public interface SchoolMapper {
         @Result(column = "province", property = "province"),
         @Result(column = "city", property = "city"),
         @Result(column = "address", property = "address"),
+        @Result(column = "type", property = "type"),
+        @Result(column = "homepage", property = "homepage")
     })
     School get(int id);
+
+    @Update("UPDATE school SET name = #{name}, province = #{province}, city = #{city}, address = #{address}, type = #{type}, homepage = #{homepage} WHERE id = #{id}")
+    int update(School school);
 }

@@ -32,9 +32,5 @@ public class TimetableDaoTest {
 
     @Test
     public void testTimetableGetByList() {
-        int schid = 0;
-        int collid = 0;
-        String date = "20120101";
-        timetableDao.getTimetable(schid, collid, date);
     }
 }
