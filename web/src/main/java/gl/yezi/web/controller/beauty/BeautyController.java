@@ -29,7 +29,6 @@ public class BeautyController extends AbstractController {
         PromotionRes res = new PromotionRes();
         
         
-        
         return res;
     }
 }

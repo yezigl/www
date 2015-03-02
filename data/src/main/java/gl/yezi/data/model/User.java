@@ -18,9 +18,13 @@ public class User {
 
     @Column(primary = true, type = "INTEGER", autoIncrement = true)
     private int id;
-    @Index(value = "idx_username")
+    @Index(value = "idx_login")
     @Column(type = "VARCHAR(100)")
-    private String username;
+    private String login;
+    @Column(type = "INTEGER")
+    private int regtype;
+    @Column(type = "INTEGER")
+    private int app;
     @Column(type = "VARCHAR(100)")
     private String password;
     @Column(type = "VARCHAR(100)")
@@ -30,7 +34,7 @@ public class User {
     @Column(type = "VARCHAR(50)", isNull = true)
     private String email;
     @Column(type = "VARCHAR(20)", isNull = true)
-    private String phone;
+    private String mobile;
     @Column(type = "VARCHAR(20)")
     private String regip;
     @Column(type = "DATETIME")
@@ -38,13 +42,9 @@ public class User {
     @Column(type = "INTEGER")
     private int status;
     @Column(type = "VARCHAR(50)", isNull = true)
-    private String alipay;
-    @Column(type = "VARCHAR(50)", isNull = true)
     private String avatar;
     @Column(type = "INTEGER")
     private int role;
-    @Column(type = "INTEGER")
-    private int app;
 
     public int getId() {
         return id;
@@ -54,12 +54,28 @@ public class User {
         this.id = id;
     }
 
-    public String getUsername() {
-        return username;
+    public String getLogin() {
+        return login;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
+    public int getRegtype() {
+        return regtype;
+    }
+
+    public void setRegtype(int regtype) {
+        this.regtype = regtype;
+    }
+
+    public int getApp() {
+        return app;
+    }
+
+    public void setApp(int app) {
+        this.app = app;
     }
 
     public String getPassword() {
@@ -94,12 +110,12 @@ public class User {
         this.email = email;
     }
 
-    public String getPhone() {
-        return phone;
+    public String getMobile() {
+        return mobile;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
     }
 
     public String getRegip() {
@@ -124,14 +140,6 @@ public class User {
 
     public void setStatus(int status) {
         this.status = status;
-    }
-
-    public String getAlipay() {
-        return alipay;
-    }
-
-    public void setAlipay(String alipay) {
-        this.alipay = alipay;
     }
 
     public String getAvatar() {

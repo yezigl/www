@@ -152,7 +152,7 @@ public class UserController extends AbstractController {
         return userInfo;
     }
 
-    @RequestMapping(value = "/mobile/captcha", method = RequestMethod.GET)
+    @RequestMapping(value = "/captcha/mobile", method = RequestMethod.GET)
     public MobileCaptchaRes mobileCaptchaCreate(@RequestParam String mobile) {
 
         MobileCaptchaRes res = new MobileCaptchaRes();
