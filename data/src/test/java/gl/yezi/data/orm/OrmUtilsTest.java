@@ -4,11 +4,12 @@
 package gl.yezi.data.orm;
 
 import gl.yezi.data.model.beauty.Deal;
-import gl.yezi.data.model.beauty.Employee;
-import gl.yezi.data.model.beauty.EmployeeDeal;
-import gl.yezi.data.model.beauty.EmployeeTime;
+import gl.yezi.data.model.beauty.Beautician;
+import gl.yezi.data.model.beauty.BeauticianDeal;
+import gl.yezi.data.model.beauty.BeauticianTime;
 import gl.yezi.data.model.beauty.Feedback;
 import gl.yezi.data.model.beauty.Order;
+import gl.yezi.data.model.beauty.Product;
 import gl.yezi.data.model.time.College;
 import gl.yezi.data.model.time.School;
 import gl.yezi.data.model.time.Timetable;
@@ -42,15 +43,14 @@ public class OrmUtilsTest {
     DataSource timeDataSource;
 
     Class<?>[] userClasses = { User.class };
-    Class<?>[] beautyClasses = { Deal.class, Employee.class, Feedback.class, Order.class, EmployeeDeal.class,
-            EmployeeTime.class };
+    Class<?>[] beautyClasses = { Product.class };
     Class<?>[] timeClasses = { College.class, School.class, Timetable.class, UserBuy.class, UserSell.class };
 
     @Test
     public void test() {
-        OrmUtils.createTable(userDataSource, true, userClasses);
+        //OrmUtils.createTable(userDataSource, true, userClasses);
         OrmUtils.createTable(beautyDataSource, true, beautyClasses);
-        OrmUtils.createTable(timeDataSource, true, timeClasses);
+        //OrmUtils.createTable(timeDataSource, true, timeClasses);
     }
 
     @Test
@@ -62,15 +62,15 @@ public class OrmUtilsTest {
 
     @Test
     public void testCreateMapper() {
-        OrmUtils.createMapper("gl/yezi/data/mapper/user", userClasses);
+        //OrmUtils.createMapper("gl/yezi/data/mapper/user", userClasses);
         OrmUtils.createMapper("gl/yezi/data/mapper/beauty", beautyClasses);
-        OrmUtils.createMapper("gl/yezi/data/mapper/time", timeClasses);
+        //OrmUtils.createMapper("gl/yezi/data/mapper/time", timeClasses);
     }
 
     @Test
     public void testCreateDao() {
-        OrmUtils.createDao("gl/yezi/data/dao/user", userClasses);
+        //OrmUtils.createDao("gl/yezi/data/dao/user", userClasses);
         OrmUtils.createDao("gl/yezi/data/dao/beauty", beautyClasses);
-        OrmUtils.createDao("gl/yezi/data/dao/time", timeClasses);
+        //OrmUtils.createDao("gl/yezi/data/dao/time", timeClasses);
     }
 }

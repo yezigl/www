@@ -1,6 +1,6 @@
 package gl.yezi.data.mapper.beauty;
 
-import gl.yezi.data.model.beauty.EmployeeDeal;
+import gl.yezi.data.model.beauty.BeauticianDeal;
 
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Options;
@@ -9,16 +9,16 @@ import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
-public interface EmployeeDealMapper {
+public interface BeauticianDealMapper {
 
-    @Insert("INSERT INTO employeedeal (employeeid, dealid, avgsorce, subscore, status, ctime, utime) VALUES (#{employeeId}, #{dealId}, #{avgSorce}, #{subScore}, #{status}, #{ctime}, #{utime})")
+    @Insert("INSERT INTO beauticiandeal (beauticianid, dealid, avgsorce, subscore, status, ctime, utime) VALUES (#{beauticianId}, #{dealId}, #{avgSorce}, #{subScore}, #{status}, #{ctime}, #{utime})")
     @Options(useGeneratedKeys = true, keyProperty = "id", keyColumn = "id")
-    int create(EmployeeDeal employeedeal);
+    int create(BeauticianDeal beauticiandeal);
 
-    @Select("SELECT * FROM employeedeal WHERE id = #{id}")
+    @Select("SELECT * FROM beauticiandeal WHERE id = #{id}")
     @Results({
         @Result(column = "id", property = "id"),
-        @Result(column = "employeeid", property = "employeeId"),
+        @Result(column = "beauticianid", property = "beauticianId"),
         @Result(column = "dealid", property = "dealId"),
         @Result(column = "avgsorce", property = "avgSorce"),
         @Result(column = "subscore", property = "subScore"),
@@ -26,8 +26,8 @@ public interface EmployeeDealMapper {
         @Result(column = "ctime", property = "ctime"),
         @Result(column = "utime", property = "utime")
     })
-    EmployeeDeal get(int id);
+    BeauticianDeal get(int id);
 
-    @Update("UPDATE employeedeal SET employeeid = #{employeeId}, dealid = #{dealId}, avgsorce = #{avgSorce}, subscore = #{subScore}, status = #{status}, ctime = #{ctime}, utime = #{utime} WHERE id = #{id}")
-    int update(EmployeeDeal employeedeal);
+    @Update("UPDATE beauticiandeal SET beauticianid = #{beauticianId}, dealid = #{dealId}, avgsorce = #{avgSorce}, subscore = #{subScore}, status = #{status}, ctime = #{ctime}, utime = #{utime} WHERE id = #{id}")
+    int update(BeauticianDeal beauticiandeal);
 }

@@ -44,7 +44,7 @@ public class Deal {
     @Column(type = "VARCHAR(300)", isNull = true)
     private String efficacy; // 功效
     @Column(type = "VARCHAR(300)", isNull = true)
-    private String component; // 产品成分
+    private String component; // 产品 Product
     @Column(type = "VARCHAR(300)", isNull = true)
     private String flow; // 服务流程
     @Column(type = "VARCHAR(300)", isNull = true)

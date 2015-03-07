@@ -1,5 +1,7 @@
 package gl.yezi.data.mapper.beauty;
 
+import java.util.List;
+
 import gl.yezi.data.model.beauty.Deal;
 
 import org.apache.ibatis.annotations.Insert;
@@ -8,6 +10,7 @@ import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.session.RowBounds;
 
 public interface DealMapper {
 
@@ -39,4 +42,26 @@ public interface DealMapper {
 
     @Update("UPDATE deal SET title = #{title}, description = #{description}, price = #{price}, value = #{value}, status = #{status}, type = #{type}, imgurl = #{imgUrl}, gallery = #{gallery}, ctime = #{ctime}, utime = #{utime}, content = #{content}, costtime = #{costtime}, efficacy = #{efficacy}, component = #{component}, flow = #{flow}, special = #{special} WHERE id = #{id}")
     int update(Deal deal);
+
+    @Select("SELECT * FROM deal")
+    @Results({
+        @Result(column = "id", property = "id"),
+        @Result(column = "title", property = "title"),
+        @Result(column = "description", property = "description"),
+        @Result(column = "price", property = "price"),
+        @Result(column = "value", property = "value"),
+        @Result(column = "status", property = "status"),
+        @Result(column = "type", property = "type"),
+        @Result(column = "imgurl", property = "imgUrl"),
+        @Result(column = "gallery", property = "gallery"),
+        @Result(column = "ctime", property = "ctime"),
+        @Result(column = "utime", property = "utime"),
+        @Result(column = "content", property = "content"),
+        @Result(column = "costtime", property = "costtime"),
+        @Result(column = "efficacy", property = "efficacy"),
+        @Result(column = "component", property = "component"),
+        @Result(column = "flow", property = "flow"),
+        @Result(column = "special", property = "special")
+    })
+    List<Deal> getList(RowBounds rowBounds);
 }

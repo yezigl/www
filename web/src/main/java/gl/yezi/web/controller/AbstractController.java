@@ -20,6 +20,8 @@ public class AbstractController {
 
     protected Logger logger = LoggerFactory.getLogger(this.getClass());
     
+    protected int LIMIT = 10;
+    
     @Resource
     CacheService cacheService;
 }

@@ -13,12 +13,12 @@ import java.util.Date;
  * @author lidehua
  * @since Feb 28, 2015
  */
-public class EmployeeTime {
+public class BeauticianTime {
 
     @Column(primary = true, type = "INTEGER", autoIncrement = true)
     private int id;
     @Column(type = "INTEGER")
-    private int employeeId;
+    private int beauticianId;
     @Column(type = "INTEGER")
     private int orderId;
     @Column(type = "DATETIME")
@@ -36,12 +36,12 @@ public class EmployeeTime {
         this.id = id;
     }
 
-    public int getEmployeeId() {
-        return employeeId;
+    public int getBeauticianId() {
+        return beauticianId;
     }
 
-    public void setEmployeeId(int employeeId) {
-        this.employeeId = employeeId;
+    public void setBeauticianId(int beauticianId) {
+        this.beauticianId = beauticianId;
     }
 
     public int getOrderId() {

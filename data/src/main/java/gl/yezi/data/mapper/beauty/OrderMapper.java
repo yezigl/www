@@ -11,7 +11,7 @@ import org.apache.ibatis.annotations.Update;
 
 public interface OrderMapper {
 
-    @Insert("INSERT INTO order (userid, dealid, employeeid, ctime, utime, paytime, paytype, amount, discount, status, ip) VALUES (#{userId}, #{dealId}, #{employeeId}, #{ctime}, #{utime}, #{paytime}, #{paytype}, #{amount}, #{discount}, #{status}, #{ip})")
+    @Insert("INSERT INTO order (userid, dealid, beauticianid, ctime, utime, paytime, paytype, amount, discount, status, ip) VALUES (#{userId}, #{dealId}, #{beauticianId}, #{ctime}, #{utime}, #{paytime}, #{paytype}, #{amount}, #{discount}, #{status}, #{ip})")
     @Options(useGeneratedKeys = true, keyProperty = "id", keyColumn = "id")
     int create(Order order);
 
@@ -20,7 +20,7 @@ public interface OrderMapper {
         @Result(column = "id", property = "id"),
         @Result(column = "userid", property = "userId"),
         @Result(column = "dealid", property = "dealId"),
-        @Result(column = "employeeid", property = "employeeId"),
+        @Result(column = "beauticianid", property = "beauticianId"),
         @Result(column = "ctime", property = "ctime"),
         @Result(column = "utime", property = "utime"),
         @Result(column = "paytime", property = "paytime"),
@@ -32,6 +32,6 @@ public interface OrderMapper {
     })
     Order get(int id);
 
-    @Update("UPDATE order SET userid = #{userId}, dealid = #{dealId}, employeeid = #{employeeId}, ctime = #{ctime}, utime = #{utime}, paytime = #{paytime}, paytype = #{paytype}, amount = #{amount}, discount = #{discount}, status = #{status}, ip = #{ip} WHERE id = #{id}")
+    @Update("UPDATE order SET userid = #{userId}, dealid = #{dealId}, beauticianid = #{beauticianId}, ctime = #{ctime}, utime = #{utime}, paytime = #{paytime}, paytype = #{paytype}, amount = #{amount}, discount = #{discount}, status = #{status}, ip = #{ip} WHERE id = #{id}")
     int update(Order order);
 }

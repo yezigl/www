@@ -13,7 +13,7 @@ import gl.yezi.data.orm.Column;
  * @author yezi
  * @since 2015年2月4日
  */
-public class Employee {
+public class Beautician {
 
     @Column(primary = true, type = "INTEGER", autoIncrement = true)
     private int id;

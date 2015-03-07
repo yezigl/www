@@ -22,7 +22,7 @@ public class Order {
     @Column(type = "INTEGER")
     private int dealId;
     @Column(type = "INTEGER")
-    private int employeeId;
+    private int beauticianId;
     @Column(type = "DATETIME")
     private Date ctime; // 下单时间
     @Column(type = "DATETIME")
@@ -64,12 +64,12 @@ public class Order {
         this.dealId = dealId;
     }
 
-    public int getEmployeeId() {
-        return employeeId;
+    public int getBeauticianId() {
+        return beauticianId;
     }
 
-    public void setEmployeeId(int employeeId) {
-        this.employeeId = employeeId;
+    public void setBeauticianId(int beauticianId) {
+        this.beauticianId = beauticianId;
     }
 
     public Date getCtime() {

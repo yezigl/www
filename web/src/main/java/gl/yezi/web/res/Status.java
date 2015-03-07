@@ -17,7 +17,8 @@ public enum Status {
     USER_REGISTERED(401, "username %s has registered."),
     USER_NOT_LOGIN(401, "user doesn't login."),
     USER_NOT_EXIST(401, "user not exist."),
-    USERNAME_OR_PASSWORD_ERROR(401, "username or password error.");
+    USERNAME_OR_PASSWORD_ERROR(401, "username or password error."),
+    NOT_EXIST(404, "%s");
 
     private int code;
     private String msg;

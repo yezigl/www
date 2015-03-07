@@ -18,6 +18,7 @@ import gl.yezi.web.res.beauty.ConfigRes;
  * @since 2015年2月6日
  */
 @RestController
+@RequestMapping("/1/beauty")
 public class BeautyController extends AbstractController {
 
     @RequestMapping(value = "/config", method = RequestMethod.GET)
