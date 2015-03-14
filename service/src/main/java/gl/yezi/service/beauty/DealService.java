@@ -4,10 +4,14 @@
 package gl.yezi.service.beauty;
 
 import gl.yezi.data.dao.beauty.DealDao;
+import gl.yezi.data.dao.beauty.FlowDao;
 import gl.yezi.data.dao.beauty.ProductDao;
-import gl.yezi.data.model.beauty.Product;
 import gl.yezi.data.model.beauty.Deal;
+import gl.yezi.data.model.beauty.Flow;
+import gl.yezi.data.model.beauty.Product;
+import gl.yezi.service.BaseService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -23,13 +27,16 @@ import org.springframework.stereotype.Service;
  * @since 2015年3月1日
  */
 @Service
-public class DealService {
+public class DealService extends BaseService {
     
     @Resource
     DealDao dealDao;
     
     @Resource
     ProductDao productDao;
+    
+    @Resource
+    FlowDao flowDao;
 
     public List<Deal> getList(int offset, int limit) {
         return dealDao.getList(offset, limit);
@@ -37,24 +44,39 @@ public class DealService {
     
     public List<Product> getProducts(Deal deal) {
         if (StringUtils.isNotBlank(deal.getComponent())) {
-            String[] products = StringUtils.split(deal.getComponent(), ",");
+            String[] products = StringUtils.split(deal.getComponent(), SPLIT);
             int[] ids = new int[products.length];
             for (int i = 0; i < products.length; i++) {
                 ids[i] = NumberUtils.toInt(products[i]);
             }
             return productDao.getList(ids);
         }
-        return null;
+        return new ArrayList<Product>();
     }
 
-    /**
-     * @param dealId
-     * @return
-     */
     public Deal get(int dealId) {
         if (dealId == 0) {
             return null;
         }
         return dealDao.get(dealId);
+    }
+    
+    public List<Flow> getFlows(Deal deal) {
+        if (StringUtils.isNotBlank(deal.getFlow())) {
+            String[] flows = StringUtils.split(deal.getFlow(), SPLIT);
+            int[] ids = new int[flows.length];
+            for (int i = 0; i < flows.length; i++) {
+                ids[i] = NumberUtils.toInt(flows[i]);
+            }
+            return flowDao.getList(ids);
+        }
+        return new ArrayList<Flow>();
+    }
+    
+    public Product getProduct(int productId) {
+        if (productId <= 0) {
+            return null;
+        }
+        return productDao.get(productId);
     }
 }

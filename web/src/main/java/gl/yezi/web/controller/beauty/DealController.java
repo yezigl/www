@@ -4,12 +4,14 @@
 package gl.yezi.web.controller.beauty;
 
 import gl.yezi.data.model.beauty.Deal;
+import gl.yezi.data.model.beauty.Flow;
 import gl.yezi.data.model.beauty.Product;
 import gl.yezi.service.beauty.DealService;
 import gl.yezi.web.controller.AbstractController;
 import gl.yezi.web.res.Status;
 import gl.yezi.web.res.beauty.DealListRes;
 import gl.yezi.web.res.beauty.DealRes;
+import gl.yezi.web.res.beauty.FlowRes;
 import gl.yezi.web.res.beauty.ProductRes;
 
 import java.util.List;
@@ -46,6 +48,10 @@ public class DealController extends AbstractController {
             for (Product product : products) {
                 dealRes.addProductRes(new ProductRes(product));
             }
+            List<Flow> flows = dealService.getFlows(deal);
+            for (Flow flow : flows) {
+                dealRes.addFlows(new FlowRes(flow));
+            }
             res.addDealRes(dealRes);
         }
         res.setOffset(deals.size());
@@ -63,6 +69,20 @@ public class DealController extends AbstractController {
             return res;
         }
         res.setDeal(deal);
+        
+        return res;
+    }
+    
+    @RequestMapping(value = "/deal/product/{productId}", method = RequestMethod.GET)
+    public ProductRes product(@PathVariable int productId) {
+        ProductRes res = new ProductRes();
+        
+        Product product = dealService.getProduct(productId);
+        if (product == null) {
+            res.setStatus(Status.NOT_EXIST, "产品不存在");
+            return res;
+        }
+        res.setProduct(product);
         
         return res;
     }

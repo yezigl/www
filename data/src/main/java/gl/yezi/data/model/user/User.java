@@ -35,7 +35,7 @@ public class User {
     private String email;
     @Column(type = "VARCHAR(20)", isNull = true)
     private String mobile;
-    @Column(type = "VARCHAR(20)")
+    @Column(type = "VARCHAR(15)")
     private String regip;
     @Column(type = "DATETIME")
     private Date ctime;

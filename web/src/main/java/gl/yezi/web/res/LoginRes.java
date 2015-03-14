@@ -70,8 +70,4 @@ public class LoginRes extends Res {
         this.avatar = avatar;
     }
 
-    public static long getSerialversionuid() {
-        return serialVersionUID;
-    }
-
 }

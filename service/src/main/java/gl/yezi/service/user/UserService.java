@@ -1,13 +1,17 @@
 /**
  * Copyright 2014 yezi.gl. All Rights Reserved.
  */
-package gl.yezi.service;
+package gl.yezi.service.user;
 
+import gl.yezi.data.dao.user.UserAddressDao;
 import gl.yezi.data.dao.user.UserDao;
 import gl.yezi.data.model.user.User;
+import gl.yezi.data.model.user.UserAddress;
 import gl.yezi.data.utils.CryptUtils;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.annotation.Resource;
 
@@ -25,6 +29,9 @@ public class UserService {
 
     @Resource
     UserDao userDao;
+    
+    @Resource
+    UserAddressDao userAddressDao;
 
     public int register(User user) {
         user.setCtime(new Date());
@@ -40,5 +47,21 @@ public class UserService {
     public User get(int id) {
         return userDao.get(id);
     }
+    
+    public int addAddress(UserAddress userAddress) {
+        return userAddressDao.create(userAddress);
+    }
 
+    public List<UserAddress> getAddressList() {
+        List<UserAddress> list = userAddressDao.getList();
+        return list == null ? new ArrayList<UserAddress>() : list;
+    }
+
+    public void updateAddress(UserAddress userAddress) {
+        userAddressDao.update(userAddress);
+    }
+
+    public UserAddress getAddress(int id) {
+        return userAddressDao.get(id);
+    }
 }

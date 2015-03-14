@@ -14,6 +14,10 @@ import java.util.Date;
  * @since 2015年2月4日
  */
 public class Feedback {
+    
+    public static final int STATUS_NORMAL = 1;
+    
+    public static final int STATUS_DELETE = 2;
 
     @Column(primary = true, type = "INTEGER", autoIncrement = true)
     private int id;
@@ -29,14 +33,16 @@ public class Feedback {
     private Date ctime;
     @Column(type = "DATETIME")
     private Date utime;
+    @Column(type = "VARCHAR(15)")
+    private String ip;
+    @Column(type = "INTEGER")
+    private int score;
+    @Column(type = "INTEGER")
+    private int status;
     @Column(type = "VARCHAR(1000)")
     private String reply;
     @Column(type = "DATETIME")
     private Date replyTime;
-    @Column(type = "INTEGER")
-    private int ip;
-    @Column(type = "INTEGER")
-    private int score;
 
     public int getId() {
         return id;
@@ -110,11 +116,11 @@ public class Feedback {
         this.replyTime = replyTime;
     }
 
-    public int getIp() {
+    public String getIp() {
         return ip;
     }
 
-    public void setIp(int ip) {
+    public void setIp(String ip) {
         this.ip = ip;
     }
 
@@ -124,6 +130,14 @@ public class Feedback {
 
     public void setScore(int score) {
         this.score = score;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 
 }

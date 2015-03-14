@@ -15,6 +15,14 @@ import java.util.Date;
  */
 public class Order {
 
+    public static final int STATUS_TOPAY = 1;
+
+    public static final int STATUS_PAYED = 2;
+
+    public static final int STATUS_DONE = 4;
+    
+    public static final int STATUS_REFOUND = 8;
+    
     @Column(primary = true, type = "INTEGER", autoIncrement = true)
     private int id;
     @Column(type = "INTEGER")
@@ -37,8 +45,12 @@ public class Order {
     private float discount;
     @Column(type = "INTEGER")
     private int status;
+    @Column(type = "VARCHAR(15)")
+    private String ip;
     @Column(type = "INTEGER")
-    private int ip;
+    private int addressId;
+    @Column(type = "INTEGER")
+    private int couponId;
 
     public int getId() {
         return id;
@@ -128,12 +140,59 @@ public class Order {
         this.status = status;
     }
 
-    public int getIp() {
+    public String getIp() {
         return ip;
     }
 
-    public void setIp(int ip) {
+    public void setIp(String ip) {
         this.ip = ip;
+    }
+
+    public int getAddressId() {
+        return addressId;
+    }
+
+    public void setAddressId(int addressId) {
+        this.addressId = addressId;
+    }
+
+    public int getCouponId() {
+        return couponId;
+    }
+
+    public void setCouponId(int couponId) {
+        this.couponId = couponId;
+    }
+
+    /**
+     * @return
+     */
+    public String getStatusStr() {
+        String str = "";
+        switch (status) {
+        case STATUS_TOPAY:
+            str = "待支付";
+            break;
+        case STATUS_PAYED:
+            str = "已支付";
+            break;
+        case STATUS_REFOUND:
+            str = "退款中";
+            break;
+        case STATUS_DONE:
+            str = "已完成";
+            break;
+        default:
+            break;
+        }
+        return str;
+    }
+
+    /**
+     * @return
+     */
+    public boolean isPay() {
+        return status != STATUS_TOPAY;
     }
 
 }

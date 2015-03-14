@@ -3,6 +3,8 @@
  */
 package gl.yezi.web.res;
 
+import gl.yezi.data.model.user.User;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
@@ -29,6 +31,18 @@ public class UserRes extends Res {
     private String email;
     @JsonInclude(Include.NON_NULL)
     private String mobile;
+
+    public UserRes() {
+
+    }
+
+    public UserRes(User user) {
+        uid = user.getId();
+        login = user.getLogin();
+        nickname = user.getNickname();
+        email = user.getNickname();
+        mobile = user.getMobile();
+    }
 
     public int getUid() {
         return uid;

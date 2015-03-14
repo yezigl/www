@@ -25,10 +25,10 @@ public class ProductRes extends Res {
     private String efficacy;
 
     public ProductRes(Product product) {
-        id = product.getId();
-        name = product.getName();
-        applicable = product.getApplicable();
-        efficacy = product.getEfficacy();
+        setProduct(product);
+    }
+
+    public ProductRes() {
     }
 
     public Integer getId() {
@@ -61,6 +61,13 @@ public class ProductRes extends Res {
 
     public void setEfficacy(String efficacy) {
         this.efficacy = efficacy;
+    }
+
+    public void setProduct(Product product) {
+        id = product.getId();
+        name = product.getName();
+        applicable = product.getApplicable();
+        efficacy = product.getEfficacy();
     }
 
 }

@@ -39,7 +39,7 @@ public class DealDaoTest {
         Deal deal1 = new Deal();
         deal1.setTitle("青柠净白养润护理");
         deal1.setDescription("手工服务+美容师提供高级净白保湿产品");
-        deal1.setPrice(100.00);
+        deal1.setPrice(100.00f);
         deal1.setValue(200);
         deal1.setStatus(1);
         deal1.setType(1);

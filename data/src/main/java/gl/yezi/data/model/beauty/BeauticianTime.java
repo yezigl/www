@@ -14,6 +14,10 @@ import java.util.Date;
  * @since Feb 28, 2015
  */
 public class BeauticianTime {
+    
+    public static final int STATUS_TODO = 1;
+    
+    public static final int STATUS_DONE = 2;
 
     @Column(primary = true, type = "INTEGER", autoIncrement = true)
     private int id;

@@ -11,4 +11,5 @@ package gl.yezi.service;
  */
 public abstract class BaseService {
 
+    protected String SPLIT = ",";
 }

@@ -22,9 +22,9 @@ public class Deal {
     @Column(type = "VARCHAR(30)")
     private String description;
     @Column(type = "FLOAT")
-    private double price; // 售卖价格
+    private float price; // 售卖价格
     @Column(type = "FLOAT")
-    private double value; // 实际价格
+    private float value; // 实际价格
     @Column(type = "INTEGER")
     private int status;
     @Column(type = "INTEGER")
@@ -74,19 +74,19 @@ public class Deal {
         this.description = description;
     }
 
-    public double getPrice() {
+    public float getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(float price) {
         this.price = price;
     }
 
-    public double getValue() {
+    public float getValue() {
         return value;
     }
 
-    public void setValue(double value) {
+    public void setValue(float value) {
         this.value = value;
     }
 

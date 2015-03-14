@@ -4,6 +4,7 @@
 package gl.yezi.service.utils;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.math.NumberUtils;
 
 /**
  * description here
@@ -34,5 +35,18 @@ public class Utils {
             }
         }
         return "";
+    }
+
+    public static long ip2long(String ip) {
+        String[] ss = StringUtils.split(".");
+        if (ss.length != 4) {
+            return 0;
+        }
+        return (NumberUtils.toLong(ss[0]) << 24) + (NumberUtils.toLong(ss[1]) << 16) + (NumberUtils.toLong(ss[2]) << 8)
+                + NumberUtils.toLong(ss[3]);
+    }
+
+    public static String long2ip(long ip) {
+        return (ip >>> 24 & 0xFF) + "." + (ip >>> 16 & 0xFF) + "." + (ip >>> 8 & 0xFF) + "." + (ip & 0xFF);
     }
 }

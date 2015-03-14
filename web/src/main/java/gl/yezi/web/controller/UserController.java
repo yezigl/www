@@ -4,17 +4,22 @@
 package gl.yezi.web.controller;
 
 import gl.yezi.data.model.user.User;
-import gl.yezi.service.UserService;
+import gl.yezi.data.model.user.UserAddress;
 import gl.yezi.service.context.CacheKey;
 import gl.yezi.service.context.Token;
+import gl.yezi.service.context.UserContext;
+import gl.yezi.service.user.UserService;
 import gl.yezi.service.utils.Utils;
 import gl.yezi.web.App;
-import gl.yezi.web.res.LoginRes;
 import gl.yezi.web.res.CaptchaMobileRes;
+import gl.yezi.web.res.LoginRes;
 import gl.yezi.web.res.Res;
 import gl.yezi.web.res.Status;
+import gl.yezi.web.res.UserAddressListRes;
+import gl.yezi.web.res.UserAddressRes;
 import gl.yezi.web.res.UserRes;
 
+import java.util.List;
 import java.util.Random;
 
 import javax.annotation.Resource;
@@ -119,8 +124,9 @@ public class UserController extends AbstractController {
 
         return login;
     }
+    
 
-    @RequestMapping(value = "/users/{uid}", method = RequestMethod.PUT)
+    @RequestMapping(value = "/user/{uid}", method = RequestMethod.PUT)
     public Res update(@PathVariable int uid, @ModelAttribute User user,
             @RequestParam(value = "appkey", defaultValue = "tbd") String appkey, @RequestParam int type) {
         Res res = new Res();
@@ -128,8 +134,8 @@ public class UserController extends AbstractController {
         return res;
     }
 
-    @RequestMapping(value = "/users/{uid}", method = RequestMethod.GET)
-    public UserRes userinfo(@PathVariable int uid, @RequestParam(value = "appkey", defaultValue = "tbd") String appkey) {
+    @RequestMapping(value = "/user/{uid}", method = RequestMethod.GET)
+    public UserRes userInfo(@PathVariable int uid, @RequestParam(value = "appkey", defaultValue = "tbd") String appkey) {
         UserRes userInfo = new UserRes();
 
         App app = App.valueOfKey(appkey);
@@ -166,7 +172,7 @@ public class UserController extends AbstractController {
         return res;
     }
 
-    @RequestMapping(value = "/register/mobile", method = RequestMethod.POST)
+    @RequestMapping(value = "/login/mobile", method = RequestMethod.POST)
     public LoginRes registerMobile(@RequestParam String mobile, @RequestParam String captcha,
             @RequestParam(value = "appkey", defaultValue = "tbd") String appkey,
             @RequestHeader(value = "X-Forwarded-For", required = false) String forwardIp,
@@ -187,23 +193,56 @@ public class UserController extends AbstractController {
 //            return res;
 //        }
 
-        User tempUser = userService.getByLogin(mobile);
-        if (tempUser != null) {
-            res.setStatus(Status.USER_REGISTERED, mobile);
-            return res;
+        User user = userService.getByLogin(mobile);
+        if (user == null) {
+            user = new User();
+            user.setLogin(mobile);
+            user.setNickname(mobile);
+            user.setRegip(Utils.getClientIP(forwardIp, realIp));
+            int id = userService.register(user);
+            user.setId(id);
         }
-
-        User user = new User();
-        user.setLogin(mobile);
-        user.setNickname(mobile);
-        user.setRegip(Utils.getClientIP(forwardIp, realIp));
-        userService.register(user);
         res.setUid(user.getId());
         res.setLogin(user.getLogin());
         res.setNickname(user.getNickname());
         Token token = new Token(user.getId());
         res.setToken(token.encrypt());
 
+        return res;
+    }
+    
+    @RequestMapping(value = "/user/address", method = RequestMethod.POST)
+    public UserAddressRes userAddressAdd(@ModelAttribute UserAddress userAddress) {
+        UserAddressRes res = new UserAddressRes();
+        
+        User user = UserContext.getUser();
+        userAddress.setUserId(user.getId());
+        int id = userService.addAddress(userAddress);
+        res.setId(id);
+        
+        return res;
+    }
+    
+    @RequestMapping(value = "/user/address", method = RequestMethod.PUT)
+    public UserAddressRes userAddressUpdate(@ModelAttribute UserAddress userAddress) {
+        UserAddressRes res = new UserAddressRes();
+        
+        User user = UserContext.getUser();
+        userAddress.setUserId(user.getId());
+        userService.updateAddress(userAddress);
+        
+        return res;
+    }
+    
+    @RequestMapping(value = "/user/addresses", method = RequestMethod.GET)
+    public UserAddressListRes userAddresses() {
+        UserAddressListRes res = new UserAddressListRes();
+        
+        List<UserAddress> list = userService.getAddressList();
+        for (UserAddress userAddress : list) {
+            res.addAddress(new UserAddressRes(userAddress));
+        }
+        
         return res;
     }
 }

@@ -32,9 +32,9 @@ public class DealRes extends Res {
     @JsonInclude(Include.NON_NULL)
     private String description;
     @JsonInclude(Include.NON_NULL)
-    private Double price; // 售卖价格
+    private Float price; // 售卖价格
     @JsonInclude(Include.NON_NULL)
-    private Double value; // 实际价格
+    private Float value; // 实际价格
     @JsonInclude(Include.NON_NULL)
     private String type;
     @JsonInclude(Include.NON_NULL)
@@ -48,7 +48,7 @@ public class DealRes extends Res {
     @JsonInclude(Include.NON_NULL)
     private String efficacy; // 功效
     @JsonInclude(Include.NON_NULL)
-    private String flow; // 服务流程
+    private List<FlowRes> flows; // 服务流程
     @JsonInclude(Include.NON_NULL)
     private String special;
     @JsonInclude(Include.NON_NULL)
@@ -60,6 +60,7 @@ public class DealRes extends Res {
 
     public DealRes(Deal deal) {
         products = new ArrayList<ProductRes>();
+        flows = new ArrayList<FlowRes>();
         setDeal(deal);
     }
     
@@ -73,7 +74,6 @@ public class DealRes extends Res {
         content = deal.getContent();
         costtime = deal.getCosttime();
         efficacy = deal.getEfficacy();
-        flow = deal.getFlow();
         special = deal.getSpecial();
     }
 
@@ -101,19 +101,19 @@ public class DealRes extends Res {
         this.description = description;
     }
 
-    public Double getPrice() {
+    public Float getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(Float price) {
         this.price = price;
     }
 
-    public Double getValue() {
+    public Float getValue() {
         return value;
     }
 
-    public void setValue(double value) {
+    public void setValue(Float value) {
         this.value = value;
     }
 
@@ -165,12 +165,12 @@ public class DealRes extends Res {
         this.efficacy = efficacy;
     }
 
-    public String getFlow() {
-        return flow;
+    public List<FlowRes> getFlows() {
+        return flows;
     }
 
-    public void setFlow(String flow) {
-        this.flow = flow;
+    public void setFlows(List<FlowRes> flows) {
+        this.flows = flows;
     }
 
     public String getSpecial() {
@@ -191,6 +191,10 @@ public class DealRes extends Res {
 
     public void addProductRes(ProductRes productRes) {
         products.add(productRes);
+    }
+    
+    public void addFlows(FlowRes flowRes) {
+        flows.add(flowRes);
     }
 
 }

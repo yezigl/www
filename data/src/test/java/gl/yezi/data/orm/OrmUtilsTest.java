@@ -3,19 +3,15 @@
  */
 package gl.yezi.data.orm;
 
-import gl.yezi.data.model.beauty.Deal;
-import gl.yezi.data.model.beauty.Beautician;
-import gl.yezi.data.model.beauty.BeauticianDeal;
-import gl.yezi.data.model.beauty.BeauticianTime;
 import gl.yezi.data.model.beauty.Feedback;
 import gl.yezi.data.model.beauty.Order;
-import gl.yezi.data.model.beauty.Product;
 import gl.yezi.data.model.time.College;
 import gl.yezi.data.model.time.School;
 import gl.yezi.data.model.time.Timetable;
 import gl.yezi.data.model.time.UserBuy;
 import gl.yezi.data.model.time.UserSell;
 import gl.yezi.data.model.user.User;
+import gl.yezi.data.model.user.UserAddress;
 
 import javax.annotation.Resource;
 import javax.sql.DataSource;
@@ -42,8 +38,8 @@ public class OrmUtilsTest {
     @Resource(name = "timeDataSource")
     DataSource timeDataSource;
 
-    Class<?>[] userClasses = { User.class };
-    Class<?>[] beautyClasses = { Product.class };
+    Class<?>[] userClasses = { UserAddress.class };
+    Class<?>[] beautyClasses = { Feedback.class };
     Class<?>[] timeClasses = { College.class, School.class, Timetable.class, UserBuy.class, UserSell.class };
 
     @Test
@@ -72,5 +68,12 @@ public class OrmUtilsTest {
         //OrmUtils.createDao("gl/yezi/data/dao/user", userClasses);
         OrmUtils.createDao("gl/yezi/data/dao/beauty", beautyClasses);
         //OrmUtils.createDao("gl/yezi/data/dao/time", timeClasses);
+    }
+    
+    @Test
+    public void testAll() {
+        test();
+        testCreateMapper();
+        testCreateDao();
     }
 }
