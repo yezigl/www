@@ -4,7 +4,8 @@ import gl.yezi.data.model.user.User;
 import gl.yezi.service.context.Token;
 import gl.yezi.service.context.UserContext;
 import gl.yezi.service.user.UserService;
-import gl.yezi.service.utils.Constants;
+import gl.yezi.web.Params;
+import gl.yezi.web.holder.ResponseContextHolder;
 import gl.yezi.web.res.Res;
 import gl.yezi.web.res.Status;
 
@@ -30,8 +31,8 @@ import com.alibaba.fastjson.JSON;
  */
 public class AuthFilter implements Filter {
 
-    private static String[] NO_LOGIN_URL = { "/register", "/login" };
-    
+    private static String[] NO_LOGIN_URL = { "/register", "/login", "/captcha" };
+
     @Resource
     UserService userService;
 
@@ -52,35 +53,38 @@ public class AuthFilter implements Filter {
      */
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException,
             ServletException {
+        
+        ResponseContextHolder.set(response);
 
-        String url = ((HttpServletRequest) request).getRequestURI();
+        String uri = ((HttpServletRequest) request).getRequestURI();
         for (String nolgin : NO_LOGIN_URL) {
-            if (url.contains(nolgin)) {
+            if (uri.startsWith(nolgin)) {
                 chain.doFilter(request, response);
                 return;
             }
         }
-        String token = request.getParameter(Constants.TOKEN);
+        String tokenStr = request.getParameter(Params.TOKEN);
 
-        if (StringUtils.isNotBlank(token)) {
+        Token token = null;
+        if (StringUtils.isNotBlank(tokenStr)) {
             // 基于token的认证
-            Token t = Token.decrypt(token);
-            if (t == null) {
-                Res res = new Res(Status.USER_NOT_LOGIN);
-                flush(request, response, res);
-                return;
-            }
-            UserContext.setUid(t.getUid());
-            User user = userService.get(t.getUid());
-            if (user == null) {
-                Res res = new Res(Status.USER_NOT_LOGIN);
-                flush(request, response, res);
-                return;
-            }
-            UserContext.setUser(user);
+            token = Token.decrypt(tokenStr);
         } else {
             // 基于cookie的认证
         }
+        if (token == null) {
+            Res res = new Res(Status.USER_NOT_LOGIN);
+            output(request, response, res);
+            return;
+        }
+        UserContext.setUid(token.getUid());
+        User user = userService.get(token.getUid());
+        if (user == null) {
+            Res res = new Res(Status.USER_NOT_LOGIN);
+            output(request, response, res);
+            return;
+        }
+        UserContext.setUser(user);
 
         // pass the request along the filter chain
         chain.doFilter(request, response);
@@ -92,7 +96,7 @@ public class AuthFilter implements Filter {
     public void init(FilterConfig fConfig) throws ServletException {
     }
 
-    private void flush(ServletRequest request, ServletResponse response, Res res) throws IOException {
+    private void output(ServletRequest request, ServletResponse response, Res res) throws IOException {
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
         PrintWriter out = response.getWriter();
         out.print(JSON.toJSONString(res));

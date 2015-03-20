@@ -13,11 +13,16 @@ public enum Status {
 
     ERROR(-1, "undefined error"),
     
-    PARAM_ERROR(400, "parameter %s is required."),
-    USER_REGISTERED(401, "username %s has registered."),
-    USER_NOT_LOGIN(401, "user doesn't login."),
-    USER_NOT_EXIST(401, "user not exist."),
-    USERNAME_OR_PASSWORD_ERROR(401, "username or password error."),
+    // 参数类错误
+    PARAM_ERROR(400, "参数(%s)未指定"),
+    USER_REGISTERED(400, "用户已被注册"),
+    USER_NOT_EXIST(400, "用户不存在"),
+    USERNAME_OR_PASSWORD_ERROR(400, "用户名或密码错误"),
+    // 未认证
+    USER_NOT_LOGIN(401, "用户未登录"),
+    // 禁止访问
+    APP_NOT_EXIST(403, "APP不存在"),
+    // 不存在
     NOT_EXIST(404, "%s");
 
     private int code;

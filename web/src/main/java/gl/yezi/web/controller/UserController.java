@@ -11,6 +11,7 @@ import gl.yezi.service.context.UserContext;
 import gl.yezi.service.user.UserService;
 import gl.yezi.service.utils.Utils;
 import gl.yezi.web.App;
+import gl.yezi.web.annotation.Auth;
 import gl.yezi.web.res.CaptchaMobileRes;
 import gl.yezi.web.res.LoginRes;
 import gl.yezi.web.res.Res;
@@ -125,40 +126,8 @@ public class UserController extends AbstractController {
         return login;
     }
     
-
-    @RequestMapping(value = "/user/{uid}", method = RequestMethod.PUT)
-    public Res update(@PathVariable int uid, @ModelAttribute User user,
-            @RequestParam(value = "appkey", defaultValue = "tbd") String appkey, @RequestParam int type) {
-        Res res = new Res();
-
-        return res;
-    }
-
-    @RequestMapping(value = "/user/{uid}", method = RequestMethod.GET)
-    public UserRes userInfo(@PathVariable int uid, @RequestParam(value = "appkey", defaultValue = "tbd") String appkey) {
-        UserRes userInfo = new UserRes();
-
-        App app = App.valueOfKey(appkey);
-        if (app == App.TBD) {
-            userInfo.setStatus(Status.PARAM_ERROR, "appkey");
-            return userInfo;
-        }
-
-        User user = userService.get(uid);
-        if (user == null) {
-            userInfo.setStatus(Status.USER_NOT_EXIST);
-            return userInfo;
-        }
-        userInfo.setLogin(user.getLogin());
-        userInfo.setNickname(user.getNickname());
-        userInfo.setEmail(user.getEmail());
-        userInfo.setMobile(user.getMobile());
-
-        return userInfo;
-    }
-
     @RequestMapping(value = "/captcha/mobile", method = RequestMethod.POST)
-    public CaptchaMobileRes mobileCaptchaCreate(@RequestParam String mobile) {
+    public CaptchaMobileRes captchaMobile(@RequestParam String mobile) {
 
         CaptchaMobileRes res = new CaptchaMobileRes();
 
@@ -182,16 +151,10 @@ public class UserController extends AbstractController {
 
         String captchaOrigin = cacheService.get(CacheKey.getMobileCaptchaKey(mobile));
         
-//        App app = App.valueOfKey(appkey);
-//        if (app == App.TBD) {
-//            res.setStatus(Status.PARAM_ERROR, "appkey");
-//            return res;
-//        }
-        
-//        if (!StringUtils.equals(captchaOrigin, captcha)) {
-//            res.setStatus(Status.PARAM_ERROR, "captcha");
-//            return res;
-//        }
+        if (!StringUtils.equals(captchaOrigin, captcha)) {
+            res.setStatus(Status.PARAM_ERROR, "captcha");
+            return res;
+        }
 
         User user = userService.getByLogin(mobile);
         if (user == null) {
@@ -207,10 +170,45 @@ public class UserController extends AbstractController {
         res.setNickname(user.getNickname());
         Token token = new Token(user.getId());
         res.setToken(token.encrypt());
+        res.setAvatar(user.getAvatar());
 
         return res;
     }
+
+    @Auth
+    @RequestMapping(value = "/user/{uid}", method = RequestMethod.PUT)
+    public Res update(@PathVariable int uid, @ModelAttribute User user,
+            @RequestParam(value = "appkey", defaultValue = "tbd") String appkey, @RequestParam int type) {
+        Res res = new Res();
+
+        return res;
+    }
+
+    @Auth
+    @RequestMapping(value = "/user/{uid}", method = RequestMethod.GET)
+    public UserRes userInfo(@PathVariable int uid, @RequestParam(value = "appkey", defaultValue = "tbd") String appkey) {
+        UserRes userInfo = new UserRes();
+
+        App app = App.valueOfKey(appkey);
+        if (app == App.TBD) {
+            userInfo.setStatus(Status.PARAM_ERROR, "appkey");
+            return userInfo;
+        }
+
+        User user = userService.get(uid);
+        if (user == null) {
+            userInfo.setStatus(Status.USER_NOT_EXIST);
+            return userInfo;
+        }
+        userInfo.setLogin(user.getLogin());
+        userInfo.setNickname(user.getNickname());
+        userInfo.setEmail(user.getEmail());
+        userInfo.setMobile(user.getMobile());
+
+        return userInfo;
+    }
     
+    @Auth
     @RequestMapping(value = "/user/address", method = RequestMethod.POST)
     public UserAddressRes userAddressAdd(@ModelAttribute UserAddress userAddress) {
         UserAddressRes res = new UserAddressRes();
@@ -223,6 +221,7 @@ public class UserController extends AbstractController {
         return res;
     }
     
+    @Auth
     @RequestMapping(value = "/user/address", method = RequestMethod.PUT)
     public UserAddressRes userAddressUpdate(@ModelAttribute UserAddress userAddress) {
         UserAddressRes res = new UserAddressRes();
@@ -234,6 +233,7 @@ public class UserController extends AbstractController {
         return res;
     }
     
+    @Auth
     @RequestMapping(value = "/user/addresses", method = RequestMethod.GET)
     public UserAddressListRes userAddresses() {
         UserAddressListRes res = new UserAddressListRes();

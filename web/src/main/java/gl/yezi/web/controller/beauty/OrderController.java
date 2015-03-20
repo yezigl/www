@@ -16,6 +16,7 @@ import gl.yezi.service.beauty.OrderService;
 import gl.yezi.service.context.UserContext;
 import gl.yezi.service.user.UserService;
 import gl.yezi.service.utils.Utils;
+import gl.yezi.web.annotation.Auth;
 import gl.yezi.web.controller.AbstractController;
 import gl.yezi.web.res.Status;
 import gl.yezi.web.res.beauty.BeauticianRes;
@@ -58,6 +59,7 @@ public class OrderController extends AbstractController {
     @Resource
     UserService userService;
 
+    @Auth
     @RequestMapping(value = "/order", method = RequestMethod.POST)
     public OrderCreateRes create(@RequestParam int dealId, @RequestParam int beauticianId,
             @RequestParam(defaultValue = "0") int couponId, @RequestParam int addressId,
@@ -114,6 +116,7 @@ public class OrderController extends AbstractController {
         return res;
     }
 
+    @Auth
     @RequestMapping(value = "/order", method = RequestMethod.PUT)
     public OrderCreateRes create(@RequestParam int orderId, @RequestParam(required = false) String startTime,
             @RequestParam(required = false) String endTime) {
@@ -123,6 +126,7 @@ public class OrderController extends AbstractController {
         return res;
     }
 
+    @Auth
     @RequestMapping(value = "/order/{orderId}", method = RequestMethod.GET)
     public OrderRes order(@PathVariable int orderId) {
         OrderRes res = new OrderRes();
@@ -138,6 +142,7 @@ public class OrderController extends AbstractController {
         return res;
     }
 
+    @Auth
     @RequestMapping(value = "/orders", method = RequestMethod.GET)
     public OrderListRes orderList(@RequestParam(defaultValue = "0") int offset,
             @RequestParam(defaultValue = "0") int status) {

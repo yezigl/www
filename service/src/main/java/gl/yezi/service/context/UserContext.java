@@ -37,4 +37,11 @@ public class UserContext {
     public static void setUser(User user) {
         RequestContextHolder.getRequestAttributes().setAttribute(CONTEXT_USER, user, RequestAttributes.SCOPE_REQUEST);
     }
+
+    /**
+     * @return
+     */
+    public static boolean isAuth() {
+        return RequestContextHolder.getRequestAttributes().getAttribute(CONTEXT_USER, RequestAttributes.SCOPE_REQUEST) != null;
+    }
 }

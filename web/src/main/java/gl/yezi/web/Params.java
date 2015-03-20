@@ -1,15 +1,15 @@
 /**
- * Copyright 2014 yezi.gl. All Rights Reserved.
+ * Copyright 2015 yezi.gl. All Rights Reserved.
  */
-package gl.yezi.service.utils;
+package gl.yezi.web;
 
 /**
  * description here
  *
  * @author yezi
- * @since 2014年11月9日
+ * @since 2015年3月21日
  */
-public class Constants {
+public class Params {
 
     public static final String TOKEN = "token";
     public static final String APP = "app";

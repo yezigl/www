@@ -15,6 +15,7 @@ import gl.yezi.service.beauty.DealService;
 import gl.yezi.service.beauty.FeedbackService;
 import gl.yezi.service.context.UserContext;
 import gl.yezi.service.utils.Utils;
+import gl.yezi.web.annotation.Auth;
 import gl.yezi.web.controller.AbstractController;
 import gl.yezi.web.res.UserRes;
 import gl.yezi.web.res.beauty.BeauticianRes;
@@ -48,6 +49,7 @@ public class FeedbackController extends AbstractController {
     @Resource
     BeauticianService beauticianService;
     
+    @Auth
     @RequestMapping(value = "/feedback", method = RequestMethod.POST)
     public FeedbackRes create(@ModelAttribute Feedback feedback,
             @RequestHeader(value = "X-Forwarded-For", required = false) String forwardIp,
