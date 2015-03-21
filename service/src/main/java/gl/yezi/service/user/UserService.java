@@ -29,7 +29,7 @@ public class UserService {
 
     @Resource
     UserDao userDao;
-    
+
     @Resource
     UserAddressDao userAddressDao;
 
@@ -47,7 +47,11 @@ public class UserService {
     public User get(int id) {
         return userDao.get(id);
     }
-    
+
+    public void update(User user) {
+        userDao.update(user);
+    }
+
     public int addAddress(UserAddress userAddress) {
         return userAddressDao.create(userAddress);
     }
@@ -64,4 +68,5 @@ public class UserService {
     public UserAddress getAddress(int id) {
         return userAddressDao.get(id);
     }
+
 }

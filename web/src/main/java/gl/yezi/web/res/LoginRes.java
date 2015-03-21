@@ -20,7 +20,7 @@ public class LoginRes extends Res {
     private static final long serialVersionUID = 1L;
 
     @JsonInclude(Include.NON_NULL)
-    private int uid;
+    private Integer uid;
     @JsonInclude(Include.NON_NULL)
     private String token;
     @JsonInclude(Include.NON_NULL)
@@ -30,11 +30,11 @@ public class LoginRes extends Res {
     @JsonInclude(Include.NON_NULL)
     private String avatar;
 
-    public int getUid() {
+    public Integer getUid() {
         return uid;
     }
 
-    public void setUid(int uid) {
+    public void setUid(Integer uid) {
         this.uid = uid;
     }
 

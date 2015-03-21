@@ -28,7 +28,6 @@ import javax.annotation.Resource;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -125,9 +124,10 @@ public class UserController extends AbstractController {
 
         return login;
     }
-    
+
     @RequestMapping(value = "/captcha/mobile", method = RequestMethod.POST)
-    public CaptchaMobileRes captchaMobile(@RequestParam String mobile) {
+    public CaptchaMobileRes captchaMobile(@RequestParam String mobile,
+            @RequestParam(value = "appkey", defaultValue = "tbd") String appkey) {
 
         CaptchaMobileRes res = new CaptchaMobileRes();
 
@@ -150,9 +150,9 @@ public class UserController extends AbstractController {
         LoginRes res = new LoginRes();
 
         String captchaOrigin = cacheService.get(CacheKey.getMobileCaptchaKey(mobile));
-        
+
         if (!StringUtils.equals(captchaOrigin, captcha)) {
-            res.setStatus(Status.PARAM_ERROR, "captcha");
+            res.setStatus(Status.CAPTCHA_ERROR);
             return res;
         }
 
@@ -176,28 +176,25 @@ public class UserController extends AbstractController {
     }
 
     @Auth
-    @RequestMapping(value = "/user/{uid}", method = RequestMethod.PUT)
-    public Res update(@PathVariable int uid, @ModelAttribute User user,
-            @RequestParam(value = "appkey", defaultValue = "tbd") String appkey, @RequestParam int type) {
+    @RequestMapping(value = "/user/me", method = RequestMethod.PUT)
+    public Res update(@ModelAttribute User user) {
         Res res = new Res();
+
+        User current = UserContext.getUser();
+
+        userService.update(current);
 
         return res;
     }
 
     @Auth
-    @RequestMapping(value = "/user/{uid}", method = RequestMethod.GET)
-    public UserRes userInfo(@PathVariable int uid, @RequestParam(value = "appkey", defaultValue = "tbd") String appkey) {
+    @RequestMapping(value = "/user/me", method = RequestMethod.GET)
+    public UserRes me() {
         UserRes userInfo = new UserRes();
 
-        App app = App.valueOfKey(appkey);
-        if (app == App.TBD) {
-            userInfo.setStatus(Status.PARAM_ERROR, "appkey");
-            return userInfo;
-        }
-
-        User user = userService.get(uid);
+        User user = UserContext.getUser();
         if (user == null) {
-            userInfo.setStatus(Status.USER_NOT_EXIST);
+            userInfo.setStatus(Status.USER_NOT_LOGIN);
             return userInfo;
         }
         userInfo.setLogin(user.getLogin());
@@ -207,42 +204,42 @@ public class UserController extends AbstractController {
 
         return userInfo;
     }
-    
+
     @Auth
     @RequestMapping(value = "/user/address", method = RequestMethod.POST)
     public UserAddressRes userAddressAdd(@ModelAttribute UserAddress userAddress) {
         UserAddressRes res = new UserAddressRes();
-        
+
         User user = UserContext.getUser();
         userAddress.setUserId(user.getId());
         int id = userService.addAddress(userAddress);
         res.setId(id);
-        
+
         return res;
     }
-    
+
     @Auth
     @RequestMapping(value = "/user/address", method = RequestMethod.PUT)
     public UserAddressRes userAddressUpdate(@ModelAttribute UserAddress userAddress) {
         UserAddressRes res = new UserAddressRes();
-        
+
         User user = UserContext.getUser();
         userAddress.setUserId(user.getId());
         userService.updateAddress(userAddress);
-        
+
         return res;
     }
-    
+
     @Auth
     @RequestMapping(value = "/user/addresses", method = RequestMethod.GET)
     public UserAddressListRes userAddresses() {
         UserAddressListRes res = new UserAddressListRes();
-        
+
         List<UserAddress> list = userService.getAddressList();
         for (UserAddress userAddress : list) {
             res.addAddress(new UserAddressRes(userAddress));
         }
-        
+
         return res;
     }
 }

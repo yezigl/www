@@ -18,6 +18,7 @@ public enum Status {
     USER_REGISTERED(400, "用户已被注册"),
     USER_NOT_EXIST(400, "用户不存在"),
     USERNAME_OR_PASSWORD_ERROR(400, "用户名或密码错误"),
+    CAPTCHA_ERROR(400, "验证码错误"),
     // 未认证
     USER_NOT_LOGIN(401, "用户未登录"),
     // 禁止访问

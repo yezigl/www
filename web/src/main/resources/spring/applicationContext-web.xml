@@ -11,10 +11,4 @@
 
     <bean id="authFilter" class="gl.yezi.web.filter.AuthFilter"></bean>
 
-    <!-- <mvc:interceptors>
-        <mvc:interceptor>
-            <mvc:mapping path="/1/**" />
-            <bean class="gl.yezi.web.interceptor.AppInterceptor" />
-        </mvc:interceptor>
-    </mvc:interceptors> -->
 </beans>

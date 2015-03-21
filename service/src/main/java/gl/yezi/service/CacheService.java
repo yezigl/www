@@ -3,6 +3,8 @@
  */
 package gl.yezi.service;
 
+import gl.yezi.data.cache.SimpleInnerCache;
+
 import org.springframework.stereotype.Service;
 
 /**
@@ -13,13 +15,15 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class CacheService {
+    
+    private SimpleInnerCache<String, Object> innerCache = new SimpleInnerCache<>();
 
     public boolean set(String key, Object value, int expire) {
-        
+        innerCache.put(key, value, expire);
         return true;
     }
     
     public String get(String key) {
-        return "123456";
+        return String.valueOf(innerCache.get(key));
     }
 }
