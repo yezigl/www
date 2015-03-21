@@ -6,11 +6,8 @@ import gl.yezi.service.context.UserContext;
 import gl.yezi.service.user.UserService;
 import gl.yezi.web.Params;
 import gl.yezi.web.holder.ResponseContextHolder;
-import gl.yezi.web.res.Res;
-import gl.yezi.web.res.Status;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import javax.annotation.Resource;
 import javax.servlet.Filter;
@@ -22,9 +19,6 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.http.MediaType;
-
-import com.alibaba.fastjson.JSON;
 
 /**
  * Servlet Filter implementation class AuthFilter
@@ -53,7 +47,7 @@ public class AuthFilter implements Filter {
      */
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException,
             ServletException {
-        
+
         ResponseContextHolder.set(response);
 
         String uri = ((HttpServletRequest) request).getRequestURI();
@@ -72,19 +66,11 @@ public class AuthFilter implements Filter {
         } else {
             // 基于cookie的认证
         }
-        if (token == null) {
-            Res res = new Res(Status.USER_NOT_LOGIN);
-            output(request, response, res);
-            return;
+        if (token != null) {
+            UserContext.setUid(token.getUid());
+            User user = userService.get(token.getUid());
+            UserContext.setUser(user);
         }
-        UserContext.setUid(token.getUid());
-        User user = userService.get(token.getUid());
-        if (user == null) {
-            Res res = new Res(Status.USER_NOT_LOGIN);
-            output(request, response, res);
-            return;
-        }
-        UserContext.setUser(user);
 
         // pass the request along the filter chain
         chain.doFilter(request, response);
@@ -96,11 +82,4 @@ public class AuthFilter implements Filter {
     public void init(FilterConfig fConfig) throws ServletException {
     }
 
-    private void output(ServletRequest request, ServletResponse response, Res res) throws IOException {
-        response.setContentType(MediaType.APPLICATION_JSON_VALUE);
-        PrintWriter out = response.getWriter();
-        out.print(JSON.toJSONString(res));
-        out.flush();
-        out.close();
-    }
 }
