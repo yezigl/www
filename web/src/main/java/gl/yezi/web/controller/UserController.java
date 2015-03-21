@@ -160,7 +160,8 @@ public class UserController extends AbstractController {
         if (user == null) {
             user = new User();
             user.setLogin(mobile);
-            user.setNickname(mobile);
+            user.setNickname("");
+            user.setMobile(mobile);
             user.setRegip(Utils.getClientIP(forwardIp, realIp));
             int id = userService.register(user);
             user.setId(id);
@@ -168,6 +169,7 @@ public class UserController extends AbstractController {
         res.setUid(user.getId());
         res.setLogin(user.getLogin());
         res.setNickname(user.getNickname());
+        res.setMobile(user.getMobile());
         Token token = new Token(user.getId());
         res.setToken(token.encrypt());
         res.setAvatar(user.getAvatar());

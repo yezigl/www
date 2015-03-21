@@ -29,6 +29,8 @@ public class LoginRes extends Res {
     private String nickname;
     @JsonInclude(Include.NON_NULL)
     private String avatar;
+    @JsonInclude(Include.NON_NULL)
+    private String mobile;
 
     public Integer getUid() {
         return uid;
@@ -68,6 +70,14 @@ public class LoginRes extends Res {
 
     public void setAvatar(String avatar) {
         this.avatar = avatar;
+    }
+
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
     }
 
 }
