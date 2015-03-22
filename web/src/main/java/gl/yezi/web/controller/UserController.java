@@ -163,8 +163,7 @@ public class UserController extends AbstractController {
             user.setNickname("");
             user.setMobile(mobile);
             user.setRegip(Utils.getClientIP(forwardIp, realIp));
-            int id = userService.register(user);
-            user.setId(id);
+            userService.register(user);
         }
         res.setUid(user.getId());
         res.setLogin(user.getLogin());
