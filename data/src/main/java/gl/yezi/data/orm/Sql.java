@@ -61,8 +61,8 @@ public class Sql {
 
     public String generateInsert(String table) {
         StringBuilder builder = new StringBuilder();
-        builder.append("@Insert(\"INSERT INTO ");
-        builder.append(table).append(" (");
+        builder.append("@Insert(\"INSERT INTO `");
+        builder.append(table).append("` (");
         builder.append(StringUtils.join(columnList, ", "));
         builder.append(") VALUES (");
         builder.append(StringUtils.join(valueList, ", "));
@@ -75,7 +75,7 @@ public class Sql {
 
     public String generateSelect(String table) {
         StringBuilder builder = new StringBuilder();
-        builder.append("@Select(\"SELECT * FROM " + table + " WHERE id = #{id}\")\n");
+        builder.append("@Select(\"SELECT * FROM `" + table + "` WHERE id = #{id}\")\n");
         builder.append("    @Results({\n");
         builder.append(StringUtils.join(cvList, ",\n") + "\n");
         builder.append("    })");
@@ -84,7 +84,7 @@ public class Sql {
 
     public String generateUpdate(String table) {
         StringBuilder builder = new StringBuilder();
-        builder.append("@Update(\"UPDATE " + table + " SET ");
+        builder.append("@Update(\"UPDATE `" + table + "` SET ");
         builder.append(StringUtils.join(cvList, ", "));
         builder.append(" WHERE id = #{id}\")");
         return builder.toString();

@@ -3,8 +3,15 @@
  */
 package gl.yezi.web.res;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.io.Serializable;
 
+import javax.servlet.ServletResponse;
+
+import org.springframework.http.MediaType;
+
+import com.alibaba.fastjson.JSON;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
@@ -55,7 +62,13 @@ public class Res implements Serializable {
     public void setStatus(Status status, Object... args) {
         this.code = status.code();
         this.msg = String.format(status.msg(), args);
-        
     }
 
+    public void output(ServletResponse response, Res res) throws IOException {
+        response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+        PrintWriter out = response.getWriter();
+        out.print(JSON.toJSONString(res));
+        out.flush();
+        out.close();
+    }
 }

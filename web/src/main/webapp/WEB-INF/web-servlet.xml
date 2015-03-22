@@ -56,11 +56,11 @@
 
     <mvc:view-controller path="/" view-name="index" />
     
-    <!-- <mvc:interceptors>
+    <mvc:interceptors>
         <mvc:interceptor>
             <mvc:mapping path="/1/**" />
             <bean class="gl.yezi.web.interceptor.AppInterceptor" />
         </mvc:interceptor>
-    </mvc:interceptors> -->
+    </mvc:interceptors>
 
 </beans>

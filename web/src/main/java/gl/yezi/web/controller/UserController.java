@@ -213,8 +213,7 @@ public class UserController extends AbstractController {
 
         User user = UserContext.getUser();
         userAddress.setUserId(user.getId());
-        int id = userService.addAddress(userAddress);
-        res.setId(id);
+        userService.addAddress(userAddress);
 
         return res;
     }

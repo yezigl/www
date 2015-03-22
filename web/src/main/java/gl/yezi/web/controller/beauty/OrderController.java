@@ -98,10 +98,10 @@ public class OrderController extends AbstractController {
         order.setUserId(UserContext.getUid());
         order.setStatus(Order.STATUS_TOPAY);
 
-        int id = orderService.create(order);
-        if (id > 0) {
+        orderService.create(order);
+        if (order.getId() > 0) {
             BeauticianTime bt = new BeauticianTime();
-            bt.setOrderId(id);
+            bt.setOrderId(order.getId());
             bt.setBeauticianId(beauticianId);
             bt.setStatus(BeauticianTime.STATUS_TODO);
             bt.setStartTime(st);
@@ -109,7 +109,7 @@ public class OrderController extends AbstractController {
             orderService.addHomeTime(bt);
         }
 
-        res.setId(id);
+        res.setId(order.getId());
         res.setCtime(order.getCtime());
         res.setPayPrice(order.getAmount() - order.getDiscount());
 
