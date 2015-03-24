@@ -19,11 +19,11 @@
     </typeAliases>
 
     <typeHandlers>
-        <typeHandler handler="gl.yezi.data.orm.IntArrayTypeHandler" />
+        <typeHandler handler="com.mm.data.orm.IntArrayTypeHandler" />
     </typeHandlers>
 
     <plugins>
-        <plugin interceptor="gl.yezi.data.page.PaginationIntercepter"></plugin>
+        <plugin interceptor="com.mm.data.page.PaginationIntercepter"></plugin>
     </plugins>
 
 </configuration>

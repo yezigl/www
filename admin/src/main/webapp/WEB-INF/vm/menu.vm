@@ -1,0 +1,13 @@
+<ul class="nav nav-sidebar">
+    <li #if($category == "index") class="active" #end><a href="/">首页</span></a></li>
+    <li #if($category == "deal") class="active" #end><a href="/beauty/deals">项目管理</a></li>
+    <li #if($category == "beautician") class="active" #end><a href="/beauty/beauticians">技师管理</a></li>
+    <li #if($category == "user") class="active" #end><a href="/beauty/users">用户管理</a></li>
+    <li #if($category == "order") class="active" #end><a href="/beauty/orders">订单管理</a></li>
+</ul>
+<ul class="nav nav-sidebar">
+    <li><a href="">TODO</a></li>
+</ul>
+<ul class="nav nav-sidebar">
+    <li><a href="">TBD</a></li>
+</ul>

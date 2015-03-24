@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+#parse("head.vm")
+<link rel="stylesheet" href="/css/dashboard.css">
+<title>项目详情 - $deal.title</title>
+</head>
+<body>
+    #parse("/navbar.vm")
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-3 col-md-2 sidebar">
+                #parse("/menu.vm")
+            </div>
+            <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+                <h2 class="page-header">项目详情</h2>
+                <div class="row">
+                </div>
+
+                <h3 class="sub-header">Section title</h3>
+                <div class="table-responsive">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+    #parse("/footer.vm")
+</body>
+</html>

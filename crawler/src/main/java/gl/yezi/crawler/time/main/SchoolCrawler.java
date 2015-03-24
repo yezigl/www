@@ -3,10 +3,6 @@
  */
 package gl.yezi.crawler.time.main;
 
-import gl.yezi.data.dao.time.SchoolDao;
-import gl.yezi.data.model.time.School;
-import gl.yezi.service.utils.HttpUtils;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -17,6 +13,10 @@ import javax.annotation.Resource;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.stereotype.Service;
+
+import com.mm.data.dao.time.SchoolDao;
+import com.mm.data.model.time.School;
+import com.mm.service.utils.HttpUtils;
 
 /**
  * description here

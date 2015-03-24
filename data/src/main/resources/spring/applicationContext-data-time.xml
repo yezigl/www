@@ -7,7 +7,7 @@
     http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
     http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
 
-    <context:component-scan base-package="gl.yezi.data.dao.time" />
+    <context:component-scan base-package="com.mm.data.dao.time" />
 
     <bean id="timeDataSource" class="org.apache.tomcat.jdbc.pool.DataSource" destroy-method="close">
         <property name="driverClassName" value="${time.db.jdbc.driverClassName}" />
@@ -34,7 +34,7 @@
     </bean>
 
     <bean id="timeMapperScannerConfigurer" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="gl.yezi.data.mapper.time" />
+        <property name="basePackage" value="com.mm.data.mapper.time" />
         <property name="sqlSessionFactoryBeanName" value="timeSqlSessionFactory" />
     </bean>
     

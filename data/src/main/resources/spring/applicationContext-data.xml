@@ -7,7 +7,7 @@
     http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
     http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
 
-    <context:component-scan base-package="gl.yezi.data.dao.user" />
+    <context:component-scan base-package="com.mm.data.dao.user" />
 
     <bean id="userDataSource" class="org.apache.tomcat.jdbc.pool.DataSource" destroy-method="close">
         <property name="driverClassName" value="${user.db.jdbc.driverClassName}" />
@@ -34,7 +34,7 @@
     </bean>
 
     <bean id="userMapperScannerConfigurer" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="gl.yezi.data.mapper.user" />
+        <property name="basePackage" value="com.mm.data.mapper.user" />
         <property name="sqlSessionFactoryBeanName" value="userSqlSessionFactory" />
     </bean>
 

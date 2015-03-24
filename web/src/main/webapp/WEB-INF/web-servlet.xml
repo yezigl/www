@@ -8,7 +8,7 @@
         http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
 
     <!-- Scans the classpath of this application for @Components to deploy as beans -->
-    <context:component-scan base-package="gl.yezi.web" />
+    <context:component-scan base-package="com.mm.web" />
 
     <mvc:annotation-driven>
     </mvc:annotation-driven>
@@ -39,7 +39,7 @@
         </property>
     </bean>
 
-    <bean id="exceptionResolver" class="gl.yezi.web.MyMappingExceptionResolver">
+    <bean id="exceptionResolver" class="com.mm.web.MyMappingExceptionResolver">
         <property name="exceptionMappings">
             <props>
                 <prop key="java.lang.RuntimeException">error</prop>
@@ -59,7 +59,7 @@
     <mvc:interceptors>
         <mvc:interceptor>
             <mvc:mapping path="/1/**" />
-            <bean class="gl.yezi.web.interceptor.AppInterceptor" />
+            <bean class="com.mm.web.interceptor.AppInterceptor" />
         </mvc:interceptor>
     </mvc:interceptors>
 
