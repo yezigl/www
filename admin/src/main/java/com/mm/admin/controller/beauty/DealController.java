@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.mm.admin.controller.BaseController;
 import com.mm.data.model.beauty.Deal;
@@ -66,5 +67,16 @@ public class DealController extends BaseController {
         model.addAttribute("flows", flows);
         
         return vm("deal");
+    }
+    
+    @RequestMapping(value = "/deal/add", method = RequestMethod.GET)
+    public String dealAddPGet(Model model) {
+        return vm("dealadd");
+    }
+    
+    @RequestMapping(value = "/deal/add", method = RequestMethod.POST)
+    @ResponseBody
+    public String dealAddPost(Model model) {
+        return vm("dealadd");
     }
 }
