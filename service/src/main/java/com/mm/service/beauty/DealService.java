@@ -28,20 +28,20 @@ import com.mm.service.BaseService;
  */
 @Service
 public class DealService extends BaseService {
-    
+
     @Resource
     DealDao dealDao;
-    
+
     @Resource
     ProductDao productDao;
-    
+
     @Resource
     FlowDao flowDao;
 
     public List<Deal> getList(int offset, int limit) {
         return dealDao.getList(offset, limit);
     }
-    
+
     public List<Product> getProducts(Deal deal) {
         if (StringUtils.isNotBlank(deal.getComponent())) {
             String[] products = StringUtils.split(deal.getComponent(), SPLIT);
@@ -60,7 +60,7 @@ public class DealService extends BaseService {
         }
         return dealDao.get(dealId);
     }
-    
+
     public List<Flow> getFlows(Deal deal) {
         if (StringUtils.isNotBlank(deal.getFlow())) {
             String[] flows = StringUtils.split(deal.getFlow(), SPLIT);
@@ -72,11 +72,15 @@ public class DealService extends BaseService {
         }
         return new ArrayList<Flow>();
     }
-    
+
     public Product getProduct(int productId) {
         if (productId <= 0) {
             return null;
         }
         return productDao.get(productId);
+    }
+
+    public int addProduct(Product product) {
+        return productDao.create(product);
     }
 }

@@ -8,7 +8,6 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,12 +27,10 @@ import com.mm.service.beauty.DealService;
  * description here
  *
  * @author yezi
- * @since 2015年3月24日
+ * @since 2015年3月29日
  */
-@Controller
-@RequestMapping("/beauty")
-public class DealController extends BaseController {
-    
+public class ProductController extends BaseController {
+
     @Resource
     DealService dealService;
     
@@ -41,13 +38,13 @@ public class DealController extends BaseController {
     protected String vmtpl() {
         return "deal";
     }
-    
+
     @Override
     protected String category() {
-        return "deal";
+        return "product";
     }
 
-    @RequestMapping(value = "/deals", method = RequestMethod.GET)
+    @RequestMapping(value = "/products", method = RequestMethod.GET)
     public String deals(Model model, @RequestParam(defaultValue = "0") int offset) {
         
         List<Deal> deals = dealService.getList(offset, 10);

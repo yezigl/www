@@ -1,0 +1,7 @@
+/**
+ * 
+ */
+// add deal
+function initAdd() {
+    
+}

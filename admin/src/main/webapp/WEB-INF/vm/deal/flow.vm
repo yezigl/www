@@ -1,0 +1,9 @@
+<div class="thumbnail">
+    <img src="">
+    <div class="caption">
+        <p>
+            <a href="#" class="btn btn-primary btn-sm" role="button">修改</a>
+            <a href="#" class="btn btn-default btn-sm" role="button">删除</a>
+        </p>
+    </div>
+</div>

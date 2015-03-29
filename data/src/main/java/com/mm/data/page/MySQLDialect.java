@@ -15,7 +15,7 @@ public class MySQLDialect extends Dialect {
     public String getLimitString(String originSql, int offset, int limit) {
         String sql = getLineSql(originSql);
 
-        sql = sql + " limit " + offset + " ," + limit;
+        sql = sql + " limit " + offset + ", " + limit;
 
         return sql;
     }

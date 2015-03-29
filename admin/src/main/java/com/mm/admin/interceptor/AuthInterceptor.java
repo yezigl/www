@@ -40,10 +40,8 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
         }
 
         AclUser aclUser = CookieUtils.getLoginUser(request);
-        System.out.println(aclUser);
         if (aclUser != null) {
             aclUser = aclUserService.get(aclUser.getId());
-            System.out.println(aclUser);
         }
         if (aclUser == null) {
             if (ru == null) {
