@@ -3,6 +3,9 @@
  */
 package com.mm.web.controller.beauty;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -28,10 +31,18 @@ public class BeautyController extends AbstractController {
     }
     
     @RequestMapping(value = "/promotions", method = RequestMethod.GET)
-    public PromotionRes promotions() {
-        PromotionRes res = new PromotionRes();
+    public List<PromotionRes> promotions() {
+        List<PromotionRes> list = new ArrayList<PromotionRes>();
         
+        PromotionRes res1 = new PromotionRes();
+        res1.setImgUrl("http://p1.meituan.net/mmc/dbc70b32f22415bc55d1523d7141735c18365.jpg.webp");
+        res1.setRedirectUrl("http://www.meituan.com/");
+        PromotionRes res2 = new PromotionRes();
+        res2.setImgUrl("http://www.dpfile.com/toevent/img/f41a299264f2c8d38d3ab7697366a6b5.jpg");
+        res2.setRedirectUrl("http://www.dianping.com/");
+        list.add(res1);
+        list.add(res2);
         
-        return res;
+        return list;
     }
 }

@@ -79,14 +79,17 @@ public class DealController extends BaseController {
     
     @RequestMapping(value = "/deal/add", method = RequestMethod.POST)
     @ResponseBody
-    public Map<String, Object> dealAddPost(@ModelAttribute Product product) {
+    public Map<String, Object> dealAddPost(@ModelAttribute Deal deal) {
         ModelAndView mv = new ModelAndView();
         
-        dealService.addProduct(product);
+        if (deal.getId() != 0) {
+            dealService.update(deal);
+        } else {
+            dealService.create(deal);
+        }
         
-        mv.addObject("id", product.getId());
-        mv.addObject("name", product.getName());
-        mv.addObject("imgUrl", product.getImgUrl());
+        mv.addObject("code", 200);
+        mv.addObject("msg", "ok");
         
         return mv.getModel();
     }

@@ -40,4 +40,13 @@ public interface ProductMapper {
         @Result(column = "efficacy", property = "efficacy")
     })
     List<Product> getList(@Param("ids") int[] ids);
+
+    @Select("SELECT * FROM product")
+    @Results({ 
+        @Result(column = "id", property = "id"), 
+        @Result(column = "name", property = "name"),
+        @Result(column = "applicable", property = "applicable"),
+        @Result(column = "efficacy", property = "efficacy")
+    })
+    List<Product> getAll();
 }

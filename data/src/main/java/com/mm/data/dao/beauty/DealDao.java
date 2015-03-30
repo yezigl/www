@@ -24,8 +24,8 @@ public class DealDao {
         return dealMapper.get(id);
     }
 
-    public void update(Deal deal) {
-        dealMapper.update(deal);
+    public int update(Deal deal) {
+        return dealMapper.update(deal);
     }
 
     /**

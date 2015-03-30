@@ -23,11 +23,15 @@ public class ProductDao {
         return productMapper.get(id);
     }
 
-    public void update(Product product) {
-        productMapper.update(product);
+    public int update(Product product) {
+        return productMapper.update(product);
     }
 
     public List<Product> getList(int... ids) {
         return productMapper.getList(ids);
+    }
+
+    public List<Product> getAll() {
+        return productMapper.getAll();
     }
 }

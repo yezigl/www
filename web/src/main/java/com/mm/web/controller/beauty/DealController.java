@@ -17,6 +17,7 @@ import com.mm.data.model.beauty.Deal;
 import com.mm.data.model.beauty.Flow;
 import com.mm.data.model.beauty.Product;
 import com.mm.service.beauty.DealService;
+import com.mm.service.beauty.ProductService;
 import com.mm.web.controller.AbstractController;
 import com.mm.web.res.Status;
 import com.mm.web.res.beauty.DealListRes;
@@ -36,6 +37,9 @@ public class DealController extends AbstractController {
 
     @Resource
     DealService dealService;
+    
+    @Resource
+    ProductService productService;
 
     @RequestMapping(value = "/deals", method = RequestMethod.GET)
     public DealListRes dealList(@RequestParam(defaultValue = "0") int offset) {
@@ -81,11 +85,11 @@ public class DealController extends AbstractController {
         return res;
     }
     
-    @RequestMapping(value = "/deal/product/{productId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/product/{productId}", method = RequestMethod.GET)
     public ProductRes product(@PathVariable int productId) {
         ProductRes res = new ProductRes();
         
-        Product product = dealService.getProduct(productId);
+        Product product = productService.get(productId);
         if (product == null) {
             res.setStatus(Status.NOT_EXIST, "产品不存在");
             return res;

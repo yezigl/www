@@ -4,6 +4,7 @@
 package com.mm.service.beauty;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -73,14 +74,27 @@ public class DealService extends BaseService {
         return new ArrayList<Flow>();
     }
 
-    public Product getProduct(int productId) {
-        if (productId <= 0) {
-            return null;
-        }
-        return productDao.get(productId);
+    public int create(Deal deal) {
+        return dealDao.create(deal);
     }
 
-    public int addProduct(Product product) {
-        return productDao.create(product);
+    public int update(Deal deal) {
+        Deal old = get(deal.getId());
+        old.setComponent(deal.getComponent());
+        old.setContent(deal.getContent());
+        old.setCosttime(deal.getCosttime());
+        old.setDescription(deal.getDescription());
+        old.setEfficacy(deal.getEfficacy());
+        old.setFlow(deal.getFlow());
+        old.setGallery(deal.getGallery());
+        old.setImgUrl(deal.getImgUrl());
+        old.setPrice(deal.getPrice());
+        old.setSpecial(deal.getSpecial());
+        old.setTitle(deal.getTitle());
+        old.setType(deal.getType());
+        old.setUtime(new Date());
+        old.setValue(deal.getValue());
+        
+        return dealDao.update(old);
     }
 }

@@ -18,10 +18,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.mm.admin.controller.BaseController;
-import com.mm.data.model.beauty.Deal;
-import com.mm.data.model.beauty.Flow;
 import com.mm.data.model.beauty.Product;
-import com.mm.service.beauty.DealService;
+import com.mm.service.beauty.ProductService;
 
 /**
  * description here
@@ -32,7 +30,7 @@ import com.mm.service.beauty.DealService;
 public class ProductController extends BaseController {
 
     @Resource
-    DealService dealService;
+    ProductService productService;
     
     @Override
     protected String vmtpl() {
@@ -47,31 +45,26 @@ public class ProductController extends BaseController {
     @RequestMapping(value = "/products", method = RequestMethod.GET)
     public String deals(Model model, @RequestParam(defaultValue = "0") int offset) {
         
-        List<Deal> deals = dealService.getList(offset, 10);
+        List<Product> products = productService.getAll();
         
-        model.addAttribute("deals", deals);
-        
-        return vm("deals");
-    }
-    
-    @RequestMapping(value = "/deal/{dealId}", method = RequestMethod.GET)
-    public String deal(Model model, @PathVariable int dealId) {
-        
-        Deal deal = dealService.get(dealId);
-        
-        List<Product> products = dealService.getProducts(deal);
-        List<Flow> flows = dealService.getFlows(deal);
-        
-        model.addAttribute("deal", deal);
         model.addAttribute("products", products);
-        model.addAttribute("flows", flows);
         
-        return vm("deal");
+        return vm("products");
     }
     
-    @RequestMapping(value = "/deal/add", method = RequestMethod.GET)
+    @RequestMapping(value = "/product/{productId}", method = RequestMethod.GET)
+    public String product(Model model, @PathVariable int productId) {
+        
+        Product product = productService.get(productId);
+        
+        model.addAttribute("product", product);
+        
+        return vm("product");
+    }
+    
+    @RequestMapping(value = "/product/add", method = RequestMethod.GET)
     public String dealAddPGet(Model model) {
-        return vm("dealadd");
+        return vm("productadd");
     }
     
     @RequestMapping(value = "/deal/add", method = RequestMethod.POST)
@@ -79,7 +72,11 @@ public class ProductController extends BaseController {
     public Map<String, Object> dealAddPost(@ModelAttribute Product product) {
         ModelAndView mv = new ModelAndView();
         
-        dealService.addProduct(product);
+        if (product.getId() != 0) {
+            productService.update(product);
+        } else {
+            productService.create(product);
+        }
         
         mv.addObject("id", product.getId());
         mv.addObject("name", product.getName());
