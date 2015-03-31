@@ -1,5 +1,7 @@
 package com.mm.data.dao.beauty;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Repository;
@@ -23,5 +25,9 @@ public class BeauticianDealDao {
 
     public void update(BeauticianDeal beauticiandeal) {
         beauticiandealMapper.update(beauticiandeal);
+    }
+
+    public List<Integer> getDealIdsByBeautician(int beauticianId) {
+        return beauticiandealMapper.getListByBeautician(beauticianId);
     }
 }

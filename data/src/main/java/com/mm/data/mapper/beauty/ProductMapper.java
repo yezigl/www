@@ -14,7 +14,7 @@ import com.mm.data.model.beauty.Product;
 
 public interface ProductMapper {
 
-    @Insert("INSERT INTO product (name, applicable, efficacy) VALUES (#{name}, #{applicable}, #{efficacy})")
+    @Insert("INSERT INTO product (name, applicable, efficacy, brand, imgurl, status) VALUES (#{name}, #{applicable}, #{efficacy}, #{brand}, #{imgUrl}, #{status})")
     @Options(useGeneratedKeys = true, keyProperty = "id", keyColumn = "id")
     int create(Product product);
 
@@ -23,11 +23,14 @@ public interface ProductMapper {
         @Result(column = "id", property = "id"), 
         @Result(column = "name", property = "name"),
         @Result(column = "applicable", property = "applicable"),
-        @Result(column = "efficacy", property = "efficacy")
+        @Result(column = "efficacy", property = "efficacy"),
+        @Result(column = "brand", property = "brand"),
+        @Result(column = "imgurl", property = "imgUrl"),
+        @Result(column = "status", property = "status"),
     })
     Product get(int id);
 
-    @Update("UPDATE product SET name = #{name}, applicable = #{applicable}, efficacy = #{efficacy} WHERE id = #{id}")
+    @Update("UPDATE product SET name = #{name}, applicable = #{applicable}, efficacy = #{efficacy}, brand = #{brand}, imgurl = #{imgUrl}, status = #{status} WHERE id = #{id}")
     int update(Product product);
 
     @Select({ "<script>", "SELECT * FROM product WHERE id IN",
@@ -37,7 +40,10 @@ public interface ProductMapper {
         @Result(column = "id", property = "id"), 
         @Result(column = "name", property = "name"),
         @Result(column = "applicable", property = "applicable"),
-        @Result(column = "efficacy", property = "efficacy")
+        @Result(column = "efficacy", property = "efficacy"),
+        @Result(column = "brand", property = "brand"),
+        @Result(column = "imgurl", property = "imgUrl"),
+        @Result(column = "status", property = "status"),
     })
     List<Product> getList(@Param("ids") int[] ids);
 
@@ -46,7 +52,10 @@ public interface ProductMapper {
         @Result(column = "id", property = "id"), 
         @Result(column = "name", property = "name"),
         @Result(column = "applicable", property = "applicable"),
-        @Result(column = "efficacy", property = "efficacy")
+        @Result(column = "efficacy", property = "efficacy"),
+        @Result(column = "brand", property = "brand"),
+        @Result(column = "imgurl", property = "imgUrl"),
+        @Result(column = "status", property = "status"),
     })
     List<Product> getAll();
 }

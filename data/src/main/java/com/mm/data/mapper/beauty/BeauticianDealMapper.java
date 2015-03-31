@@ -1,5 +1,7 @@
 package com.mm.data.mapper.beauty;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Result;
@@ -30,4 +32,7 @@ public interface BeauticianDealMapper {
 
     @Update("UPDATE beauticiandeal SET beauticianid = #{beauticianId}, dealid = #{dealId}, avgsorce = #{avgSorce}, subscore = #{subScore}, status = #{status}, ctime = #{ctime}, utime = #{utime} WHERE id = #{id}")
     int update(BeauticianDeal beauticiandeal);
+
+    @Select("SELECT dealId FROM beauticiandeal WHERE beauticianId = #{beauticianId}")
+    List<Integer> getListByBeautician(int beauticianId);
 }

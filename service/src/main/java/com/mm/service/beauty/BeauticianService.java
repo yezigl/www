@@ -10,6 +10,8 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import com.mm.data.dao.beauty.BeauticianDao;
+import com.mm.data.dao.beauty.BeauticianDealDao;
+import com.mm.data.dao.beauty.BeauticianTimeDao;
 import com.mm.data.model.beauty.Beautician;
 import com.mm.service.BaseService;
 
@@ -24,6 +26,12 @@ public class BeauticianService extends BaseService {
     
     @Resource
     BeauticianDao beauticianDao;
+    
+    @Resource
+    BeauticianDealDao beauticianDealDao;
+    
+    @Resource
+    BeauticianTimeDao beauticianTimeDao;
 
     public Beautician get(int id) {
         if (id <= 0) {
@@ -34,5 +42,9 @@ public class BeauticianService extends BaseService {
     
     public List<Beautician> getList(int offset, int limit) {
         return beauticianDao.getList(offset, limit);
+    }
+    
+    public List<Integer> getDealIds(int beauticianId) {
+        return beauticianDealDao.getDealIdsByBeautician(beauticianId);
     }
 }

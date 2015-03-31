@@ -8,6 +8,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,6 +28,8 @@ import com.mm.service.beauty.ProductService;
  * @author yezi
  * @since 2015年3月29日
  */
+@Controller
+@RequestMapping("/beauty")
 public class ProductController extends BaseController {
 
     @Resource
@@ -34,7 +37,7 @@ public class ProductController extends BaseController {
     
     @Override
     protected String vmtpl() {
-        return "deal";
+        return "product";
     }
 
     @Override
@@ -67,7 +70,7 @@ public class ProductController extends BaseController {
         return vm("productadd");
     }
     
-    @RequestMapping(value = "/deal/add", method = RequestMethod.POST)
+    @RequestMapping(value = "/product/add", method = RequestMethod.POST)
     @ResponseBody
     public Map<String, Object> dealAddPost(@ModelAttribute Product product) {
         ModelAndView mv = new ModelAndView();
@@ -81,6 +84,7 @@ public class ProductController extends BaseController {
         mv.addObject("id", product.getId());
         mv.addObject("name", product.getName());
         mv.addObject("imgUrl", product.getImgUrl());
+        mv.addObject("code", 200);
         
         return mv.getModel();
     }

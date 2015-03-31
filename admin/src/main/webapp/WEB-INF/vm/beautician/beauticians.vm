@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+#parse("/head.vm")
+<title>技师列表</title>
+</head>
+<body>
+    #parse("/navbar.vm")
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-3 col-md-2 sidebar">
+                #parse("/menu.vm")
+            </div>
+            <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+                <h2 class="page-header">技师列表</h2>
+                <div class="row">
+                    <a class="btn btn-primary" style="margin: 0 0 15px 15px;" href="/beauty/product/add">添加技师</a>
+                </div>
+                <div class="row">
+                    #foreach($beautician in $beauticians)
+                    <div class="col-sm-4 col-md-3">
+                        <div class="thumbnail">
+                            <a href="/beauty/beautician/$beautician.id" title="点击查看技师详情">
+                            <img src="$beautician.avatar" alt="$beautician.name">
+                            </a>
+                            <div class="caption">
+                                <h4>$beautician.name</h4>
+                                <p>TODO</p>
+                            </div>
+                        </div>
+                    </div>
+                    #end
+                </div>
+            </div>
+        </div>
+    </div>
+
+    #parse("/footer.vm")
+</body>
+</html>

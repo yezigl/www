@@ -12,6 +12,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.mm.data.model.beauty.Feedback;
+import com.mm.data.model.beauty.Product;
 import com.mm.data.model.time.College;
 import com.mm.data.model.time.School;
 import com.mm.data.model.time.Timetable;
@@ -38,13 +39,13 @@ public class OrmUtilsTest {
     DataSource timeDataSource;
 
     Class<?>[] userClasses = { UserAddress.class };
-    Class<?>[] beautyClasses = { Feedback.class };
+    Class<?>[] beautyClasses = { Product.class };
     Class<?>[] timeClasses = { College.class, School.class, Timetable.class, UserBuy.class, UserSell.class };
 
     @Test
     public void test() {
-        OrmUtils.createTable(userDataSource, true, userClasses);
-        //OrmUtils.createTable(beautyDataSource, true, beautyClasses);
+        //OrmUtils.createTable(userDataSource, true, userClasses);
+        OrmUtils.createTable(beautyDataSource, true, beautyClasses);
         //OrmUtils.createTable(timeDataSource, true, timeClasses);
     }
 

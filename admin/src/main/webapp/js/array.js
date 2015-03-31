@@ -10,7 +10,7 @@ Array.prototype.add = function(item) {
         }
     }
     this[this.length] = item;
-    return this.sort();
+    return this;
 }
 
 Array.prototype.indexOf = function(item) {
