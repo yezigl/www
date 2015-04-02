@@ -5,18 +5,23 @@ package com.mm.admin.controller.beauty;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.mm.admin.controller.BaseController;
 import com.mm.data.model.beauty.Beautician;
+import com.mm.data.model.beauty.BeauticianTime;
 import com.mm.data.model.beauty.Deal;
 import com.mm.service.beauty.BeauticianService;
 import com.mm.service.beauty.DealService;
@@ -68,11 +73,33 @@ public class BeauticianController extends BaseController {
             deals.add(dealService.get(id));
         }
         // 获取时间
+        List<BeauticianTime> times = beauticianService.getTimes(beauticianId);
         
         model.addAttribute("beautician", beautician);
         model.addAttribute("deals", deals);
+        model.addAttribute("times", times);
         
-        return "beautician";
+        return vm("beautician");
     }
 
+    @RequestMapping(value = "/beautician/add", method = RequestMethod.GET)
+    public String dealAddPGet(Model model) {
+        return vm("beauticianad");
+    }
+    
+    @RequestMapping(value = "/beautician/add", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, Object> beauticianAddPost(@ModelAttribute Beautician beautician) {
+        ModelAndView mv = new ModelAndView();
+        
+        if (beautician.getId() != 0) {
+            beauticianService.update(beautician);
+        } else {
+            beauticianService.create(beautician);
+        }
+        
+        mv.addObject("code", 200);
+        
+        return mv.getModel();
+    }
 }

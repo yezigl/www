@@ -35,22 +35,24 @@ public class Order {
     private Date ctime; // 下单时间
     @Column(type = "DATETIME")
     private Date utime;
-    @Column(type = "DATETIME")
+    @Column(type = "DATETIME", isNull = true)
     private Date paytime;
-    @Column(type = "INTEGER")
+    @Column(type = "INTEGER", isNull = true)
     private int paytype;
     @Column(type = "FLOAT")
     private float amount;
-    @Column(type = "FLOAT")
+    @Column(type = "FLOAT", isNull = true)
     private float discount;
-    @Column(type = "INTEGER")
+    @Column(type = "INTEGER", isNull = true)
     private int status;
-    @Column(type = "VARCHAR(15)")
+    @Column(type = "VARCHAR(15)", isNull = true)
     private String ip;
     @Column(type = "INTEGER")
     private int addressId;
-    @Column(type = "INTEGER")
+    @Column(type = "INTEGER", isNull = true)
     private int couponId;
+    @Column(type = "VARCHAR(11)", isNull = true)
+    private String mobile;
 
     public int getId() {
         return id;
@@ -162,6 +164,14 @@ public class Order {
 
     public void setCouponId(int couponId) {
         this.couponId = couponId;
+    }
+    
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
     }
 
     /**

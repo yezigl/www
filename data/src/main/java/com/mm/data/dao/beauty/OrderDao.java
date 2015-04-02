@@ -31,4 +31,12 @@ public class OrderDao {
     public List<Order> getList(int status, int offset, int limit) {
         return orderMapper.getList(status, new RowBounds(offset, limit));
     }
+
+    /**
+     * @param mobile
+     * @return
+     */
+    public List<Order> getListByMobile(String mobile) {
+        return orderMapper.getListByMobile(mobile);
+    }
 }

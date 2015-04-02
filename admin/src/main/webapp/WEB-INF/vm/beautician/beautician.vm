@@ -3,7 +3,7 @@
 <head>
 #parse("head.vm")
 <link rel="stylesheet" href="/css/dashboard.css">
-<title>产品详情 - $product.name</title>
+<title>技师详情 - $beautician.name</title>
 </head>
 <body>
     #parse("/navbar.vm")
@@ -12,26 +12,37 @@
         <div class="row">
             <div class="col-sm-3 col-md-2 sidebar">#parse("/menu.vm")</div>
             <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-                <h2 class="page-header">产品详情</h2>
+                <h2 class="page-header">技师详情</h2>
                 <div class="row">
                     <form class="form-horizontal">
-                        <input type="hidden" id="id" value="$product.id">
+                        <input type="hidden" id="id" value="$beautician.id">
                         <div class="form-group">
-                            <label for="title" class="col-sm-2 control-label">名称</label>
+                            <label for="imgUrl" class="col-sm-2 control-label">照片</label>
+                            <div class="col-sm-2">
+                                <img src="$beautician.avatar" class="img-responsive">
+                            </div>
+                            <div class="col-sm-2">
+                                <input type="file" class="form-control hide" id="input_avatar" name="files">
+                                <input type="hidden" id="avatar" name="avatar" value="$beautician.avatar">
+                                <button type="button" id="btn_avatar" class="btn btn-sm btn-default">上传照片</button>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="title" class="col-sm-2 control-label">姓名</label>
                             <div class="col-sm-3">
-                                <input type="text" class="form-control" id="name" placeholder="产品名称" value="$product.name" required="required">
+                                <input type="text" class="form-control" id="name" placeholder="姓名" value="$beautician.name" required="required">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="description" class="col-sm-2 control-label">品牌</label>
-                            <div class="col-sm-6">
-                                <input type="text" class="form-control" id="brand" placeholder="品牌" value="$product.brand" required="required">
+                            <label for="description" class="col-sm-2 control-label">年龄</label>
+                            <div class="col-sm-3">
+                                <input type="text" class="form-control" id="age" placeholder="年龄" value="$beautician.age" required="required">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="content" class="col-sm-2 control-label">功效</label>
+                            <label for="content" class="col-sm-2 control-label">介绍</label>
                             <div class="col-sm-6">
-                                <textarea rows="4" class="form-control" id="efficacy" placeholder="功效" required="required"> $product.efficacy</textarea>
+                                <textarea rows="4" class="form-control" id="introduction" placeholder="介绍" required="required"> $beautician.introduction</textarea>
                             </div>
                         </div>
                         <div class="form-group">
@@ -41,23 +52,32 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="imgUrl" class="col-sm-2 control-label">图片</label>
-                            <div class="col-sm-2">
-                                <img src="$product.imgUrl" class="img-responsive">
-                            </div>
-                            <div class="col-sm-2">
-                                <input type="file" class="form-control hide" id="input_imgUrl" name="files">
-                                <input type="hidden" id="imgUrl" name="imgUrl" value="$product.imgUrl">
-                                <button type="button" id="btn_imgUrl" class="btn btn-sm btn-default">上传图片</button>
-                            </div>
-                        </div>
-                        <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-10">
-                                <button type="button" id="add" class="btn btn-primary">添加</button>
+                                <button type="button" id="save" class="btn btn-primary">保存</button>
                             </div>
                         </div>
                     </form>
                 </div>
+                <h3 class="sub-header">相关项目</h3>
+                <div class="row">
+                    <a class="btn btn-primary" style="margin: 0 0 15px 15px;" href="javascript:void(0)">关联项目</a>
+                </div>
+                <div class="row">
+                    #foreach($deal in $deals)
+                    <div class="col-sm-3 col-md-2">
+                        <div class="thumbnail">
+                            <a href="/beauty/deal/$deal.id" title="点击查看项目详情">
+                            <img src="$deal.imgUrl" alt="$deal.title">
+                            </a>
+                            <div class="caption">
+                                <h4>$deal.title</h4>
+                                <p>$deal.description</p>
+                            </div>
+                        </div>
+                    </div>
+                    #end
+                </div>
+                <h3 class="sub-header">订单时间</h3>
             </div>
         </div>
     </div>
@@ -69,26 +89,25 @@
     <script type="text/javascript">
     jQuery(function () {
         'use strict';
-        upload('imgUrl', function(e, data) {
+        upload('avatar', function(e, data) {
             var ret = data.result;
             if (ret.code == 200) {
                 var jimg = jQuery(imgTemplate);
                 jimg.find('img').attr('src', ret.urls[0]);
-                var div = jQuery('#btn_imgUrl').parent();
+                var div = jQuery('#btn_avatar').parent();
                 div.prev().remove();
                 div.before(jimg);
-                jQuery('#imgUrl').val(ret.urls[0]);
+                jQuery('#avatar').val(ret.urls[0]);
             }
         });
         
-        jQuery('#add').click(function(e) {
-            jQuery.post('/beauty/product/add', {
+        jQuery('#save').click(function(e) {
+            jQuery.post('/beauty/beautician/add', {
                 'id': jQuery('#id').val(),
                 'name': jQuery('#name').val(),
-                'brand': jQuery('#brand').val(),
-                'efficacy': jQuery('#efficacy').val(),
-                'applicable': jQuery('#applicable').val(),
-                'imgUrl': jQuery('#imgUrl').val(),
+                'age': jQuery('#age').val(),
+                'introduction': jQuery('#introduction').val(),
+                'avatar': jQuery('#avatar').val(),
             }, function(data, status, jqXHR) {
                 if (data.code == 200) {
                     alert('修改成功');

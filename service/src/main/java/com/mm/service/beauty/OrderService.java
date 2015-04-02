@@ -59,11 +59,11 @@ public class OrderService extends BaseService {
         return list == null ? new ArrayList<Order>() : list;
     }
 
-    /**
-     * @param bt
-     * @return
-     */
     public int addHomeTime(BeauticianTime bt) {
         return beauticianTimeDao.create(bt);
+    }
+
+    public List<Order> getListByMobile(String mobile) {
+        return orderDao.getListByMobile(mobile);
     }
 }

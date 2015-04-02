@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+#parse("head.vm")
+<link rel="stylesheet" href="/css/dashboard.css">
+<title>用户查询</title>
+</head>
+<body>
+    #parse("/navbar.vm")
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-3 col-md-2 sidebar">#parse("/menu.vm")</div>
+            <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+                <h2 class="page-header">用户查询</h2>
+                <div class="row form-group">
+                    <div class="col-sm-3">
+                        <input type="text" class="form-control" id="orderId" placeholder="用户ID" required="required">
+                    </div>
+                    <div class="col-sm-3">
+                        <button type="submit" class="btn btn-primary">查询</button>
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-sm-3">
+                        <input type="text" class="form-control" id="mobile" placeholder="手机号" required="required">
+                    </div>
+                    <div class="col-sm-3">
+                        <button type="submit" class="btn btn-primary">查询</button>
+                    </div>
+                </div>
+                #if ($orders)
+                <h3 class="page-header">用户列表</h3>
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>订单ID</th>
+                                <th>用户ID</th>
+                                <th>项目</th>
+                                <th>下单时间</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            #foreach ($user in $users)
+                            <tr>
+                                <td>
+                                    <a href="/beauty/order/$order.id" target="_blank">$order.id</a>
+                                </td>
+                                <td>
+                                    <a href="/beauty/user/$order.userId" target="_blank">$order.userId</a>
+                                </td>
+                                <td>
+                                    <a href="/beauty/deal/$order.dealId" target="_blank">$order.dealName</a>
+                                </td>
+                                <td>
+                                    $order.ctime
+                                </td>
+                            </tr>
+                            #end
+                        </tbody>
+                    </table>
+                </div>
+                #end
+            </div>
+        </div>
+    </div>
+
+    #parse("/footer.vm")
+</body>
+</html>

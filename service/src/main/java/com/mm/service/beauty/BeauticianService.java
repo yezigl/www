@@ -13,6 +13,7 @@ import com.mm.data.dao.beauty.BeauticianDao;
 import com.mm.data.dao.beauty.BeauticianDealDao;
 import com.mm.data.dao.beauty.BeauticianTimeDao;
 import com.mm.data.model.beauty.Beautician;
+import com.mm.data.model.beauty.BeauticianTime;
 import com.mm.service.BaseService;
 
 /**
@@ -39,6 +40,19 @@ public class BeauticianService extends BaseService {
         }
         return beauticianDao.get(id);
     }
+
+    public int update(Beautician beautician) {
+        Beautician old = get(beautician.getId());
+        old.setName(beautician.getName());
+        old.setAge(beautician.getAge());
+        old.setAvatar(beautician.getAvatar());
+        old.setIntroduction(beautician.getIntroduction());
+        return beauticianDao.update(beautician);
+    }
+
+    public int create(Beautician beautician) {
+        return beauticianDao.create(beautician);
+    }
     
     public List<Beautician> getList(int offset, int limit) {
         return beauticianDao.getList(offset, limit);
@@ -47,4 +61,9 @@ public class BeauticianService extends BaseService {
     public List<Integer> getDealIds(int beauticianId) {
         return beauticianDealDao.getDealIdsByBeautician(beauticianId);
     }
+    
+    public List<BeauticianTime> getTimes(int beauticianId) {
+        return beauticianTimeDao.getTimesByBeautician(beauticianId);
+    }
+
 }

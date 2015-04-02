@@ -33,6 +33,6 @@ public interface BeauticianDealMapper {
     @Update("UPDATE beauticiandeal SET beauticianid = #{beauticianId}, dealid = #{dealId}, avgsorce = #{avgSorce}, subscore = #{subScore}, status = #{status}, ctime = #{ctime}, utime = #{utime} WHERE id = #{id}")
     int update(BeauticianDeal beauticiandeal);
 
-    @Select("SELECT dealId FROM beauticiandeal WHERE beauticianId = #{beauticianId}")
+    @Select("SELECT dealId FROM beauticiandeal WHERE beauticianid = #{beauticianId}")
     List<Integer> getListByBeautician(int beauticianId);
 }

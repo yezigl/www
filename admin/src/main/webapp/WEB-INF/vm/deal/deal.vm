@@ -14,37 +14,132 @@
             <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
                 <h2 class="page-header">项目详情</h2>
                 <div class="row">
-                    <form class="form-horizontal">
+                    <div class="form-horizontal">
                         <div class="form-group">
                             <label for="title" class="col-sm-2 control-label">名称</label>
-                            <div class="col-sm-4">
-                                <input type="text" class="form-control" id="title" placeholder="项目名称">
+                            <div class="col-sm-3">
+                                <input type="text" class="form-control" id="title" placeholder="项目名称" required="required">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="inputPassword3" class="col-sm-2 control-label">Password</label>
+                            <label for="description" class="col-sm-2 control-label">描述</label>
+                            <div class="col-sm-6">
+                                <textarea rows="3" class="form-control" id="description" placeholder="项目描述" required="required"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="tags" class="col-sm-2 control-label">标签</label>
                             <div class="col-sm-10">
-                                <input type="password" class="form-control" id="inputPassword3" placeholder="Password">
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" id="tag1" value="option1"> 1
+                                </label>
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" id="tag2" value="option2"> 2
+                                </label>
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" id="tag3" value="option3"> 3
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="price" class="col-sm-2 control-label">售卖价格</label>
+                            <div class="col-sm-3">
+                                <input type="text" class="form-control" id="price" placeholder="售卖价格" required="required">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="value" class="col-sm-2 control-label">市场价格</label>
+                            <div class="col-sm-3">
+                                <input type="text" class="form-control" id="value" placeholder="市场价格" required="required">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="imgUrl" class="col-sm-2 control-label">封面图</label>
+                            <div class="col-sm-2">
+                                <input type="file" class="form-control hide" id="input_imgUrl" name="files">
+                                <input type="hidden" id="imgUrl" name="imgUrl">
+                                <button type="button" id="btn_imgUrl" class="btn btn-sm btn-default">上传图片</button>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="gallery" class="col-sm-2 control-label">其他组图</label>
+                            <div class="col-sm-2">
+                                <input type="file" class="form-control hide" id="input_gallery" name="files" multiple>
+                                <input type="hidden" id="gallery" name="gallery">
+                                <button type="button" id="btn_gallery" class="btn btn-sm btn-default">上传图片</button>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="content" class="col-sm-2 control-label">服务内容</label>
+                            <div class="col-sm-6">
+                                <textarea rows="4" class="form-control" id="content" placeholder="服务内容" required="required"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="costtime" class="col-sm-2 control-label">花费时间</label>
+                            <div class="col-sm-3">
+                                <input type="text" class="form-control" id="costtime" placeholder="花费时间(分钟)" required="required">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="efficacy" class="col-sm-2 control-label">功效</label>
+                            <div class="col-sm-6">
+                                <textarea rows="4" class="form-control" id="efficacy" placeholder="功效" required="required"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="special" class="col-sm-2 control-label">特殊说明</label>
+                            <div class="col-sm-6">
+                                <textarea rows="4" class="form-control" id="special" placeholder="特殊说明"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="product" class="col-sm-2 control-label">产品</label>
+                            <div class="col-sm-3">
+                                <input type="hidden" id="product">
+                                <button type="button" id="btn_product" class="btn btn-sm btn-default">添加产品</button>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="flow" class="col-sm-2 control-label">流程</label>
+                            <div class="col-sm-3">
+                                <input type="hidden" id="flow">
+                                <button type="button" id="btn_flow" class="btn btn-sm btn-default">添加流程</button>
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-10">
-                                <div class="checkbox">
-                                    <label> <input type="checkbox"> Remember me
-                                    </label>
-                                </div>
+                                <button type="submit" class="btn btn-primary">保存基本信息</button>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <div class="col-sm-offset-2 col-sm-10">
-                                <button type="submit" class="btn btn-default">Sign in</button>
-                            </div>
-                        </div>
-                    </form>
+                    </div>
                 </div>
-
-                <h3 class="sub-header">Section title</h3>
-                <div class="table-responsive"></div>
+                <h3 class="page-header">相关产品</h3>
+                <div class="row">
+                    <a class="btn btn-primary" style="margin: 0 0 15px 15px;" href="javascript:void(0)">添加产品</a>
+                </div>
+                <div class="row">
+                    #foreach($product in $products)
+                    <div class="col-sm-4 col-md-3">
+                        <div class="thumbnail">
+                            <a href="/beauty/product/$product.id" title="点击查看产品详情">
+                            <img src="$product.imgUrl" alt="$product.name">
+                            </a>
+                            <div class="caption">
+                                <h4>$product.name</h4>
+                                <p>$product.brand</p>
+                            </div>
+                        </div>
+                    </div>
+                    #end
+                </div>
+                <h3 class="page-header">相关流程</h3>
+                <div class="row">
+                    <a class="btn btn-primary" style="margin: 0 0 15px 15px;" href="javascript:void(0)">添加流程</a>
+                </div>
+                <div class="row">
+                    
+                </div>
             </div>
         </div>
     </div>

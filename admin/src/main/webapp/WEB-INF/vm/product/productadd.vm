@@ -60,8 +60,6 @@
     <div id="progress" class="progress hide" style="width: 400px; position: fixed; background-color: #FFF; box-shadow: 0 0 10px #CCC;">
         <div class="progress-bar progress-bar-success"></div>
     </div>
-    #parse("/deal/product.vm")
-    #parse("/deal/flow.vm")
     #parse("/footer.vm")
     #parse("/upload.vm")
     <script type="text/javascript">
@@ -90,9 +88,9 @@
                 'imgUrl': jQuery('#imgUrl').val(),
             }, function(data, status, jqXHR) {
                 if (data.code == 200) {
-                    alert('修改成功');
+                    alert('添加成功');
                 } else {
-                    alert('修改失败');
+                    alert('添加失败');
                 }
             });
         });

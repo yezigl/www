@@ -24,8 +24,8 @@ public class BeauticianDao {
         return beauticianMapper.get(id);
     }
 
-    public void update(Beautician beautician) {
-        beauticianMapper.update(beautician);
+    public int update(Beautician beautician) {
+        return beauticianMapper.update(beautician);
     }
 
     /**

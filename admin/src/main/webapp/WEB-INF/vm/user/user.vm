@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+#parse("head.vm")
+<link rel="stylesheet" href="/css/dashboard.css">
+<title>用户详情</title>
+</head>
+<body>
+    #parse("/navbar.vm")
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-3 col-md-2 sidebar">#parse("/menu.vm")</div>
+            <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+                <h2 class="page-header">用户查询</h2>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <input type="text" class="form-control" id="orderId" placeholder="用户ID" required="required">
+                    </div>
+                    <div class="col-sm-3">
+                        <button type="submit" class="btn btn-primary">查询</button>
+                    </div>
+                </div>
+                #if ($user)
+                <h3 class="page-header">用户详情</h3>
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                              <th>订单ID</th>
+                              <th>下单用户</th>
+                              <th>下单时间</th>
+                              <th>下单IP</th>
+                              <th>客户端</th>
+                            </tr>
+                          </thead>
+                    </table>
+                </div>
+                <h3 class="page-header">付款信息</h3>
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                              <th>流水号</th>
+                              <th>支付金额</th>
+                              <th>支付时间</th>
+                              <th>支付方式</th>
+                              <th>优惠金额</th>
+                            </tr>
+                          </thead>
+                    </table>
+                </div>
+                <h3 class="page-header">技师信息</h3>
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                              <th>姓名</th>
+                              <th>服务时间</th>
+                              <th>TBD</th>
+                              <th>TBD</th>
+                              <th>TBD</th>
+                            </tr>
+                          </thead>
+                    </table>
+                </div>
+                #end
+            </div>
+        </div>
+    </div>
+
+    #parse("/footer.vm")
+</body>
+</html>

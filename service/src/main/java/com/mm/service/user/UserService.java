@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import com.mm.data.dao.user.UserAddressDao;
 import com.mm.data.dao.user.UserDao;
+import com.mm.data.model.beauty.Order;
 import com.mm.data.model.user.User;
 import com.mm.data.model.user.UserAddress;
 import com.mm.data.utils.CryptUtils;
@@ -67,6 +68,15 @@ public class UserService {
 
     public UserAddress getAddress(int id) {
         return userAddressDao.get(id);
+    }
+
+    /**
+     * @param mobile
+     * @return
+     */
+    public List<Order> getListByMobile(String mobile) {
+        // TODO Auto-generated method stub
+        return null;
     }
 
 }
