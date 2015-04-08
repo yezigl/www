@@ -75,6 +75,8 @@ public class DealService extends BaseService {
     }
 
     public int create(Deal deal) {
+        deal.setCtime(new Date());
+        deal.setUtime(new Date());
         return dealDao.create(deal);
     }
 

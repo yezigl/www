@@ -1,48 +1,14 @@
 <div id="addproduct" class="container hide"
-    style="width: 600px; position: absolute; background-color: #FFF; box-shadow: 0 0 10px #CCC;">
-    <h3 class="page-header">添加产品</h3>
-    <div class="row">
-        <div class="form-horizontal">
-            <div class="form-group">
-                <label for="productName" class="col-sm-2 control-label">名称</label>
-                <div class="col-sm-3">
-                    <input type="text" class="form-control" id="productName" placeholder="产品名称" required="required">
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="productBrand" class="col-sm-2 control-label">品牌</label>
-                <div class="col-sm-3">
-                    <input type="text" class="form-control" id="productBrand" placeholder="品牌" required="required">
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="productEfficacy" class="col-sm-2 control-label">产品功效</label>
-                <div class="col-sm-6">
-                    <textarea rows="3" class="form-control" id="productEfficacy" placeholder="产品功效" required="required"></textarea>
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="productApplicable" class="col-sm-2 control-label">适用人群</label>
-                <div class="col-sm-6">
-                    <textarea rows="3" class="form-control" id="productApplicable" placeholder="适用人群"
-                        required="required"></textarea>
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="imgUrl" class="col-sm-2 control-label">产品图片</label>
-                <div class="col-sm-2">
-                    <input type="file" class="form-control hide" id="input_productImgUrl" name="files"> <input
-                        type="hidden" id="productImgUrl" name="productImgUrl">
-                    <button type="button" id="btn_productImgUrl" class="btn btn-sm btn-default">上传图片</button>
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="col-sm-offset-2 col-sm-10">
-                    <button type="button" class="btn btn-primary" id="productAdd">添加</button>
-                    <button type="button" class="btn btn-primary" id="productCancel">取消</button>
-                </div>
-            </div>
+    style="width: 600px; position: absolute; background-color: #FFF; box-shadow: 0 0 10px #CCC; padding-top: 15px;">
+    <div class="row form-group">
+        <div class="col-sm-6">
+            <input type="text" class="form-control" id="pkw" placeholder="关键词" required="required">
         </div>
+        <div class="col-sm-3">
+            <button type="button" id="btn_productquery" class="btn btn-primary">查询</button>
+        </div>
+    </div>
+    <div class="row" id="productlist">
     </div>
 </div>
 <script type="text/javascript">
@@ -53,31 +19,23 @@
             'top' : (jQuery(window).height() - 400) / 2 + jQuery(window).scrollTop(),
             'left' : (jQuery(window).width() - 400) / 2,
         });
-        /* jQuery('#productAdd').click(function(e) {
-            console.log(e);
-        }); */
-        jQuery('#productAdd').click(function(e) {
-            console.log(e);
-            jQuery.post('/beauty/deal/add', {
-                'name' : jQuery('#productName').val(),
-                'brand' : jQuery('#productBrand').val(),
-                'efficacy' : jQuery('#productEfficacy').val(),
-                'applicable' : jQuery('#productApplicable').val(),
-                'imgUrl' : jQuery('#productImgUrl').val(),
-            }, function(data, textStatus, jqXHR) {
-                var jimg = jQuery(productTemplate);
-                jimg.find('img').attr('src', data.imgUrl);
-                jimg.find('h4').text(data.name);
-                jimg.find('a[role="edit"]').data('id', data.id).click(editProduct);
-                jimg.find('a[role="del"]').data('id', data.id).click(delProduct);
-                jQuery('#btn_product').parent().before(jimg);
-                var product = jQuery('#product');
-                var old = product.val().split(SEP);
-                old.add(data.id);
-                product.val(old.join(SEP))
-                jproduct.addClass('hide');
-            });
+        
+        var template = '<div class="col-sm-3 col-md-2"><div class="thumbnail"><img src=""><div class="caption"><p></p><input type="checkbox"></div></div></div>';
+        var jProductList = jQuery('#productlist');
+        ajaxGet('/beauty/products/query', ['pkw'], function(data, status,jqXHR) {
+            jProductList.empty();
+            if (data.products) {
+                jQuery.each(data.products, function(i, product) {
+                    var jTemplate = jQuery(template);
+                    jTemplate.find('img').attr('src', product.imgUrl).end().find('p').text(product.name);
+                    console.log(jTemplate);
+                    jProductList.append(jTemplate);
+                });
+            }
+        }, function(jqXHR, status, e) {
+            
         });
+        
         jQuery('#productCancel').click(function() {
             jproduct.addClass('hide');
         });
@@ -87,27 +45,5 @@
                 '<a href="#" class="btn btn-default btn-sm" role="del">删除</a>', '</p>', '</div>', '</div>', '</div>' ]
                 .join('\n');
         
-        upload('productImgUrl', function(e, data) {
-            var ret = data.result;
-            if (ret.code == 200) {
-                var jimg = jQuery(imgTemplate);
-                for (var i in ret.urls) {
-                    jimg.find('img').attr('src', ret.urls[i]);
-                    jQuery('#btn_productImgUrl').parent().before(jimg);
-                    jQuery('#productImgUrl').val(ret.urls[i]);
-                }
-            }
-        });
-        
-        function editProduct(e) {
-            
-        }
-        
-        function delProduct(e) {
-            var product = jQuery('#product');
-            var old = product.val().split(SEP);
-            old.remove(jQuery(this).data('id'));
-            product.val(old.join(SEP));
-        }
     }
 </script>

@@ -33,7 +33,12 @@ Array.prototype.compare = function(other) {
 }
 
 Array.prototype.remove = function(item) {
-    var index = this.indexOf(item);
+    var index = -1;
+    for ( var i = 0; i < this.length; i++) {
+        if (this[i] == item) {
+            index = i;
+        }
+    }
     var re = this[index];
     if (index >= 0) {
         this.splice(index, 1);

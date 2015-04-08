@@ -46,7 +46,7 @@ public class ProductController extends BaseController {
     }
 
     @RequestMapping(value = "/products", method = RequestMethod.GET)
-    public String deals(Model model, @RequestParam(defaultValue = "0") int offset) {
+    public String products(Model model, @RequestParam(defaultValue = "0") int offset) {
         
         List<Product> products = productService.getAll();
         
@@ -85,6 +85,19 @@ public class ProductController extends BaseController {
         mv.addObject("name", product.getName());
         mv.addObject("imgUrl", product.getImgUrl());
         mv.addObject("code", 200);
+        
+        return mv.getModel();
+    }
+    
+    @RequestMapping(value = "/products/query", method = RequestMethod.GET)
+    @ResponseBody
+    public Object productQuery(@RequestParam(defaultValue = "") String pkw) {
+        
+        ModelAndView mv = new ModelAndView();
+        
+        List<Product> products = productService.getAll();
+        
+        mv.addObject("products", products);
         
         return mv.getModel();
     }

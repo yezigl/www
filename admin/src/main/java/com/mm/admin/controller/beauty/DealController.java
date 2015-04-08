@@ -8,6 +8,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -66,6 +67,7 @@ public class DealController extends BaseController {
         List<Flow> flows = dealService.getFlows(deal);
         
         model.addAttribute("deal", deal);
+        model.addAttribute("gallerys", StringUtils.split(deal.getGallery(), SEP_SEMICOLON));
         model.addAttribute("products", products);
         model.addAttribute("flows", flows);
         

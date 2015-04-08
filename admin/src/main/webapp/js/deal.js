@@ -1,7 +1,0 @@
-/**
- * 
- */
-// add deal
-function initAdd() {
-    
-}

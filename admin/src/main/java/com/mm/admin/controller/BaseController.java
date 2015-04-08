@@ -23,6 +23,8 @@ import com.mm.admin.holder.ResponseContextHolder;
 public abstract class BaseController {
     
     protected Logger logger = LoggerFactory.getLogger(getClass());
+    
+    protected String SEP_SEMICOLON = ";";
 
     protected void redirect(String url) {
         try {

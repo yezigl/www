@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+#parse("head.vm")
+<link rel="stylesheet" href="/css/dashboard.css">
+<title>技师详情 - $beautician.name</title>
+</head>
+<body>
+    #parse("/navbar.vm")
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-3 col-md-2 sidebar">#parse("/menu.vm")</div>
+            <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+                <h2 class="page-header">技师详情</h2>
+                <div class="row">
+                    <form class="form-horizontal">
+                        <input type="hidden" id="id" value="$beautician.id">
+                        <div class="form-group">
+                            <label for="imgUrl" class="col-sm-2 control-label">照片</label>
+                            <div class="col-sm-2">
+                                <img src="$beautician.avatar" class="img-responsive">
+                            </div>
+                            <div class="col-sm-2">
+                                <input type="file" class="form-control hide" id="input_avatar" name="files">
+                                <input type="hidden" id="avatar" name="avatar" value="$beautician.avatar">
+                                <button type="button" id="btn_avatar" class="btn btn-sm btn-default">上传照片</button>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="title" class="col-sm-2 control-label">姓名</label>
+                            <div class="col-sm-3">
+                                <input type="text" class="form-control" id="name" placeholder="姓名" value="$beautician.name" required="required">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="description" class="col-sm-2 control-label">年龄</label>
+                            <div class="col-sm-3">
+                                <input type="text" class="form-control" id="age" placeholder="年龄" value="$beautician.age" required="required">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="content" class="col-sm-2 control-label">介绍</label>
+                            <div class="col-sm-6">
+                                <textarea rows="4" class="form-control" id="introduction" placeholder="介绍" required="required"> $beautician.introduction</textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="content" class="col-sm-2 control-label">适用人群</label>
+                            <div class="col-sm-6">
+                                <textarea rows="4" class="form-control" id="applicable" placeholder="适用人群" required="required">$product.applicable</textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="button" id="save" class="btn btn-primary">保存</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <h3 class="sub-header">相关项目</h3>
+                <div class="row">
+                    <a class="btn btn-primary" style="margin: 0 0 15px 15px;" href="javascript:void(0)">关联项目</a>
+                </div>
+                <div class="row">
+                    #foreach($deal in $deals)
+                    <div class="col-sm-3 col-md-2">
+                        <div class="thumbnail">
+                            <a href="/beauty/deal/$deal.id" title="点击查看项目详情">
+                            <img src="$deal.imgUrl" alt="$deal.title">
+                            </a>
+                            <div class="caption">
+                                <h4>$deal.title</h4>
+                                <p>$deal.description</p>
+                            </div>
+                        </div>
+                    </div>
+                    #end
+                </div>
+                <h3 class="sub-header">订单时间</h3>
+            </div>
+        </div>
+    </div>
+    <div id="progress" class="progress hide" style="width: 400px; position: fixed; background-color: #FFF; box-shadow: 0 0 10px #CCC;">
+        <div class="progress-bar progress-bar-success"></div>
+    </div>
+    #parse("/footer.vm")
+    #parse("/upload.vm")
+    <script type="text/javascript">
+    jQuery(function () {
+        'use strict';
+        upload('avatar', function(e, data) {
+            var ret = data.result;
+            if (ret.code == 200) {
+                var jimg = jQuery(imgTemplate);
+                jimg.find('img').attr('src', ret.urls[0]);
+                var div = jQuery('#btn_avatar').parent();
+                div.prev().remove();
+                div.before(jimg);
+                jQuery('#avatar').val(ret.urls[0]);
+            }
+        });
+        
+        jQuery('#save').click(function(e) {
+            jQuery.post('/beauty/beautician/add', {
+                'id': jQuery('#id').val(),
+                'name': jQuery('#name').val(),
+                'age': jQuery('#age').val(),
+                'introduction': jQuery('#introduction').val(),
+                'avatar': jQuery('#avatar').val(),
+            }, function(data, status, jqXHR) {
+                if (data.code == 200) {
+                    alert('修改成功');
+                } else {
+                    alert('修改失败');
+                }
+            });
+        });
+    });
+    var imgTemplate = '<div class="col-sm-2"><img src="" class="img-responsive"></div>';
+    var jprogress = jQuery('#progress');
+    var jprogressbar = jprogress.find('.progress-bar');
+    
+    function upload(id, callback) {
+        jQuery('#btn_' + id).click(function() {
+            jQuery('#input_' + id).click();
+        });
+        jQuery('#input_' + id).fileupload({
+            url: '/upload',
+            formData: {
+                'bucket': 'deal'
+            },
+            dataType: 'json',
+            done: function(e, data) {
+                jprogress.addClass('hide');
+                callback(e, data);
+            },
+            send: function(e,data) {
+                jprogress.removeClass('hide').css({
+                    'top': ($(window).height() - 30) / 2,
+                    'left': ($(window).width() - 200) / 2
+                });
+                jprogressbar.css('width', 0);
+            },
+            progressall: function (e, data) {
+                var progress = parseInt(data.loaded / data.total * 100, 10);
+                jprogressbar.css('width', progress + '%');
+            }
+        });
+    }
+    </script>
+</body>
+</html>

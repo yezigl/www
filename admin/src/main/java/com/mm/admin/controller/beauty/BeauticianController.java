@@ -84,7 +84,7 @@ public class BeauticianController extends BaseController {
 
     @RequestMapping(value = "/beautician/add", method = RequestMethod.GET)
     public String dealAddPGet(Model model) {
-        return vm("beauticianad");
+        return vm("beauticianadd");
     }
     
     @RequestMapping(value = "/beautician/add", method = RequestMethod.POST)
