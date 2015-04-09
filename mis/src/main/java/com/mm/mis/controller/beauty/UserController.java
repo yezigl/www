@@ -3,8 +3,6 @@
  */
 package com.mm.mis.controller.beauty;
 
-import java.util.List;
-
 import javax.annotation.Resource;
 
 import org.apache.commons.lang.StringUtils;
@@ -15,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.mm.data.model.beauty.Order;
 import com.mm.data.model.user.User;
 import com.mm.mis.controller.BaseController;
 import com.mm.service.user.UserService;
@@ -44,18 +41,17 @@ public class UserController extends BaseController {
     }
 
     @RequestMapping(value = "/users", method = RequestMethod.GET)
-    public String orders(Model model, @RequestParam(defaultValue = "0") int userId,
+    public String users(Model model, @RequestParam(defaultValue = "0") int userId,
             @RequestParam(defaultValue = "") String mobile) {
+        User user = null;
         if (userId > 0) {
-            User user = userService.get(userId);
-
-            model.addAttribute("user", user);
-            
-            redirect("redirect:user/" + userId);
-            return null;
+            user = userService.get(userId);
         } else if (StringUtils.isNotBlank(mobile)) {
-            List<Order> list = userService.getListByMobile(mobile);
+            user = userService.getByMobile(mobile);
         }
+        model.addAttribute("user", user);
+        model.addAttribute("userId", userId);
+        model.addAttribute("mobile", mobile);
         return vm("users");
     }
 

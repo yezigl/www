@@ -25,7 +25,11 @@ public class UserDao {
         userMapper.update(user);
     }
 
-    public User get(String login) {
+    public User getByLogin(String login) {
         return userMapper.getByLogin(login);
+    }
+
+    public User getByMobile(String mobile) {
+        return userMapper.getByMobile(mobile);
     }
 }
