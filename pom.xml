@@ -12,7 +12,7 @@
         <module>web</module>
         <module>service</module>
         <module>crawler</module>
-        <module>admin</module>
+        <module>mis</module>
     </modules>
 
     <properties>

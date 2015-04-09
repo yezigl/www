@@ -11,7 +11,6 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.mm.data.model.beauty.Feedback;
 import com.mm.data.model.beauty.Product;
 import com.mm.data.model.time.College;
 import com.mm.data.model.time.School;
