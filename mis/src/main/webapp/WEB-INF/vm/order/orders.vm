@@ -13,23 +13,25 @@
             <div class="col-sm-3 col-md-2 sidebar">#parse("/menu.vm")</div>
             <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
                 <h2 class="page-header">订单查询</h2>
-                <div class="row form-group">
-                    <div class="col-sm-3">
-                        <input type="text" class="form-control" id="orderId" placeholder="订单ID" required="required">
+                <form class="form-horizontal" action="/beauty/orders" method="get">
+                    <div class="form-group">
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control" name="orderId" id="orderId" placeholder="订单ID">
+                        </div>
+                        <div class="col-sm-3">
+                            <input type="submit" class="btn btn-primary" value="查询">
+                        </div>
                     </div>
-                    <div class="col-sm-3">
-                        <button type="submit" class="btn btn-primary">查询</button>
+                    <div class="form-group">
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control" name="mobile" id="mobile" placeholder="手机号">
+                        </div>
+                        <div class="col-sm-3">
+                            <input type="submit" class="btn btn-primary" value="查询">
+                        </div>
                     </div>
-                </div>
-                <div class="row form-group">
-                    <div class="col-sm-3">
-                        <input type="text" class="form-control" id="mobile" placeholder="手机号" required="required">
-                    </div>
-                    <div class="col-sm-3">
-                        <button type="submit" class="btn btn-primary">查询</button>
-                    </div>
-                </div>
-                #if ($orders)
+                </form>
+                #if ($orders && !$orders.isEmpty())
                 <h3 class="page-header">订单列表</h3>
                 <div class="table-responsive">
                     <table class="table table-bordered">
@@ -45,10 +47,10 @@
                             #foreach ($order in $orders)
                             <tr>
                                 <td>
-                                    <a href="/beauty/order/$order.id" target="_blank">$order.id</a>
+                                    <a href="/beauty/order?orderId=$order.id" target="_blank">$order.id</a>
                                 </td>
                                 <td>
-                                    <a href="/beauty/user/$order.userId" target="_blank">$order.userId</a>
+                                    <a href="/beauty/user?userId=$order.userId" target="_blank">$order.userId</a>
                                 </td>
                                 <td>
                                     <a href="/beauty/deal/$order.dealId" target="_blank">$order.dealName</a>

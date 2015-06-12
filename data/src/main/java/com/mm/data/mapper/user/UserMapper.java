@@ -55,4 +55,23 @@ public interface UserMapper {
         @Result(column = "role", property = "role")
     })
     User getByLogin(String login);
+
+    @Select("SELECT * FROM user WHERE mobile = #{mobile}")
+    @Results({
+        @Result(column = "id", property = "id"),
+        @Result(column = "login", property = "login"),
+        @Result(column = "regtype", property = "regtype"),
+        @Result(column = "app", property = "app"),
+        @Result(column = "password", property = "password"),
+        @Result(column = "salt", property = "salt"),
+        @Result(column = "nickname", property = "nickname"),
+        @Result(column = "email", property = "email"),
+        @Result(column = "mobile", property = "mobile"),
+        @Result(column = "regip", property = "regip"),
+        @Result(column = "ctime", property = "ctime"),
+        @Result(column = "status", property = "status"),
+        @Result(column = "avatar", property = "avatar"),
+        @Result(column = "role", property = "role")
+    })
+    User getByMobile(String mobile);
 }
