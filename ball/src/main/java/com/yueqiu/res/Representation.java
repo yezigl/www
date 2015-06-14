@@ -18,6 +18,11 @@ public class Representation {
     private Error error;
     @JsonInclude(Include.NON_NULL)
     private Object data;
+    private long timestamp;
+
+    public Representation() {
+        setTimestamp(System.currentTimeMillis());
+    }
 
     public Error getError() {
         return error;
@@ -39,6 +44,14 @@ public class Representation {
         error = new Error();
         error.setCode(status.code());
         error.setMessage(String.format(status.msg(), args));
+    }
+
+    public long getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(long timestamp) {
+        this.timestamp = timestamp;
     }
 
 }

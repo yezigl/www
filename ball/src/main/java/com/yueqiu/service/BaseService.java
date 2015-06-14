@@ -7,9 +7,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.yueqiu.dao.ActivityDao;
 import com.yueqiu.dao.CouponDao;
-import com.yueqiu.dao.EntryDao;
-import com.yueqiu.dao.GameDao;
 import com.yueqiu.dao.OrderDao;
 import com.yueqiu.dao.StadiumDao;
 import com.yueqiu.dao.UserDao;
@@ -27,9 +26,7 @@ public abstract class BaseService {
     @Autowired
     protected CouponDao couponDao;
     @Autowired
-    protected EntryDao entryDao;
-    @Autowired
-    protected GameDao gameDao;
+    protected ActivityDao activityDao;
     @Autowired
     protected OrderDao orderDao;
     @Autowired

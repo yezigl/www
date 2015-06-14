@@ -1,54 +1,55 @@
 /**
  * Copyright 2015 yezi.gl. All Rights Reserved.
  */
-package com.yueqiu.entity;
+package com.yueqiu.res;
 
 import java.util.Date;
 
-import org.mongodb.morphia.annotations.Entity;
-import org.mongodb.morphia.annotations.Field;
-import org.mongodb.morphia.annotations.Index;
-import org.mongodb.morphia.annotations.Indexes;
-import org.mongodb.morphia.annotations.Reference;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 /**
  * description here
  *
  * @author yezi
- * @since 2015年6月13日
+ * @since 2015年6月14日
  */
-@Entity("order")
-@Indexes({ @Index(fields = @Field("user")), @Index(fields = { @Field("activity"), @Field("status") }), })
-public class Order extends BaseEntity {
+public class OrderRes extends Res {
 
-    @Reference
-    private Activity activity;
-    @Reference
-    private User user;
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
+
+    private String id;
     private float amount;
     private float discount;
-    @Reference
-    private Coupon coupon;
     private int status;
+    @JsonInclude(Include.NON_NULL)
     private Date paytime;
-    private int paytype;
+    @JsonInclude(Include.NON_NULL)
+    private Integer paytype;
+    @JsonInclude(Include.NON_NULL)
     private String paysn;
-    private String ip;
+    @JsonInclude(Include.NON_NULL)
+    private ActivityRes activity;
+    @JsonInclude(Include.NON_NULL)
+    private CouponRes coupon;
 
-    public Activity getActivity() {
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public ActivityRes getActivity() {
         return activity;
     }
 
-    public void setActivity(Activity activity) {
+    public void setActivity(ActivityRes activity) {
         this.activity = activity;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
     }
 
     public float getAmount() {
@@ -67,11 +68,11 @@ public class Order extends BaseEntity {
         this.discount = discount;
     }
 
-    public Coupon getCoupon() {
+    public CouponRes getCoupon() {
         return coupon;
     }
 
-    public void setCoupon(Coupon coupon) {
+    public void setCoupon(CouponRes coupon) {
         this.coupon = coupon;
     }
 
@@ -105,14 +106,6 @@ public class Order extends BaseEntity {
 
     public void setPaysn(String paysn) {
         this.paysn = paysn;
-    }
-
-    public String getIp() {
-        return ip;
-    }
-
-    public void setIp(String ip) {
-        this.ip = ip;
     }
 
 }

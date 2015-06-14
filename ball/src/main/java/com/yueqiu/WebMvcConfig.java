@@ -3,6 +3,7 @@
  */
 package com.yueqiu;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
@@ -18,9 +19,12 @@ import com.yueqiu.intercepter.AuthInterceptor;
 @Configuration
 public class WebMvcConfig extends WebMvcConfigurationSupport {
 
+    @Autowired
+    AuthInterceptor authInterceptor;
+    
     @Override
     protected void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new AuthInterceptor());
+        registry.addInterceptor(authInterceptor);
     }
     
 }

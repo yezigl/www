@@ -19,10 +19,11 @@ public enum Status {
     USER_NOT_EXIST(400, "用户不存在"),
     USERNAME_OR_PASSWORD_ERROR(400, "用户名或密码错误"),
     CAPTCHA_ERROR(400, "验证码错误"),
+    ERROR_400(400, "%s"),
     // 未认证
     USER_NOT_LOGIN(401, "用户未登录"),
     // 禁止访问
-    APP_NOT_EXIST(403, "APP不存在"),
+    FORBIDEEN(403, "APP不存在"),
     // 不存在
     NOT_EXIST(404, "%s"),
     SERVER_ERROR(500, "%s");

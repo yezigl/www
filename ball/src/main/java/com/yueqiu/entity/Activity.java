@@ -14,8 +14,8 @@ import org.mongodb.morphia.annotations.Reference;
  * @author yezi
  * @since 2015年6月13日
  */
-@Entity("game")
-public class Game extends BaseEntity {
+@Entity("activity")
+public class Activity extends BaseEntity {
 
     private String title;
     @Reference

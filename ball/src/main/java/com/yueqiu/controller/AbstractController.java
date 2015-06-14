@@ -9,7 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.yueqiu.service.CacheService;
-import com.yueqiu.service.GameService;
+import com.yueqiu.service.ActivityService;
 import com.yueqiu.service.OrderService;
 import com.yueqiu.service.UserService;
 
@@ -28,7 +28,7 @@ public class AbstractController {
     @Resource
     protected CacheService cacheService;
     @Resource
-    protected GameService gameService;
+    protected ActivityService activityService;
     @Resource
     protected OrderService orderService;
     @Resource

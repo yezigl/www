@@ -20,7 +20,7 @@ public class UserRes extends Res {
     private static final long serialVersionUID = 1L;
 
     @JsonInclude(Include.NON_NULL)
-    private int id;
+    private String id;
     @JsonInclude(Include.NON_NULL)
     private String mobile;
     @JsonInclude(Include.NON_NULL)
@@ -32,11 +32,11 @@ public class UserRes extends Res {
 
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -53,7 +53,15 @@ public class UserRes extends Res {
     }
 
     public void setNickname(String nickname) {
-        this.nickname = nickname;
+        this.nickname = nickname == null ? "" : nickname;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar == null ? "" : avatar;
     }
 
 }

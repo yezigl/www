@@ -3,11 +3,14 @@
  */
 package com.yueqiu.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 
 import com.yueqiu.entity.Order;
+import com.yueqiu.entity.User;
+import com.yueqiu.model.OrderStatus;
 
 /**
  * description here
@@ -22,7 +25,10 @@ public class OrderService extends BaseService {
         return orderDao.get(id);
     }
     
-    public boolean create(Order order) {
+    public String create(Order order) {
+        order.setCreateTime(new Date());
+        order.setUpdateTime(new Date());
+        order.setStatus(OrderStatus.INIT.code);
         return orderDao.create(order);
     }
     
@@ -30,7 +36,7 @@ public class OrderService extends BaseService {
         return orderDao.update(order);
     }
     
-    public List<Order> listByUser(String userId) {
-        return orderDao.listByUser(userId);
+    public List<Order> listByUser(User user, OrderStatus status, int offset, int limit) {
+        return orderDao.listByUser(user, status, offset, limit);
     }
 }

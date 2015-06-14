@@ -3,11 +3,12 @@
  */
 package com.yueqiu.intercepter;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import com.yueqiu.entity.User;
@@ -23,11 +24,12 @@ import com.yueqiu.utils.UserContext;
  * @author yezi
  * @since 2015年3月21日
  */
+@Component
 public class AuthInterceptor extends HandlerInterceptorAdapter {
     
     private static String[] NO_LOGIN_URL = { "/register", "/login", "/captcha" };
 
-    @Resource
+    @Autowired
     UserService userService;
 
     @Override

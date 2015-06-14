@@ -6,8 +6,6 @@ import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.Id;
 import org.mongodb.morphia.annotations.Property;
 
-import com.alibaba.fastjson.annotation.JSONField;
-
 /**
  * Author: Neil
  * Date: Apr 17, 2012
@@ -23,7 +21,6 @@ public abstract class BaseEntity {
     @Property("utime")
     private Date updateTime;
 
-    @JSONField(serialize = false)
     public ObjectId getId() {
         return id;
     }
@@ -32,7 +29,6 @@ public abstract class BaseEntity {
         this.id = id;
     }
 
-    @JSONField(serialize = false)
     public Date getCreateTime() {
         return createTime;
     }
@@ -41,7 +37,6 @@ public abstract class BaseEntity {
         this.createTime = createTime;
     }
 
-    @JSONField(serialize = false)
     public Date getUpdateTime() {
         return updateTime;
     }

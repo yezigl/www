@@ -5,7 +5,6 @@ package com.yueqiu.controller;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Map;
 
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -14,7 +13,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
+
+import com.yueqiu.res.Representation;
+import com.yueqiu.res.Status;
+import com.yueqiu.res.UploadRes;
 
 /**
  * description here
@@ -27,12 +29,12 @@ import org.springframework.web.servlet.ModelAndView;
 public class AppController extends AbstractController {
 
     @RequestMapping(value = "/upload", method = RequestMethod.POST)
-    public Map<String, Object> upload(@RequestParam MultipartFile file, @RequestParam String bucket) {
+    public Representation upload(@RequestParam MultipartFile file, @RequestParam String bucket) {
 
-        ModelAndView mv = new ModelAndView();
+        Representation rep = new Representation();
 
         String cdnServer = "http://static.yezi.gl/" + bucket + "/";
-        String uploadPath = "/opt/data/upload/" + bucket;
+        String uploadPath = "/data/upload/" + bucket;
         File path = new File(uploadPath);
         if (!path.exists()) {
             path.mkdirs();
@@ -47,17 +49,15 @@ public class AppController extends AbstractController {
             file.transferTo(dest);
             url = cdnServer + filename;
         } catch (IllegalStateException | IOException e) {
-            e.printStackTrace();
+            rep.setError(Status.ERROR_400, "上传文件失败");
+            return rep;
         }
 
-        if (url == null) {
-            mv.addObject("code", "-1");
-        } else {
-            mv.addObject("code", "200");
-            mv.addObject("url", url);
-        }
+        UploadRes res = new UploadRes();
+        res.setUrl(url);
+        rep.setData(res);
 
-        return mv.getModel();
+        return rep;
     }
 
 }

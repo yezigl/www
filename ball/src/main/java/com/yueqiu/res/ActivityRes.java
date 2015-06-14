@@ -19,7 +19,7 @@ import com.yueqiu.utils.Constants;
  * @author yezi
  * @since 2015年6月14日
  */
-public class GameRes extends Res {
+public class ActivityRes extends Res {
 
     /**
      * 
@@ -28,18 +28,26 @@ public class GameRes extends Res {
 
     private String id;
     private String title;
-    private int type;
+    @JsonInclude(Include.NON_NULL)
+    private Integer type;
+    @JsonInclude(Include.NON_NULL)
     private StadiumRes stadium;
+    @JsonInclude(Include.NON_NULL)
     private String date;
-    private float price;
-    private float value;
-    private int total;
-    private int attend;
+    @JsonInclude(Include.NON_NULL)
+    private Float price;
+    @JsonInclude(Include.NON_NULL)
+    private Float value;
+    @JsonInclude(Include.NON_NULL)
+    private Integer total;
+    @JsonInclude(Include.NON_NULL)
+    private Integer attend;
     @JsonInclude(Include.NON_NULL)
     private UserRes organizer;
+    @JsonInclude(Include.NON_EMPTY)
     private List<Player> players;
 
-    public GameRes() {
+    public ActivityRes() {
         players = new ArrayList<Player>();
     }
 
@@ -135,6 +143,7 @@ public class GameRes extends Res {
         Player player = new Player();
         player.setAvatar(StringUtils.defaultString(user.getAvatar(), Constants.DEFAULT_AVATAR));
         player.setId(user.getId().toString());
+        player.setNickname(user.getNickname());
         players.add(player);
     }
 

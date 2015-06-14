@@ -13,8 +13,8 @@ import org.mongodb.morphia.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.yueqiu.entity.Game;
-import com.yueqiu.model.GameType;
+import com.yueqiu.entity.Activity;
+import com.yueqiu.model.ActivityType;
 import com.yueqiu.model.DateType;
 import com.yueqiu.model.OrderBy;
 
@@ -25,30 +25,30 @@ import com.yueqiu.model.OrderBy;
  * @since 2015年6月14日
  */
 @Repository
-public class GameDao extends AppEntityDaoMorphiaImpl<Game, ObjectId> {
+public class ActivityDao extends AppEntityDaoMorphiaImpl<Activity, ObjectId> {
 
     /**
      * @param datastore
      */
     @Autowired
-    public GameDao(Datastore datastore) {
+    public ActivityDao(Datastore datastore) {
         super(datastore);
     }
     
-    public Game get(String id) {
+    public Activity get(String id) {
         return getEntityById(new ObjectId(id));
     }
     
-    public boolean create(Game game) {
-        return saveEntity(game) != null;
+    public boolean create(Activity activity) {
+        return saveEntity(activity) != null;
     }
     
-    public boolean update(Game game) {
-        return updateEntity(game) == 1;
+    public boolean update(Activity activity) {
+        return updateEntity(activity) == 1;
     }
     
-    public List<Game> list(DateType date, GameType ball, OrderBy orderby, int offset, int limit) {
-        Query<Game> query = createQuery();
+    public List<Activity> list(DateType date, ActivityType ball, OrderBy orderby, int offset, int limit) {
+        Query<Activity> query = createQuery();
         Calendar cale = Calendar.getInstance();
         cale.set(Calendar.HOUR_OF_DAY, 0);
         cale.set(Calendar.MINUTE, 0);

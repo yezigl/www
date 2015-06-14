@@ -12,6 +12,7 @@ package com.yueqiu.res;
 public class Player {
 
     private String id;
+    private String nickname;
     private String avatar;
 
     public String getId() {
@@ -20,6 +21,14 @@ public class Player {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
     }
 
     public String getAvatar() {

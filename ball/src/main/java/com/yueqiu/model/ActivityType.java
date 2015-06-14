@@ -9,7 +9,7 @@ package com.yueqiu.model;
  * @author yezi
  * @since 2015年6月14日
  */
-public enum GameType {
+public enum ActivityType {
 
     ALL(0),
     FOOTBALL(1);
@@ -19,14 +19,14 @@ public enum GameType {
     /**
      * 
      */
-    private GameType(int type) {
+    private ActivityType(int type) {
         this.type = type;
     }
     
-    public static GameType valueOfType(int type) {
-        for (GameType gameType : values()) {
-            if (gameType.type == type) {
-                return gameType;
+    public static ActivityType valueOfType(int type) {
+        for (ActivityType activityType : values()) {
+            if (activityType.type == type) {
+                return activityType;
             }
         }
         return ALL;

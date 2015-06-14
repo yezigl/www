@@ -3,6 +3,8 @@
  */
 package com.yueqiu.controller;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import org.apache.commons.codec.digest.DigestUtils;
@@ -15,12 +17,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.yueqiu.annotation.Auth;
+import com.yueqiu.entity.Order;
 import com.yueqiu.entity.User;
 import com.yueqiu.model.CacheKey;
+import com.yueqiu.model.OrderStatus;
+import com.yueqiu.res.ActivityRes;
 import com.yueqiu.res.CaptchaRes;
+import com.yueqiu.res.CouponRes;
 import com.yueqiu.res.LoginRes;
+import com.yueqiu.res.OrderRes;
 import com.yueqiu.res.Representation;
 import com.yueqiu.res.Status;
+import com.yueqiu.res.UserRes;
 import com.yueqiu.utils.Token;
 import com.yueqiu.utils.UserContext;
 import com.yueqiu.utils.Utils;
@@ -71,7 +79,7 @@ public class UserController extends AbstractController {
         res.setNickname(user.getNickname());
         Token token = new Token(user.getId().toString());
         res.setToken(token.encrypt());
-        
+
         rep.setData(res);
 
         return rep;
@@ -100,7 +108,7 @@ public class UserController extends AbstractController {
         res.setMobile(tempUser.getMobile());
         res.setNickname(tempUser.getNickname());
         res.setAvatar(tempUser.getAvatar());
-        
+
         rep.setData(res);
 
         return rep;
@@ -141,26 +149,49 @@ public class UserController extends AbstractController {
         Representation rep = new Representation();
 
         User user = UserContext.getUser();
-        if (user == null) {
-            rep.setError(Status.USER_NOT_LOGIN);
-            return rep;
+        UserRes res = new UserRes();
+        res.setId(user.getId().toString());
+        res.setMobile(user.getMobile());
+        res.setNickname(user.getNickname());
+        res.setAvatar(user.getAvatar());
+        
+        rep.setData(res);
+
+        return rep;
+    }
+
+    @Auth
+    @RequestMapping(value = "/user/orders", method = RequestMethod.GET)
+    public Representation orders(@RequestParam(defaultValue = "all") String status,
+            @RequestParam(defaultValue = "0") int offset, @RequestParam(defaultValue = "10") int limit) {
+        Representation rep = new Representation();
+
+        OrderStatus os = OrderStatus.valueOfStatus(status);
+        List<Order> orders = orderService.listByUser(UserContext.getUser(), os, offset, limit);
+        List<OrderRes> list = new ArrayList<OrderRes>();
+        for (Order order : orders) {
+            OrderRes res = fromOrder(order);
+            list.add(res);
         }
 
         return rep;
     }
-    
-    @Auth
-    @RequestMapping(value = "/user/orders", method = RequestMethod.GET)
-    public Representation orders() {
-        Representation rep = new Representation();
 
-        User user = UserContext.getUser();
-        if (user == null) {
-            rep.setError(Status.USER_NOT_LOGIN);
-            return rep;
-        }
-
-        return rep;
+    private OrderRes fromOrder(Order order) {
+        OrderRes res = new OrderRes();
+        res.setId(order.getId().toString());
+        res.setAmount(order.getAmount());
+        res.setDiscount(order.getDiscount());
+        res.setStatus(order.getStatus());
+        res.setPaytime(order.getPaytime());
+        res.setPaytype(order.getPaytype());
+        res.setPaysn(order.getPaysn());
+        ActivityRes ares = new ActivityRes();
+        ares.setId(order.getActivity().getId().toString());
+        ares.setTitle(order.getActivity().getTitle());
+        res.setActivity(ares);
+        res.setCoupon(new CouponRes());
+        return res;
     }
 
 }
