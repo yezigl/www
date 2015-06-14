@@ -1,0 +1,17 @@
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/sur2/!svn/ver/268/trunk/sur-domain/src/main/resources
+END
+sur.properties
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/sur2/!svn/ver/268/trunk/sur-domain/src/main/resources/sur.properties
+END
+applicationContext-dao.xml
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/sur2/!svn/ver/152/trunk/sur-domain/src/main/resources/applicationContext-dao.xml
+END
