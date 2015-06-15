@@ -42,7 +42,7 @@ public class AppController extends AbstractController {
 
         Representation rep = new Representation();
 
-        String cdnServer = "http://static.yezi.gl/" + bucket + "/";
+        String cdnServer = "http://static.yueqiua.com/" + bucket + "/";
         String uploadPath = "/data/upload/" + bucket;
         File path = new File(uploadPath);
         if (!path.exists()) {
