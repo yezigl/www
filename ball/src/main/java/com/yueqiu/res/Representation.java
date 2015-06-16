@@ -15,7 +15,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 public class Representation {
 
     @JsonInclude(Include.NON_NULL)
-    private Error error;
+    private ErrorRes error;
     @JsonInclude(Include.NON_NULL)
     private Object data;
     private long timestamp;
@@ -24,11 +24,11 @@ public class Representation {
         setTimestamp(System.currentTimeMillis());
     }
 
-    public Error getError() {
+    public ErrorRes getError() {
         return error;
     }
 
-    public void setError(Error error) {
+    public void setError(ErrorRes error) {
         this.error = error;
     }
 
@@ -41,7 +41,7 @@ public class Representation {
     }
 
     public void setError(Status status, Object... args) {
-        error = new Error();
+        error = new ErrorRes();
         error.setCode(status.code());
         error.setMessage(String.format(status.msg(), args));
     }
