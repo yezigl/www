@@ -9,7 +9,7 @@ package com.yueqiu.res;
  * @author yezi
  * @since 2015年6月14日
  */
-public class Error {
+public class ErrorRes {
 
     private int code;
     private String message;

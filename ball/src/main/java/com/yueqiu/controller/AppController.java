@@ -7,8 +7,12 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Random;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.boot.autoconfigure.web.ErrorController;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +24,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.yueqiu.entity.User;
 import com.yueqiu.model.CacheKey;
 import com.yueqiu.res.CaptchaRes;
+import com.yueqiu.res.ErrorRes;
 import com.yueqiu.res.LoginRes;
 import com.yueqiu.res.Representation;
 import com.yueqiu.res.Status;
@@ -34,10 +39,9 @@ import com.yueqiu.utils.Utils;
  * @since 2015年6月14日
  */
 @RestController
-@RequestMapping("/1")
-public class AppController extends AbstractController {
+public class AppController extends AbstractController implements ErrorController {
 
-    @RequestMapping(value = "/upload", method = RequestMethod.POST)
+    @RequestMapping(value = "/1/upload", method = RequestMethod.POST)
     public Representation upload(@RequestParam MultipartFile file, @RequestParam String bucket) {
 
         Representation rep = new Representation();
@@ -69,7 +73,7 @@ public class AppController extends AbstractController {
         return rep;
     }
 
-    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    @RequestMapping(value = "/1/register", method = RequestMethod.POST)
     public Representation register(@ModelAttribute("user") User user, @RequestParam String captcha,
             @RequestHeader(value = "X-Forwarded-For", required = false) String forwardIp,
             @RequestHeader(value = "X-Real-IP", required = false) String realIp) {
@@ -111,7 +115,7 @@ public class AppController extends AbstractController {
         return rep;
     }
 
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    @RequestMapping(value = "/1/login", method = RequestMethod.POST)
     public Representation login(@RequestParam String mobile, @RequestParam String password) {
         Representation rep = new Representation();
 
@@ -140,7 +144,7 @@ public class AppController extends AbstractController {
         return rep;
     }
 
-    @RequestMapping(value = "/captcha/mobile", method = RequestMethod.POST)
+    @RequestMapping(value = "/1/captcha/mobile", method = RequestMethod.POST)
     public Representation captchaMobile(@RequestParam String mobile) {
 
         Representation rep = new Representation();
@@ -155,6 +159,33 @@ public class AppController extends AbstractController {
         rep.setData(res);
 
         return rep;
+    }
+
+    @RequestMapping(value = "/error")
+    public Representation error(HttpServletRequest request) {
+        Representation rep = new Representation();
+        HttpStatus status = getStatus(request);
+        ErrorRes error = new ErrorRes();
+        error.setCode(status.value());
+        error.setMessage(status.getReasonPhrase());
+        rep.setError(error);
+        return rep;
+    }
+
+    private HttpStatus getStatus(HttpServletRequest request) {
+        Integer statusCode = (Integer) request.getAttribute("javax.servlet.error.status_code");
+        if (statusCode != null) {
+            try {
+                return HttpStatus.valueOf(statusCode);
+            } catch (Exception ex) {
+            }
+        }
+        return HttpStatus.INTERNAL_SERVER_ERROR;
+    }
+
+    @Override
+    public String getErrorPath() {
+        return "/error";
     }
 
 }
