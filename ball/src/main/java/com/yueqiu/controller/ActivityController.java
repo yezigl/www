@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.yueqiu.entity.Activity;
 import com.yueqiu.entity.User;
+import com.yueqiu.model.ActivityStatus;
 import com.yueqiu.model.DateType;
 import com.yueqiu.model.ActivityType;
 import com.yueqiu.model.OrderBy;
@@ -84,6 +85,8 @@ public class ActivityController extends AbstractController {
         res.setTotal(activity.getTotal());
         res.setAttend(activity.getAttend());
         res.setOrganizer(null);
+        res.setStatus(activity.getStatus());
+        res.setStatusStr(ActivityStatus.valueOfStatus(activity.getStatus()).text);
         StadiumRes stadium = new StadiumRes(activity.getStadium());
         res.setStadium(stadium);
         for (User user : users) {

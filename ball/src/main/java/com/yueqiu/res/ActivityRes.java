@@ -46,6 +46,8 @@ public class ActivityRes extends Res {
     private UserRes organizer;
     @JsonInclude(Include.NON_EMPTY)
     private List<Player> players;
+    private Integer status;
+    private String statusStr;
 
     public ActivityRes() {
         players = new ArrayList<Player>();
@@ -137,6 +139,42 @@ public class ActivityRes extends Res {
 
     public void setType(int type) {
         this.type = type;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
+    public String getStatusStr() {
+        return statusStr;
+    }
+
+    public void setStatusStr(String statusStr) {
+        this.statusStr = statusStr;
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
+    }
+
+    public void setPrice(Float price) {
+        this.price = price;
+    }
+
+    public void setValue(Float value) {
+        this.value = value;
+    }
+
+    public void setTotal(Integer total) {
+        this.total = total;
+    }
+
+    public void setAttend(Integer attend) {
+        this.attend = attend;
     }
 
     public void addPlayer(User user) {

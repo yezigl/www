@@ -27,6 +27,7 @@ public class Activity extends BaseEntity {
     private User organizer;
     private int total;
     private int attend;
+    private int status;
 
     public String getTitle() {
         return title;
@@ -90,6 +91,14 @@ public class Activity extends BaseEntity {
 
     public void setAttend(int attend) {
         this.attend = attend;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 
 }
