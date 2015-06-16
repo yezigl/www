@@ -18,13 +18,14 @@ import com.yueqiu.entity.Activity;
 import com.yueqiu.entity.Order;
 import com.yueqiu.entity.User;
 import com.yueqiu.model.ActivityStatus;
-import com.yueqiu.model.DateType;
 import com.yueqiu.model.ActivityType;
+import com.yueqiu.model.DateType;
 import com.yueqiu.model.OrderBy;
 import com.yueqiu.res.ActivityRes;
 import com.yueqiu.res.Representation;
 import com.yueqiu.res.StadiumRes;
 import com.yueqiu.res.Status;
+import com.yueqiu.res.UserRes;
 import com.yueqiu.utils.UserContext;
 
 /**
@@ -90,7 +91,10 @@ public class ActivityController extends AbstractController {
         res.setValue(activity.getPrice());
         res.setTotal(activity.getTotal());
         res.setAttend(activity.getAttend());
-        res.setOrganizer(null);
+        UserRes ru = new UserRes();
+        ru.setNickname("官方");
+        ru.setMobile("17011110000");
+        res.setOrganizer(ru);
         res.setStatus(activity.getStatus());
         res.setStatusStr(ActivityStatus.valueOfStatus(activity.getStatus()).text);
         StadiumRes stadium = new StadiumRes(activity.getStadium());
