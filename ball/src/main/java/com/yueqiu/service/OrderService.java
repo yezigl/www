@@ -8,6 +8,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.yueqiu.entity.Activity;
 import com.yueqiu.entity.Order;
 import com.yueqiu.entity.User;
 import com.yueqiu.model.OrderStatus;
@@ -38,5 +39,9 @@ public class OrderService extends BaseService {
     
     public List<Order> listByUser(User user, OrderStatus status, int offset, int limit) {
         return orderDao.listByUser(user, status, offset, limit);
+    }
+    
+    public Order getByUserAndActivity(User user, Activity activity) {
+        return orderDao.getByUserAndActivity(user, activity);
     }
 }

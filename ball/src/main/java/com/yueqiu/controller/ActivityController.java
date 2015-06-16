@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.yueqiu.entity.Activity;
+import com.yueqiu.entity.Order;
 import com.yueqiu.entity.User;
 import com.yueqiu.model.ActivityStatus;
 import com.yueqiu.model.DateType;
@@ -24,6 +25,7 @@ import com.yueqiu.res.ActivityRes;
 import com.yueqiu.res.Representation;
 import com.yueqiu.res.StadiumRes;
 import com.yueqiu.res.Status;
+import com.yueqiu.utils.UserContext;
 
 /**
  * description here
@@ -66,6 +68,10 @@ public class ActivityController extends AbstractController {
         }
 
         ActivityRes res = fromGame(activity);
+        if (UserContext.isAuth()) {
+            Order order = orderService.getByUserAndActivity(UserContext.getUser(), activity);
+            res.setOrderId(order.getId().toString());
+        }
         rep.setData(res);
 
         return rep;

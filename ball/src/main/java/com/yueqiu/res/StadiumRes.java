@@ -22,15 +22,19 @@ public class StadiumRes extends Res {
     private String thumbnail;
     private float longitude;
     private float latitude;
-    
+    private int size;
+    private String[] gallery;
+
     public StadiumRes() {
     }
-    
+
     public StadiumRes(Stadium stadium) {
         this.name = stadium.getName();
         this.thumbnail = stadium.getGallery()[0];
         this.longitude = stadium.getLongitude();
         this.latitude = stadium.getLatitude();
+        this.size = stadium.getSize();
+        this.gallery = stadium.getGallery();
     }
 
     public String getName() {
@@ -63,6 +67,22 @@ public class StadiumRes extends Res {
 
     public void setLatitude(float latitude) {
         this.latitude = latitude;
+    }
+
+    public int getSize() {
+        return size;
+    }
+
+    public void setSize(int size) {
+        this.size = size;
+    }
+
+    public String[] getGallery() {
+        return gallery;
+    }
+
+    public void setGallery(String[] gallery) {
+        this.gallery = gallery;
     }
 
 }

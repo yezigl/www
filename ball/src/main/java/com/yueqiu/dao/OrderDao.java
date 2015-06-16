@@ -64,4 +64,11 @@ public class OrderDao extends AppEntityDaoMorphiaImpl<Order, ObjectId> {
         }
         return query.asList();
     }
+
+    public Order getByUserAndActivity(User user, Activity activity) {
+        Query<Order> query = createQuery();
+        query.field("activity").equal(activity);
+        query.field("user").equal(user);
+        return query.get();
+    }
 }

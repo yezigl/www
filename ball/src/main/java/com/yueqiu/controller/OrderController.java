@@ -43,19 +43,23 @@ public class OrderController extends AbstractController {
             rep.setError(Status.NOT_EXIST, "活动不存在");
             return rep;
         }
-        Order order = new Order();
-        order.setActivity(activity);
-        order.setUser(user);
-        order.setAmount(activity.getPrice());
-        order.setIp(Utils.getClientIP(forwardIp, realIp));
-        String id = orderService.create(order);
-        if (id == null) {
-            rep.setError(Status.ERROR_400, "生成订单失败");
-            return rep;
+
+        Order order = orderService.getByUserAndActivity(user, activity);
+        if (order == null) {
+            order = new Order();
+            order.setActivity(activity);
+            order.setUser(user);
+            order.setAmount(activity.getPrice());
+            order.setIp(Utils.getClientIP(forwardIp, realIp));
+            String id = orderService.create(order);
+            if (id == null) {
+                rep.setError(Status.ERROR_400, "生成订单失败");
+                return rep;
+            }
         }
-        
+
         OrderRes res = new OrderRes();
-        res.setId(id);
+        res.setId(order.getId().toString());
         rep.setData(res);
 
         return rep;

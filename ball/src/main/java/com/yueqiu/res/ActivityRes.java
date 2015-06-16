@@ -46,8 +46,12 @@ public class ActivityRes extends Res {
     private UserRes organizer;
     @JsonInclude(Include.NON_EMPTY)
     private List<Player> players;
+    @JsonInclude(Include.NON_NULL)
     private Integer status;
+    @JsonInclude(Include.NON_NULL)
     private String statusStr;
+    @JsonInclude(Include.NON_NULL)
+    private String orderId;
 
     public ActivityRes() {
         players = new ArrayList<Player>();
@@ -175,6 +179,14 @@ public class ActivityRes extends Res {
 
     public void setAttend(Integer attend) {
         this.attend = attend;
+    }
+
+    public String getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(String orderId) {
+        this.orderId = orderId;
     }
 
     public void addPlayer(User user) {
