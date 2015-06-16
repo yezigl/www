@@ -11,7 +11,7 @@ import com.yueqiu.res.Status;
  * @author yezi
  * @since 2015年6月14日
  */
-public class AppException extends Exception {
+public class AppException extends RuntimeException {
 
     /**
      * 
