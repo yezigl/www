@@ -5,6 +5,8 @@ package com.yueqiu.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
@@ -156,6 +158,37 @@ public class AppController extends AbstractController implements ErrorController
 
         CaptchaRes res = new CaptchaRes();
         res.setCaptcha(captcha);
+        rep.setData(res);
+
+        return rep;
+    }
+
+    @RequestMapping(value = "/1/forgetpwd", method = RequestMethod.POST)
+    public Representation forgetpwd(@RequestParam String mobile, @RequestParam String captcha,
+            @RequestParam String password) {
+        Representation rep = new Representation();
+
+        if (StringUtils.isBlank(mobile) || mobile.length() != 11) {
+            rep.setError(Status.PARAM_ERROR, "mobile");
+            return rep;
+        }
+
+        String captchaOrigin = cacheService.get(CacheKey.getMobileCaptchaKey(mobile));
+        if (!StringUtils.equals(captchaOrigin, captcha)) {
+            rep.setError(Status.CAPTCHA_ERROR);
+            return rep;
+        }
+
+        User tempUser = userService.getByMobile(mobile);
+        if (tempUser == null) {
+            rep.setError(Status.USER_NOT_EXIST, mobile);
+            return rep;
+        }
+
+        tempUser.setPassword(DigestUtils.sha1Hex(tempUser.getSalt() + password));
+        userService.update(tempUser);
+
+        Map<String, String> res = new HashMap<>();
         rep.setData(res);
 
         return rep;
