@@ -83,6 +83,12 @@ public class PaymentController extends AbstractController {
         }
     }
     
+    @RequestMapping(value = "/1/payment/weixin/prepay")
+    public String weixinPrepay() {
+        
+        return null;
+    }
+    
     @RequestMapping(value = "/1/payment/weixin")
     public String weixin() {
         

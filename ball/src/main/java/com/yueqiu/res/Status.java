@@ -14,7 +14,7 @@ public enum Status {
     ERROR(-1, "undefined error"),
     
     // 参数类错误
-    PARAM_ERROR(400, "参数(%s)未指定"),
+    PARAM_ERROR(400, "参数(%s)错误"),
     USER_REGISTERED(400, "用户已被注册"),
     USER_NOT_EXIST(400, "用户不存在"),
     USERNAME_OR_PASSWORD_ERROR(400, "用户名或密码错误"),

@@ -92,7 +92,7 @@ public class OrderRes extends Res {
         this.paytime = paytime;
     }
 
-    public int getPaytype() {
+    public Integer getPaytype() {
         return paytype;
     }
 
