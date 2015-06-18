@@ -29,7 +29,7 @@ public class OrderService extends BaseService {
     public String create(Order order) {
         order.setCreateTime(new Date());
         order.setUpdateTime(new Date());
-        order.setStatus(OrderStatus.INIT.code);
+        order.setStatus(OrderStatus.CREATE.code);
         return orderDao.create(order);
     }
     
@@ -41,7 +41,7 @@ public class OrderService extends BaseService {
         return orderDao.listByUser(user, status, offset, limit);
     }
     
-    public Order getByUserAndActivity(User user, Activity activity) {
-        return orderDao.getByUserAndActivity(user, activity);
+    public List<Order> getByUserAndActivity(User user, Activity activity, OrderStatus status) {
+        return orderDao.getByUserAndActivity(user, activity, status);
     }
 }

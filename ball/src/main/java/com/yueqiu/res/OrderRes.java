@@ -7,6 +7,7 @@ import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.yueqiu.entity.Order;
 
 /**
  * description here
@@ -36,6 +37,16 @@ public class OrderRes extends Res {
     @JsonInclude(Include.NON_NULL)
     private CouponRes coupon;
 
+    public OrderRes() {
+        
+    }
+    
+    public OrderRes(Order order) {
+        this.id = order.getId().toString();
+        this.amount = order.getAmount();
+        this.status = order.getStatus();
+    }
+    
     public String getId() {
         return id;
     }

@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.time.DateFormatUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,7 +22,9 @@ import com.yueqiu.model.ActivityStatus;
 import com.yueqiu.model.ActivityType;
 import com.yueqiu.model.DateType;
 import com.yueqiu.model.OrderBy;
+import com.yueqiu.model.OrderStatus;
 import com.yueqiu.res.ActivityRes;
+import com.yueqiu.res.OrderRes;
 import com.yueqiu.res.Representation;
 import com.yueqiu.res.StadiumRes;
 import com.yueqiu.res.Status;
@@ -70,8 +73,11 @@ public class ActivityController extends AbstractController {
 
         ActivityRes res = fromGame(activity);
         if (UserContext.isAuth()) {
-            Order order = orderService.getByUserAndActivity(UserContext.getUser(), activity);
-            res.setOrderId(order.getId().toString());
+            List<Order> orders = orderService.getByUserAndActivity(UserContext.getUser(), activity, OrderStatus.ALL);
+            if (CollectionUtils.isNotEmpty(orders)) {
+                Order order = orders.get(0);
+                res.setOrder(new OrderRes(order));
+            }
         }
         rep.setData(res);
 

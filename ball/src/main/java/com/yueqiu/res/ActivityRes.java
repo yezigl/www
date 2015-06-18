@@ -51,7 +51,7 @@ public class ActivityRes extends Res {
     @JsonInclude(Include.NON_NULL)
     private String statusStr;
     @JsonInclude(Include.NON_NULL)
-    private String orderId;
+    private OrderRes order;
 
     public ActivityRes() {
         players = new ArrayList<Player>();
@@ -181,12 +181,12 @@ public class ActivityRes extends Res {
         this.attend = attend;
     }
 
-    public String getOrderId() {
-        return orderId;
+    public OrderRes getOrder() {
+        return order;
     }
 
-    public void setOrderId(String orderId) {
-        this.orderId = orderId;
+    public void setOrder(OrderRes order) {
+        this.order = order;
     }
 
     public void addPlayer(User user) {

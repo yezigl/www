@@ -13,7 +13,7 @@ package com.yueqiu.model;
 public enum OrderStatus {
 
     ALL("all", 0),
-    INIT("init", 1),
+    CREATE("create", 1),
     PAYED("payed", 2),
     REFUND("refund", 4),
     CLOSE("close", 8);
