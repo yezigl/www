@@ -73,6 +73,9 @@ public class OrderController extends AbstractController {
 
         OrderRes res = new OrderRes();
         res.setId(order.getId().toString());
+        res.setAmount(order.getAmount());
+        res.setDiscount(order.getDiscount());
+        res.setStatus(order.getStatus());
         rep.setData(res);
 
         return rep;
