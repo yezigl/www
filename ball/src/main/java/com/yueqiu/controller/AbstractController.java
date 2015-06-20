@@ -25,6 +25,8 @@ public class AbstractController {
     
     protected int LIMIT = 10;
     
+    protected String pattern = "MM月dd日 EEE HH:mm";
+    
     @Resource
     protected CacheService cacheService;
     @Resource

@@ -84,8 +84,6 @@ public class ActivityController extends AbstractController {
         return rep;
     }
 
-    private String pattern = "MM月dd日 EEE HH:mm";
-
     private ActivityRes fromGame(Activity activity) {
         ActivityRes res = new ActivityRes();
         List<User> users = activityService.getAttend(activity);
