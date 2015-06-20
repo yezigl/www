@@ -137,7 +137,7 @@ public class ActivityRes extends Res {
         this.players = players;
     }
 
-    public int getType() {
+    public Integer getType() {
         return type;
     }
 
