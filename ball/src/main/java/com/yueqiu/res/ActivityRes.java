@@ -89,7 +89,7 @@ public class ActivityRes extends Res {
         this.date = date;
     }
 
-    public float getPrice() {
+    public Float getPrice() {
         return price;
     }
 
@@ -97,7 +97,7 @@ public class ActivityRes extends Res {
         this.price = price;
     }
 
-    public float getValue() {
+    public Float getValue() {
         return value;
     }
 
@@ -105,7 +105,7 @@ public class ActivityRes extends Res {
         this.value = value;
     }
 
-    public int getTotal() {
+    public Integer getTotal() {
         return total;
     }
 
@@ -113,7 +113,7 @@ public class ActivityRes extends Res {
         this.total = total;
     }
 
-    public int getAttend() {
+    public Integer getAttend() {
         return attend;
     }
 
