@@ -4,6 +4,7 @@
 package com.yueqiu.controller;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -12,10 +13,13 @@ import java.util.Random;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.web.ErrorController;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -42,6 +46,9 @@ import com.yueqiu.utils.Utils;
  */
 @RestController
 public class AppController extends AbstractController implements ErrorController {
+    
+    @Value("${upload.path}")
+    String uploadPath;
 
     @RequestMapping(value = "/1/upload", method = RequestMethod.POST)
     public Representation upload(@RequestParam MultipartFile file, @RequestParam String bucket) {
@@ -49,8 +56,8 @@ public class AppController extends AbstractController implements ErrorController
         Representation rep = new Representation();
 
         String cdnServer = "http://static.yueqiua.com/" + bucket + "/";
-        String uploadPath = "/data/upload/" + bucket;
-        File path = new File(uploadPath);
+        String tempPath = uploadPath + bucket;
+        File path = new File(tempPath);
         if (!path.exists()) {
             path.mkdirs();
         }
@@ -72,6 +79,38 @@ public class AppController extends AbstractController implements ErrorController
         res.setUrl(url);
         rep.setData(res);
 
+        return rep;
+    }
+    
+    @RequestMapping(value = "/1/upload/{bucket}", method = RequestMethod.POST)
+    public Representation uploadStream(HttpServletRequest request, @PathVariable String bucket) {
+        Representation rep = new Representation();
+
+        String cdnServer = "http://static.yueqiua.com/" + bucket + "/";
+        String tempPath = uploadPath + bucket;
+        File path = new File(tempPath);
+        if (!path.exists()) {
+            path.mkdirs();
+        }
+
+        String url = null;
+        String filename = DigestUtils.md5Hex(System.currentTimeMillis() + "png") + ".png";
+        File dest = new File(path, filename);
+        try {
+            FileOutputStream out = new FileOutputStream(dest);
+            out.write(IOUtils.toByteArray(request.getInputStream()));
+            out.close();
+            url = cdnServer + filename;
+        } catch (IOException e) {
+            logger.error(e.getMessage(), e);
+            rep.setError(Status.ERROR_400, "上传文件失败");
+            return rep;
+        }
+        
+        UploadRes res = new UploadRes();
+        res.setUrl(url);
+        rep.setData(res);
+        
         return rep;
     }
 

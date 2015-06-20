@@ -95,6 +95,7 @@ public class UserController extends AbstractController {
             OrderRes res = fromOrder(order);
             list.add(res);
         }
+        rep.setData(list);
 
         return rep;
     }

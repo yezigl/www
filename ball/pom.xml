@@ -182,12 +182,14 @@
             </activation>
             <properties>
                 <logging.path>/opt/logs/${project.name}</logging.path>
+                <upload.path>/opt/data/upload/</upload.path>
             </properties>
         </profile>
         <profile>
             <id>prod</id>
             <properties>
                 <logging.path>/data/logs/${project.name}</logging.path>
+                <upload.path>/data/upload/</upload.path>
             </properties>
         </profile>
     </profiles>
