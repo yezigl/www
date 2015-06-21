@@ -52,6 +52,7 @@ public class AbstractController {
         res.setAmount(order.getAmount());
         res.setDiscount(order.getDiscount());
         res.setStatus(order.getStatus());
+        res.setCreateTime(DateFormatUtils.format(order.getCreateTime(), orderPattern, Locale.CHINA));
         res.setPaytime(order.getPaytime());
         res.setPaytype(order.getPaytype());
         res.setPaysn(order.getPaysn());

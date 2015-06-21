@@ -119,5 +119,15 @@ public class UserController extends AbstractController {
 
         return rep;
     }
+    
+    @Auth
+    @RequestMapping(value = "/user/coupons", method = RequestMethod.GET)
+    public Representation coupons() {
+        Representation rep = new Representation();
+
+        rep.setData(new Object());
+
+        return rep;
+    }
 
 }
