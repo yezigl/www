@@ -33,7 +33,9 @@ public class AbstractController {
     
     protected int LIMIT = 10;
     
-    protected String pattern = "MM月dd日 EEE HH:mm";
+    protected String activityPattern = "MM月dd日 EEE HH:mm";
+    
+    protected String orderPattern = "yyyy-MM-dd HH:mm:ss";
     
     @Resource
     protected CacheService cacheService;
@@ -56,7 +58,7 @@ public class AbstractController {
         ActivityRes ares = new ActivityRes();
         ares.setId(order.getActivity().getId().toString());
         ares.setTitle(order.getActivity().getTitle());
-        ares.setDate(DateFormatUtils.format(order.getActivity().getDate(), pattern, Locale.CHINA));
+        ares.setDate(DateFormatUtils.format(order.getActivity().getDate(), activityPattern, Locale.CHINA));
         ares.setStadium(new StadiumRes(order.getActivity().getStadium()));
         res.setActivity(ares);
         res.setCoupon(new CouponRes());

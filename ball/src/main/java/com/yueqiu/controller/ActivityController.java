@@ -90,7 +90,7 @@ public class ActivityController extends AbstractController {
         res.setId(activity.getId().toString());
         res.setTitle(activity.getTitle());
         res.setType(activity.getType());
-        res.setDate(DateFormatUtils.format(activity.getDate(), pattern, Locale.CHINA));
+        res.setDate(DateFormatUtils.format(activity.getDate(), activityPattern, Locale.CHINA));
         res.setPrice(activity.getPrice());
         res.setValue(activity.getPrice());
         res.setTotal(activity.getTotal());

@@ -26,6 +26,7 @@ public class OrderRes extends Res {
     private float amount;
     private float discount;
     private int status;
+    private String createTime;
     @JsonInclude(Include.NON_NULL)
     private Date paytime;
     @JsonInclude(Include.NON_NULL)
@@ -38,15 +39,15 @@ public class OrderRes extends Res {
     private CouponRes coupon;
 
     public OrderRes() {
-        
+
     }
-    
+
     public OrderRes(Order order) {
         this.id = order.getId().toString();
         this.amount = order.getAmount();
         this.status = order.getStatus();
     }
-    
+
     public String getId() {
         return id;
     }
@@ -117,6 +118,14 @@ public class OrderRes extends Res {
 
     public void setPaysn(String paysn) {
         this.paysn = paysn;
+    }
+
+    public String getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(String createTime) {
+        this.createTime = createTime;
     }
 
 }

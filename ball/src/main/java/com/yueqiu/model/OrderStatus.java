@@ -26,9 +26,9 @@ public enum OrderStatus {
         this.code = code;
     }
     
-    public static OrderStatus valueOfStatus(String str) {
+    public static OrderStatus valueOfStatus(int str) {
         for (OrderStatus os : values()) {
-            if (os.identifier.equals(str)) {
+            if (os.code == str) {
                 return os;
             }
         }

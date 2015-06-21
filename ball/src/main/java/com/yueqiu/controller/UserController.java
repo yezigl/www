@@ -82,7 +82,7 @@ public class UserController extends AbstractController {
 
     @Auth
     @RequestMapping(value = "/user/orders", method = RequestMethod.GET)
-    public Representation orders(@RequestParam(defaultValue = "all") String status,
+    public Representation orders(@RequestParam(defaultValue = "0") int status,
             @RequestParam(defaultValue = "0") int offset, @RequestParam(defaultValue = "10") int limit) {
         Representation rep = new Representation();
 
