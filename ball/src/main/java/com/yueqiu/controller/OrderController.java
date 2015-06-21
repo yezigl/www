@@ -81,9 +81,18 @@ public class OrderController extends AbstractController {
         return rep;
     }
 
-    @RequestMapping(value = "/order/{id}/pay", method = RequestMethod.POST)
+    @RequestMapping(value = "/order/{id}", method = RequestMethod.GET)
     public Representation pay(@PathVariable String id) {
         Representation rep = new Representation();
+        
+        Order order = orderService.get(id);
+        if (order == null) {
+            rep.setError(Status.ERROR_400, "订单不存在");
+            return rep;
+        }
+        
+        OrderRes res = fromOrder(order);
+        rep.setData(res);
 
         return rep;
     }

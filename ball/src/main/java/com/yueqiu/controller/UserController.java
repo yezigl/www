@@ -5,11 +5,9 @@ package com.yueqiu.controller;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.time.DateFormatUtils;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -20,11 +18,8 @@ import com.yueqiu.annotation.Auth;
 import com.yueqiu.entity.Order;
 import com.yueqiu.entity.User;
 import com.yueqiu.model.OrderStatus;
-import com.yueqiu.res.ActivityRes;
-import com.yueqiu.res.CouponRes;
 import com.yueqiu.res.OrderRes;
 import com.yueqiu.res.Representation;
-import com.yueqiu.res.StadiumRes;
 import com.yueqiu.res.Status;
 import com.yueqiu.res.UserRes;
 import com.yueqiu.utils.UserContext;
@@ -123,25 +118,6 @@ public class UserController extends AbstractController {
         userService.update(user);
 
         return rep;
-    }
-
-    private OrderRes fromOrder(Order order) {
-        OrderRes res = new OrderRes();
-        res.setId(order.getId().toString());
-        res.setAmount(order.getAmount());
-        res.setDiscount(order.getDiscount());
-        res.setStatus(order.getStatus());
-        res.setPaytime(order.getPaytime());
-        res.setPaytype(order.getPaytype());
-        res.setPaysn(order.getPaysn());
-        ActivityRes ares = new ActivityRes();
-        ares.setId(order.getActivity().getId().toString());
-        ares.setTitle(order.getActivity().getTitle());
-        ares.setDate(DateFormatUtils.format(order.getActivity().getDate(), pattern, Locale.CHINA));
-        ares.setStadium(new StadiumRes(order.getActivity().getStadium()));
-        res.setActivity(ares);
-        res.setCoupon(new CouponRes());
-        return res;
     }
 
 }
