@@ -37,7 +37,7 @@ public class CouponDao extends BaseDao<Coupon> {
 
     public List<Coupon> listCoupons(User user) {
         Query<Coupon> query = createQuery();
-        query.field("user").equal(user).field("stauts").equal(1);
+        query.field("user").equal(user).field("status").equal(1);
         return query.asList();
     }
 
