@@ -18,6 +18,7 @@ public class CouponRes extends Res {
      */
     private static final long serialVersionUID = 1L;
 
+    private String id;
     private String name;
     private String desc;
     private float price;
@@ -30,6 +31,14 @@ public class CouponRes extends Res {
         this.name = coupon.getName();
         this.desc = coupon.getDesc();
         this.price = coupon.getPrice();
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getName() {
