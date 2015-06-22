@@ -44,7 +44,8 @@ public class ActivityController extends AbstractController {
     @RequestMapping(value = "/activities", method = RequestMethod.GET)
     public Representation list(@RequestParam(defaultValue = "0") int dateType,
             @RequestParam(defaultValue = "0") int activityType, @RequestParam(defaultValue = "desc") String orderBy,
-            @RequestParam(defaultValue = "0") int offset, @RequestParam(defaultValue = "10") int limit) {
+            @RequestParam(required = false) String cityId, @RequestParam(defaultValue = "0") int offset,
+            @RequestParam(defaultValue = "10") int limit) {
         Representation rep = new Representation();
 
         DateType dt = DateType.valueOfType(dateType);

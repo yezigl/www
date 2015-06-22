@@ -15,9 +15,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.yueqiu.annotation.Auth;
+import com.yueqiu.entity.Coupon;
+import com.yueqiu.entity.Message;
 import com.yueqiu.entity.Order;
 import com.yueqiu.entity.User;
 import com.yueqiu.model.OrderStatus;
+import com.yueqiu.res.CouponRes;
+import com.yueqiu.res.MessageRes;
 import com.yueqiu.res.OrderRes;
 import com.yueqiu.res.Representation;
 import com.yueqiu.res.Status;
@@ -51,7 +55,7 @@ public class UserController extends AbstractController {
         }
 
         userService.update(current);
-        
+
         UserRes res = new UserRes();
         res.setId(current.getId().toString());
         res.setMobile(current.getMobile());
@@ -119,13 +123,36 @@ public class UserController extends AbstractController {
 
         return rep;
     }
-    
+
     @Auth
     @RequestMapping(value = "/user/coupons", method = RequestMethod.GET)
     public Representation coupons() {
         Representation rep = new Representation();
 
-        rep.setData(new Object());
+        List<Coupon> coupons = userService.listCoupons(UserContext.getUser());
+        List<CouponRes> list = new ArrayList<>();
+        for (Coupon coupon : coupons) {
+            list.add(new CouponRes(coupon));
+        }
+
+        rep.setData(list);
+
+        return rep;
+    }
+
+    @Auth
+    @RequestMapping(value = "/user/messages", method = RequestMethod.GET)
+    public Representation messages(@RequestParam(defaultValue = "0") int offset,
+            @RequestParam(defaultValue = "10") int limit) {
+        Representation rep = new Representation();
+
+        List<Message> messages = userService.listMessages(UserContext.getUser(), offset, limit);
+        List<MessageRes> list = new ArrayList<>();
+        for (Message message : messages) {
+            list.add(new MessageRes(message));
+        }
+
+        rep.setData(list);
 
         return rep;
     }

@@ -4,10 +4,13 @@
 package com.yueqiu.service;
 
 import java.util.Date;
+import java.util.List;
 
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.stereotype.Service;
 
+import com.yueqiu.entity.Coupon;
+import com.yueqiu.entity.Message;
 import com.yueqiu.entity.User;
 import com.yueqiu.utils.CryptUtils;
 
@@ -23,7 +26,7 @@ public class UserService extends BaseService {
     public User get(String id) {
         return userDao.get(id);
     }
-    
+
     public boolean create(User user) {
         user.setCreateTime(new Date());
         user.setUpdateTime(new Date());
@@ -31,7 +34,7 @@ public class UserService extends BaseService {
         user.setPassword(DigestUtils.sha1Hex(user.getSalt() + user.getPassword()));
         return userDao.update(user);
     }
-    
+
     public boolean update(User user) {
         user.setUpdateTime(new Date());
         return userDao.update(user);
@@ -39,5 +42,24 @@ public class UserService extends BaseService {
 
     public User getByMobile(String mobile) {
         return userDao.getByField("mobile", mobile);
+    }
+
+    public Coupon getCoupon(String id, User user) {
+        return couponDao.get(id, user);
+    }
+    
+    public List<Coupon> listCoupons(User user) {
+        return couponDao.listCoupons(user);
+    }
+
+    public void useCoupon(Coupon coupon) {
+        coupon.setStatus(1);
+        coupon.setUsetime(new Date());
+        coupon.setUpdateTime(new Date());
+        couponDao.update(coupon);
+    }
+    
+    public List<Message> listMessages(User user, int offset, int limit) {
+        return messageDao.listByUser(user, offset, limit);
     }
 }

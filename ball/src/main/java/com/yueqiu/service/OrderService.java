@@ -44,4 +44,5 @@ public class OrderService extends BaseService {
     public List<Order> getByUserAndActivity(User user, Activity activity, OrderStatus status) {
         return orderDao.getByUserAndActivity(user, activity, status);
     }
+    
 }

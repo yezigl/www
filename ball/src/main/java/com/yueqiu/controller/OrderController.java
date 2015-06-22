@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.yueqiu.annotation.Auth;
 import com.yueqiu.entity.Activity;
+import com.yueqiu.entity.Coupon;
 import com.yueqiu.entity.Order;
 import com.yueqiu.entity.User;
 import com.yueqiu.model.OrderStatus;
@@ -35,8 +36,7 @@ public class OrderController extends AbstractController {
 
     @Auth
     @RequestMapping(value = "/orders", method = RequestMethod.POST)
-    public Representation list(@RequestParam String activityId,
-            @RequestParam(defaultValue = "") String couponId,
+    public Representation list(@RequestParam String activityId, @RequestParam(defaultValue = "") String couponId,
             @RequestParam(defaultValue = "1") int number,
             @RequestHeader(value = "X-Forwarded-For", required = false) String forwardIp,
             @RequestHeader(value = "X-Real-IP", required = false) String realIp) {
@@ -48,25 +48,30 @@ public class OrderController extends AbstractController {
             rep.setError(Status.NOT_EXIST, "活动不存在");
             return rep;
         }
-        
+
         if (number < 0 || number > (activity.getTotal() - activity.getAttend())) {
             rep.setError(Status.PARAM_ERROR, "number");
             return rep;
         }
 
         List<Order> orders = orderService.getByUserAndActivity(user, activity, OrderStatus.CREATE);
+        Coupon coupon = userService.getCoupon(couponId, user);
         Order order = null;
         if (orders == null || orders.isEmpty()) {
             order = new Order();
             order.setActivity(activity);
             order.setUser(user);
             order.setAmount(activity.getPrice() * number);
+            if (coupon != null) {
+                order.setDiscount(coupon.getPrice());
+            }
             order.setIp(Utils.getClientIP(forwardIp, realIp));
             String id = orderService.create(order);
             if (id == null) {
                 rep.setError(Status.ERROR_400, "生成订单失败");
                 return rep;
             }
+            userService.useCoupon(coupon);
         } else {
             order = orders.get(0);
         }
@@ -84,13 +89,13 @@ public class OrderController extends AbstractController {
     @RequestMapping(value = "/order/{id}", method = RequestMethod.GET)
     public Representation pay(@PathVariable String id) {
         Representation rep = new Representation();
-        
+
         Order order = orderService.get(id);
         if (order == null) {
             rep.setError(Status.ERROR_400, "订单不存在");
             return rep;
         }
-        
+
         OrderRes res = fromOrder(order);
         rep.setData(res);
 

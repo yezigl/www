@@ -16,10 +16,10 @@ import com.yueqiu.entity.BaseEntity;
  * 
  * Author: Neil Date: Apr 26, 2012
  */
-public class AppEntityDaoMorphiaImpl<E extends BaseEntity, ID> extends BasicDAO<E, ID> {
+public class AppEntityDaoMorphia<E extends BaseEntity, ID> extends BasicDAO<E, ID> {
 
     @Autowired
-    public AppEntityDaoMorphiaImpl(Datastore datastore) {
+    public AppEntityDaoMorphia(Datastore datastore) {
         super(datastore);
     }
 

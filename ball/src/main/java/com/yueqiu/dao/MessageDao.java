@@ -3,34 +3,38 @@
  */
 package com.yueqiu.dao;
 
+import java.util.List;
+
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.yueqiu.entity.Message;
 import com.yueqiu.entity.User;
 
 /**
  * description here
  *
  * @author yezi
- * @since 2015年6月14日
+ * @since 2015年6月22日
  */
 @Repository
-public class UserDao extends BaseDao<User> {
+public class MessageDao extends BaseDao<Message> {
 
     /**
      * @param datastore
      */
     @Autowired
-    public UserDao(Datastore datastore) {
+    public MessageDao(Datastore datastore) {
         super(datastore);
     }
-    
-    public User getByField(String field, String mobile) {
-        Query<User> query = createQuery();
-        query.field(field).equal(mobile);
-        return query.get();
+
+    public List<Message> listByUser(User user, int offset, int limit) {
+        Query<Message> query = createQuery();
+        query.field("user").equal(user);
+        query.limit(limit).offset(offset);
+        query.order("-ctime");
+        return query.asList();
     }
-    
 }

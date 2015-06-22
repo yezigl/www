@@ -7,7 +7,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import org.bson.types.ObjectId;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +24,7 @@ import com.yueqiu.model.OrderBy;
  * @since 2015年6月14日
  */
 @Repository
-public class ActivityDao extends AppEntityDaoMorphiaImpl<Activity, ObjectId> {
+public class ActivityDao extends BaseDao<Activity> {
 
     /**
      * @param datastore
@@ -33,18 +32,6 @@ public class ActivityDao extends AppEntityDaoMorphiaImpl<Activity, ObjectId> {
     @Autowired
     public ActivityDao(Datastore datastore) {
         super(datastore);
-    }
-    
-    public Activity get(String id) {
-        return getEntityById(new ObjectId(id));
-    }
-    
-    public boolean create(Activity activity) {
-        return saveEntity(activity) != null;
-    }
-    
-    public boolean update(Activity activity) {
-        return updateEntity(activity) == 1;
     }
     
     public List<Activity> list(DateType date, ActivityType ball, OrderBy orderby, int offset, int limit) {

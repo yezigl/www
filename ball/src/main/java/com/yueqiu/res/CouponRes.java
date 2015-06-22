@@ -3,6 +3,8 @@
  */
 package com.yueqiu.res;
 
+import com.yueqiu.entity.Coupon;
+
 /**
  * description here
  *
@@ -15,5 +17,43 @@ public class CouponRes extends Res {
      * 
      */
     private static final long serialVersionUID = 1L;
+
+    private String name;
+    private String desc;
+    private float price;
+
+    public CouponRes() {
+
+    }
+
+    public CouponRes(Coupon coupon) {
+        this.name = coupon.getName();
+        this.desc = coupon.getDesc();
+        this.price = coupon.getPrice();
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDesc() {
+        return desc;
+    }
+
+    public void setDesc(String desc) {
+        this.desc = desc;
+    }
+
+    public float getPrice() {
+        return price;
+    }
+
+    public void setPrice(float price) {
+        this.price = price;
+    }
 
 }

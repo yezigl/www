@@ -29,7 +29,7 @@ public class ActivityService extends BaseService {
         return activityDao.get(id);
     }
     
-    public boolean create(Activity activity) {
+    public String create(Activity activity) {
         return activityDao.create(activity);
     }
     

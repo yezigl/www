@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.yueqiu.dao.ActivityDao;
 import com.yueqiu.dao.CouponDao;
+import com.yueqiu.dao.MessageDao;
 import com.yueqiu.dao.OrderDao;
 import com.yueqiu.dao.StadiumDao;
 import com.yueqiu.dao.UserDao;
@@ -33,5 +34,7 @@ public abstract class BaseService {
     protected StadiumDao stadiumDao;
     @Autowired
     protected UserDao userDao;
+    @Autowired
+    protected MessageDao messageDao;
     
 }

@@ -6,6 +6,9 @@ package com.yueqiu.entity;
 import java.util.Date;
 
 import org.mongodb.morphia.annotations.Entity;
+import org.mongodb.morphia.annotations.Field;
+import org.mongodb.morphia.annotations.Index;
+import org.mongodb.morphia.annotations.Indexes;
 
 /**
  * description here
@@ -14,13 +17,16 @@ import org.mongodb.morphia.annotations.Entity;
  * @since 2015年6月13日
  */
 @Entity("coupon")
+@Indexes({ @Index(fields = @Field("user")) })
 public class Coupon extends BaseEntity {
 
     private String name;
     private String desc;
     private float price;
+    private int status;
     private Date endtime;
     private Date usetime;
+    private User user;
 
     public String getName() {
         return name;
@@ -46,6 +52,14 @@ public class Coupon extends BaseEntity {
         this.price = price;
     }
 
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
     public Date getEndtime() {
         return endtime;
     }
@@ -60,6 +74,14 @@ public class Coupon extends BaseEntity {
 
     public void setUsetime(Date usetime) {
         this.usetime = usetime;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
 }

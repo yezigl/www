@@ -5,7 +5,6 @@ package com.yueqiu.dao;
 
 import java.util.List;
 
-import org.bson.types.ObjectId;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +22,7 @@ import com.yueqiu.model.OrderStatus;
  * @since 2015年6月14日
  */
 @Repository
-public class OrderDao extends AppEntityDaoMorphiaImpl<Order, ObjectId> {
+public class OrderDao extends BaseDao<Order> {
 
     /**
      * @param datastore
@@ -31,19 +30,6 @@ public class OrderDao extends AppEntityDaoMorphiaImpl<Order, ObjectId> {
     @Autowired
     public OrderDao(Datastore datastore) {
         super(datastore);
-    }
-
-    public Order get(String id) {
-        return getEntityById(new ObjectId(id));
-    }
-
-    public String create(Order order) {
-        ObjectId id = saveEntity(order);
-        return id == null ? null : id.toString();
-    }
-
-    public boolean update(Order order) {
-        return updateEntity(order) == 1;
     }
 
     public List<Order> listByUser(User user, OrderStatus status, int offset, int limit) {
