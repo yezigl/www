@@ -26,6 +26,7 @@ import com.yueqiu.res.OrderRes;
 import com.yueqiu.res.Representation;
 import com.yueqiu.res.Status;
 import com.yueqiu.res.UserRes;
+import com.yueqiu.utils.Constants;
 import com.yueqiu.utils.UserContext;
 
 /**
@@ -60,7 +61,7 @@ public class UserController extends AbstractController {
         res.setId(current.getId().toString());
         res.setMobile(current.getMobile());
         res.setNickname(current.getNickname());
-        res.setAvatar(current.getAvatar());
+        res.setAvatar(StringUtils.defaultString(current.getAvatar(), Constants.DEFAULT_AVATAR));
 
         rep.setData(res);
 
@@ -77,7 +78,7 @@ public class UserController extends AbstractController {
         res.setId(user.getId().toString());
         res.setMobile(user.getMobile());
         res.setNickname(user.getNickname());
-        res.setAvatar(user.getAvatar());
+        res.setAvatar(StringUtils.defaultString(user.getAvatar(), Constants.DEFAULT_AVATAR));
 
         rep.setData(res);
 
