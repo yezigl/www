@@ -28,7 +28,7 @@ public class IndexController extends AbstractController {
     String UA_ANDROID = "Android";
     String UA_IPHONE = "iPhone";
 
-    String apkUrl = "http://au.apk.umeng.com/uploads/apps/559fd71067e58e4c2d00053f/umeng_%40_2_%40_19e43369d8192c3fb895ca13674b0a34.apk";
+    String apkUrl = "http://www.yueqiua.com/attachment/yuegeqiu.apk";
 
     String appstoreUrl = "";
 

@@ -38,7 +38,7 @@ public class Utils {
     }
 
     public static long ip2long(String ip) {
-        String[] ss = StringUtils.split(".");
+        String[] ss = StringUtils.split(ip, ".");
         if (ss.length != 4) {
             return 0;
         }
