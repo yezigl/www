@@ -56,13 +56,6 @@ public class UserService extends BaseService {
         return couponDao.listCoupons(user);
     }
 
-    public void useCoupon(Coupon coupon) {
-        coupon.setStatus(1);
-        coupon.setUsetime(new Date());
-        coupon.setUpdateTime(new Date());
-        couponDao.update(coupon);
-    }
-    
     public List<Message> listMessages(User user, int offset, int limit) {
         return messageDao.listByUser(user, offset, limit);
     }

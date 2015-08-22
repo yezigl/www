@@ -67,12 +67,11 @@ public class OrderController extends AbstractController {
                 order.setDiscount(coupon.getPrice());
             }
             order.setIp(Utils.getClientIP(forwardIp, realIp));
-            String id = orderService.create(order);
+            String id = orderService.create(order, coupon);
             if (id == null) {
                 rep.setError(Status.ERROR_400, "生成订单失败");
                 return rep;
             }
-            userService.useCoupon(coupon);
         } else {
             order = orders.get(0);
         }
