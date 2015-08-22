@@ -55,7 +55,7 @@ public class ActivityController extends AbstractController {
         List<Activity> list = activityService.list(dt, gt, ob, offset, limit);
         List<ActivityRes> resList = new ArrayList<ActivityRes>();
         for (Activity activity : list) {
-            resList.add(fromGame(activity));
+            resList.add(fromActivity(activity));
         }
         rep.setData(resList);
 
@@ -72,7 +72,7 @@ public class ActivityController extends AbstractController {
             return rep;
         }
 
-        ActivityRes res = fromGame(activity);
+        ActivityRes res = fromActivity(activity);
         if (UserContext.isAuth()) {
             List<Order> orders = orderService.getByUserAndActivity(UserContext.getUser(), activity, OrderStatus.ALL);
             if (CollectionUtils.isNotEmpty(orders)) {
@@ -85,7 +85,7 @@ public class ActivityController extends AbstractController {
         return rep;
     }
 
-    private ActivityRes fromGame(Activity activity) {
+    private ActivityRes fromActivity(Activity activity) {
         ActivityRes res = new ActivityRes();
         List<User> users = activityService.getAttend(activity);
         res.setId(activity.getId().toString());

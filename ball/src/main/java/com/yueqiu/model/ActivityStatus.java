@@ -12,7 +12,7 @@ package com.yueqiu.model;
 public enum ActivityStatus {
 
     UNSTART(1, "未开始"),
-    INPROGRESS(2, "进行中"),
+    INPROGRESS(2, "报名中"),
     FILLED(3, "已报满"),
     FINISH(4, "已结束");
     

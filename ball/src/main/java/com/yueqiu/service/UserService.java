@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import com.yueqiu.entity.Coupon;
@@ -45,6 +46,9 @@ public class UserService extends BaseService {
     }
 
     public Coupon getCoupon(String id, User user) {
+        if (StringUtils.isBlank(id)) {
+            return null;
+        }
         return couponDao.get(id, user);
     }
     

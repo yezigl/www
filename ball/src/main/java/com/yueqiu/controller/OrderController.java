@@ -37,7 +37,7 @@ public class OrderController extends AbstractController {
     @Auth
     @RequestMapping(value = "/orders", method = RequestMethod.POST)
     public Representation list(@RequestParam String activityId, @RequestParam(defaultValue = "") String couponId,
-            @RequestParam(defaultValue = "1") int number,
+            @RequestParam(defaultValue = "1") int quantity,
             @RequestHeader(value = "X-Forwarded-For", required = false) String forwardIp,
             @RequestHeader(value = "X-Real-IP", required = false) String realIp) {
         Representation rep = new Representation();
@@ -49,7 +49,7 @@ public class OrderController extends AbstractController {
             return rep;
         }
 
-        if (number < 0 || number > (activity.getTotal() - activity.getAttend())) {
+        if (quantity < 0 || quantity > (activity.getTotal() - activity.getAttend())) {
             rep.setError(Status.PARAM_ERROR, "number");
             return rep;
         }
@@ -61,7 +61,8 @@ public class OrderController extends AbstractController {
             order = new Order();
             order.setActivity(activity);
             order.setUser(user);
-            order.setAmount(activity.getPrice() * number);
+            order.setAmount(activity.getPrice() * quantity);
+            order.setQuantity(quantity);
             if (coupon != null) {
                 order.setDiscount(coupon.getPrice());
             }

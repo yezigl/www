@@ -27,6 +27,7 @@ public class Order extends BaseEntity {
     private User user;
     private float amount;
     private float discount;
+    private int quantity;
     @Reference
     private Coupon coupon;
     private int status;
@@ -65,6 +66,14 @@ public class Order extends BaseEntity {
 
     public void setDiscount(float discount) {
         this.discount = discount;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 
     public Coupon getCoupon() {
