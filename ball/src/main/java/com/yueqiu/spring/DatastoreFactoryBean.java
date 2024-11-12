@@ -57,9 +57,6 @@ public class DatastoreFactoryBean implements FactoryBean<Datastore>, Initializin
 
     public Datastore getObject() throws Exception {
 
-        Assert.notNull(mappingPackage);
-        Assert.notNull(dbName);
-
         MongoClient mongo = initMongo();
 
         try {
