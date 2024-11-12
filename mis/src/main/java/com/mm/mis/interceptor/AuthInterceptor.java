@@ -5,12 +5,11 @@ package com.mm.mis.interceptor;
 
 import java.net.URLEncoder;
 
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.annotation.Resource;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
-import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
-
+import org.springframework.web.servlet.HandlerInterceptor;
 import com.mm.mis.holder.AclUserContext;
 import com.mm.mis.model.AclUser;
 import com.mm.mis.service.AclUserService;
@@ -22,7 +21,7 @@ import com.mm.mis.utils.CookieUtils;
  * @author yezi
  * @since 2015年3月21日
  */
-public class AuthInterceptor extends HandlerInterceptorAdapter {
+public class AuthInterceptor implements HandlerInterceptor {
 
     private static final String NO_LOGIN_REDIRECT_URL = "/login";
     private static final String INDEX_URI = "/";

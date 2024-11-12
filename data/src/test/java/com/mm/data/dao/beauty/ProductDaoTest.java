@@ -3,14 +3,12 @@
  */
 package com.mm.data.dao.beauty;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.mm.data.dao.beauty.ProductDao;
 import com.mm.data.model.beauty.Product;
 
 /**
@@ -19,7 +17,7 @@ import com.mm.data.model.beauty.Product;
  * @author yezi
  * @since 2015年3月5日
  */
-@RunWith(SpringJUnit4ClassRunner.class)
+@SpringBootTest
 @ContextConfiguration("/applicationContext-test.xml")
 public class ProductDaoTest {
     

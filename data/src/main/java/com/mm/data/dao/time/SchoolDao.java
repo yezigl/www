@@ -1,6 +1,6 @@
 package com.mm.data.dao.time;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 
 import org.springframework.stereotype.Repository;
 

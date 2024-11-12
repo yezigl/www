@@ -2,7 +2,7 @@ package com.mm.data.dao.user;
 
 import java.util.List;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 
 import org.springframework.stereotype.Repository;
 

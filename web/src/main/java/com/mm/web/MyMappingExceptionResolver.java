@@ -3,8 +3,8 @@
  */
 package com.mm.web;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,7 +26,7 @@ public class MyMappingExceptionResolver extends SimpleMappingExceptionResolver {
 
     @Override
     protected ModelAndView doResolveException(HttpServletRequest request, HttpServletResponse response, Object handler,
-            Exception ex) {
+                                              Exception ex) {
         logger.error("uri = {}", request.getRequestURI(), ex);
         ModelAndView mv = super.doResolveException(request, response, handler, ex);
         Res error = new Res();

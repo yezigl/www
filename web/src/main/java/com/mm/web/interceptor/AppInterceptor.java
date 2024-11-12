@@ -3,12 +3,13 @@
  */
 package com.mm.web.interceptor;
 
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+
+import jakarta.annotation.Resource;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
+import org.springframework.web.servlet.HandlerInterceptor;
 
 import com.mm.data.model.user.User;
 import com.mm.service.context.Token;
@@ -22,7 +23,7 @@ import com.mm.service.utils.Params;
  * @author yezi
  * @since 2015年3月21日
  */
-public class AppInterceptor extends HandlerInterceptorAdapter {
+public class AppInterceptor implements HandlerInterceptor {
     
     private static String[] NO_LOGIN_URL = { "/register", "/login", "/captcha" };
 

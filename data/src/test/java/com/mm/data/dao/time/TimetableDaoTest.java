@@ -3,16 +3,15 @@
  */
 package com.mm.data.dao.time;
 
-import static org.junit.Assert.*;
+import jakarta.annotation.Resource;
 
-import javax.annotation.Resource;
-
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.mm.data.dao.time.TimetableDao;
+
+import static org.junit.jupiter.api.Assertions.fail;
 
 /**
  * description here
@@ -20,7 +19,7 @@ import com.mm.data.dao.time.TimetableDao;
  * @author yezi
  * @since 2014年11月5日
  */
-@RunWith(SpringJUnit4ClassRunner.class)
+@SpringBootTest
 @ContextConfiguration("/applicationContext-test.xml")
 public class TimetableDaoTest {
 

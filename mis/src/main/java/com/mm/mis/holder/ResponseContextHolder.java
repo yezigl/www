@@ -3,7 +3,7 @@
  */
 package com.mm.mis.holder;
 
-import javax.servlet.ServletResponse;
+import jakarta.servlet.ServletResponse;
 
 /**
  * description here

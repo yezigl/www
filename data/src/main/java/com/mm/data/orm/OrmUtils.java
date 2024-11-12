@@ -42,7 +42,7 @@ public class OrmUtils {
             + "import org.apache.ibatis.annotations.Results;\n" + "import org.apache.ibatis.annotations.Select;\n"
             + "import org.apache.ibatis.annotations.Update;";
 
-    private static final String INJECT_IMPORT = "import javax.annotation.Resource;\n\n"
+    private static final String INJECT_IMPORT = "import jakarta.annotation.Resource;\n\n"
             + "import org.springframework.stereotype.Repository;";
     
     private static final Map<String, String> DEFAULT = new HashMap<>();

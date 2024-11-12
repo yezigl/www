@@ -5,7 +5,7 @@ package com.yueqiu.controller;
 
 import java.util.Locale;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 
 import org.apache.commons.lang3.time.DateFormatUtils;
 import org.slf4j.Logger;

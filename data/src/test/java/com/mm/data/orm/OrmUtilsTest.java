@@ -3,13 +3,13 @@
  */
 package com.mm.data.orm;
 
-import javax.annotation.Resource;
 import javax.sql.DataSource;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import jakarta.annotation.Resource;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.mm.data.model.beauty.Product;
 import com.mm.data.model.time.College;
@@ -26,7 +26,7 @@ import com.mm.data.model.user.UserAddress;
  * @author yezi
  * @since 2014年8月20日
  */
-@RunWith(SpringJUnit4ClassRunner.class)
+@SpringBootTest
 @ContextConfiguration("/applicationContext-test.xml")
 public class OrmUtilsTest {
 

@@ -6,7 +6,7 @@ package com.mm.web.aop;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-import javax.servlet.ServletResponse;
+import jakarta.servlet.ServletResponse;
 
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -14,7 +14,7 @@ import org.aspectj.lang.annotation.Aspect;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 
-import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson2.JSON;
 import com.mm.service.context.UserContext;
 import com.mm.web.holder.ResponseContextHolder;
 import com.mm.web.res.Res;

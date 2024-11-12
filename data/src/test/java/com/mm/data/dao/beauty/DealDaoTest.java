@@ -3,18 +3,16 @@
  */
 package com.mm.data.dao.beauty;
 
-import static org.junit.Assert.*;
+import static org.assertj.core.api.Fail.fail;
 
 import java.util.Date;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.mm.data.dao.beauty.DealDao;
 import com.mm.data.model.beauty.Deal;
 
 /**
@@ -23,7 +21,7 @@ import com.mm.data.model.beauty.Deal;
  * @author yezi
  * @since 2015年3月4日
  */
-@RunWith(SpringJUnit4ClassRunner.class)
+@SpringBootTest
 @ContextConfiguration("/applicationContext-test.xml")
 public class DealDaoTest {
     
