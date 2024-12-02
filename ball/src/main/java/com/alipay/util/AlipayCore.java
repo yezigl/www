@@ -3,14 +3,16 @@ package com.alipay.util;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.apache.commons.codec.digest.DigestUtils;
-import org.apache.commons.httpclient.methods.multipart.FilePartSource;
-import org.apache.commons.httpclient.methods.multipart.PartSource;
+import org.springframework.http.codec.multipart.FilePart;
 
 import com.alipay.config.AlipayConfig;
 
@@ -107,12 +109,12 @@ public class AlipayCore {
      * @return 文件摘要结果
      */
     public static String getAbstract(String strFilePath, String file_digest_type) throws IOException {
-        PartSource file = new FilePartSource(new File(strFilePath));
+        File file = new File(strFilePath);
     	if(file_digest_type.equals("MD5")){
-    		return DigestUtils.md5Hex(file.createInputStream());
+    		return DigestUtils.md5Hex(Files.newInputStream(Path.of(file.toURI())));
     	}
     	else if(file_digest_type.equals("SHA")) {
-    		return DigestUtils.sha256Hex(file.createInputStream());
+    		return DigestUtils.sha256Hex(Files.newInputStream(Path.of(file.toURI())));
     	}
     	else {
     		return "";

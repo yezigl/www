@@ -17,9 +17,9 @@ public class Utils {
     /**
      * 解析IP, 第一个不为unknown的ip
      * 
-     * @param xff
+     * @param forwardIp
      *            X-Forwarded-For
-     * @param xrip
+     * @param realIp
      *            X-Real-IP
      * @return
      */
@@ -28,7 +28,7 @@ public class Utils {
         if (StringUtils.isBlank(ip)) {
             return "";
         }
-        String[] ips = ip.replaceAll(" ", "").split(",");
+        String[] ips = ip.replace(" ", "").split(",");
         for (String clientIp : ips) {
             if (StringUtils.isNotBlank(clientIp) && !clientIp.equalsIgnoreCase("unknown")) {
                 return clientIp;
